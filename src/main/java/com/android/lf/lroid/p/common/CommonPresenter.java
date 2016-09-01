@@ -1,22 +1,8 @@
 package com.android.lf.lroid.p.common;
 
-import android.app.Activity;
-import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
 
 
-import com.android.lf.lroid.application.LroidApplication;
-import com.android.lf.lroid.m.data.ContentBean;
-import com.android.lf.lroid.m.common.LoginModelImpl;
-
-import java.util.ArrayList;
-
-
-import dagger.Module;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -29,24 +15,22 @@ import rx.schedulers.Schedulers;
 
 public class CommonPresenter extends BasePresenter{
 
-
-    public void onLogin(int start,int count){
+    public void onLogin(int requestID,int start,int count){
 //        requestMethod1(start, count);
-        requestMethod2(start,count);
+        requestMethod2(requestID,start,count);
     }
 
-    private void requestMethod2(final int start, final int count) {
+    private void requestMethod2(final int requestID,final int start, final int count) {
         userManagerService.getData(start,count).flatMap(new Func1<String, Observable<String>>() {
             @Override
             public Observable<String> call(String s) {
-                Log.e("TAG","flagMap  s is ----------------->   "+Thread.currentThread().getName());
                 return userManagerService.getData(start,count);
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<String>() {
             @Override
             public void onStart() {
                 if (checkNullPresent()){
-                    iPresentListener.onRequestStart();
+                    iPresentListener.onRequestStart(requestID);
                 }else {
                     Log.e("TAG","is null");
                 }
@@ -55,33 +39,33 @@ public class CommonPresenter extends BasePresenter{
             @Override
             public void onCompleted() {
                 if (checkNullPresent()){
-                    iPresentListener.onRequestEnd();
+                    iPresentListener.onRequestEnd(requestID);
                 }
             }
 
             @Override
             public void onError(Throwable e) {
                 if (checkNullPresent()){
-                    iPresentListener.onRequestFail(e);
+                    iPresentListener.onRequestFail(requestID,e);
                 }
             }
 
             @Override
             public void onNext(String s) {
                 if (checkNullPresent()){
-                    iPresentListener.onRequestSuccess(s);
+                    iPresentListener.onRequestSuccess(requestID,s);
                 }
             }
         });
     }
 
-    private void requestMethod1(int start, int count) {
+    private void requestMethod1(final int requestID,int start, int count) {
         userManagerService.getData(start,count).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<String>() {
 
             @Override
             public void onStart() {
                 if (checkNullPresent()){
-                    iPresentListener.onRequestStart();
+                    iPresentListener.onRequestStart(requestID);
                 }else {
                     Log.e("TAG","is null");
                 }
@@ -90,21 +74,21 @@ public class CommonPresenter extends BasePresenter{
             @Override
             public void onCompleted() {
                 if (checkNullPresent()){
-                    iPresentListener.onRequestEnd();
+                    iPresentListener.onRequestEnd(requestID);
                 }
             }
 
             @Override
             public void onError(Throwable e) {
                 if (checkNullPresent()){
-                    iPresentListener.onRequestFail(e);
+                    iPresentListener.onRequestFail(requestID,e);
                 }
             }
 
             @Override
             public void onNext(String s) {
                 if (checkNullPresent()){
-                    iPresentListener.onRequestSuccess(s);
+                    iPresentListener.onRequestSuccess(requestID,s);
                 }
             }
         });

@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.android.lf.lroid.interfaces.IPresentListener;
 import com.android.lf.lroid.p.common.BasePresenter;
-import com.android.lf.lroid.v.interfaces.IBaseViewInterface;
+
+import butterknife.ButterKnife;
 
 
 /**
@@ -19,6 +20,7 @@ public abstract class BaseActivity  extends AppCompatActivity implements IPresen
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        ButterKnife.bind(this);
         setComponent();
         initView();
     }
@@ -30,22 +32,26 @@ public abstract class BaseActivity  extends AppCompatActivity implements IPresen
     public abstract void initView();
 
     @Override
-    public void onRequestStart() {
+    public void onRequestStart(int requestID) {
+    }
+
+    @Override
+    public void onRequestFail(int requestID,Throwable e) {
 
     }
 
     @Override
-    public void onRequestFail(Throwable e) {
+    public void onRequestSuccess(int requestID,String result) {
 
     }
 
     @Override
-    public void onRequestSuccess(String result) {
+    public void onRequestEnd(int requestID) {
 
     }
 
     @Override
-    public void onRequestEnd() {
-
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

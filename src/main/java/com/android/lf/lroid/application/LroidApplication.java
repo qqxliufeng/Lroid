@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.android.lf.lroid.component.AppComponent;
 import com.android.lf.lroid.component.AppModule;
-import com.android.lf.lroid.component.DaggerAppComponent;
 import com.android.lf.lroid.component.DaggerPresentComponent;
 import com.android.lf.lroid.component.PresentComponent;
 import com.android.lf.lroid.component.ActivityModule;

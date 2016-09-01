@@ -36,7 +36,7 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     public void onClick(View view) {
-        commonPresenter.onLogin(0,10);
+        commonPresenter.onLogin(0x0,0,10);
     }
 
 }

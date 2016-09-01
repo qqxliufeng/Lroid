@@ -6,12 +6,12 @@ package com.android.lf.lroid.interfaces;
 
 public interface IPresentListener {
 
-    public void onRequestStart();
+    public void onRequestStart(int requestID);
 
-    public void onRequestFail(Throwable e);
+    public void onRequestFail(int requestID,Throwable e);
 
-    public void onRequestSuccess(String result);
+    public void onRequestSuccess(int requestID,String result);
 
-    public void onRequestEnd();
+    public void onRequestEnd(int requestID);
 
 }
