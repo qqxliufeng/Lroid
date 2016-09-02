@@ -8,17 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.lf.lroid.MainActivity;
-import com.android.lf.lroid.p.common.BasePresenter;
+import com.android.lf.lroid.interfaces.IPresentListener;
 
-import javax.inject.Inject;
+import butterknife.ButterKnife;
 
 
 /**
  * Created by feng on 2016/8/1.
  */
 
-public abstract class BaseFragment extends Fragment implements View.OnClickListener{
+public abstract class BaseFragment extends Fragment implements View.OnClickListener,IPresentListener{
 
     protected Context mContext;
 
@@ -41,6 +40,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this,view);
         initView(view);
     }
 
@@ -54,4 +54,25 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     public void onClick(View view) {
 
     }
+
+    @Override
+    public void onRequestStart(int requestID) {
+
+    }
+
+    @Override
+    public void onRequestFail(int requestID, Throwable e) {
+
+    }
+
+    @Override
+    public void onRequestSuccess(int requestID, String result) {
+
+    }
+
+    @Override
+    public void onRequestEnd(int requestID) {
+
+    }
+
 }

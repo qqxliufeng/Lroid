@@ -3,9 +3,8 @@ package com.android.lf.lroid.v.fragment;
 import android.view.View;
 
 import com.android.lf.lroid.R;
-import com.android.lf.lroid.application.LroidApplication;
-import com.android.lf.lroid.component.ActivityModule;
-import com.android.lf.lroid.component.DaggerAppComponent;
+import com.android.lf.lroid.component.PresentModule;
+import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.p.common.CommonPresenter;
 
 import javax.inject.Inject;
@@ -31,12 +30,12 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     protected void setComponent() {
-//        DaggerAppComponent.builder().activityModule(new ActivityModule(this)).build();
+        DaggerInjectPresentComponent.builder().presentModule(new PresentModule()).build().inject(this);
     }
 
     @Override
     public void onClick(View view) {
-        commonPresenter.onLogin(0x0,0,10);
+        commonPresenter.requestData(0x0,0,10);
     }
 
 }

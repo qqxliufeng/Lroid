@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="com.android.lf.lroid.MainActivity">
+    tools:context="com.android.lf.lroid.v.activity.MainActivity">
 
     <Button
         android:id="@+id/id_bt_click"

@@ -2,11 +2,9 @@ package com.android.lf.lroid.application;
 
 import android.app.Application;
 
-import com.android.lf.lroid.component.AppComponent;
 import com.android.lf.lroid.component.AppModule;
-import com.android.lf.lroid.component.DaggerPresentComponent;
-import com.android.lf.lroid.component.PresentComponent;
-import com.android.lf.lroid.component.ActivityModule;
+import com.android.lf.lroid.component.DaggerInjectAppCommonComponent;
+import com.android.lf.lroid.component.InjectAppCommonComponent;
 
 /**
  * Created by feng on 2016/8/17.
@@ -15,7 +13,7 @@ import com.android.lf.lroid.component.ActivityModule;
 public class LroidApplication extends Application {
 
     private static LroidApplication myApplication;
-    private PresentComponent presentComponent;
+    private InjectAppCommonComponent presentComponent;
 
     @Override
     public void onCreate() {
@@ -25,14 +23,14 @@ public class LroidApplication extends Application {
     }
 
     private void setComponent() {
-        presentComponent = DaggerPresentComponent.builder().appModule(new AppModule()).build();
+        presentComponent = DaggerInjectAppCommonComponent.builder().appModule(new AppModule()).build();
     }
 
     public static LroidApplication getInstance(){
         return myApplication;
     }
 
-    public PresentComponent getPresentComponent(){
+    public InjectAppCommonComponent getPresentComponent(){
         return presentComponent;
     }
 

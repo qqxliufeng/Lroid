@@ -15,7 +15,7 @@ import rx.schedulers.Schedulers;
 
 public class CommonPresenter extends BasePresenter{
 
-    public void onLogin(int requestID,int start,int count){
+    public void requestData(int requestID, int start, int count){
 //        requestMethod1(start, count);
         requestMethod2(requestID,start,count);
     }

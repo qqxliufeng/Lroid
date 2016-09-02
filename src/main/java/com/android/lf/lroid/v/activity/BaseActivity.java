@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.android.lf.lroid.interfaces.IPresentListener;
-import com.android.lf.lroid.p.common.BasePresenter;
 
 import butterknife.ButterKnife;
 
@@ -21,13 +20,13 @@ public abstract class BaseActivity  extends AppCompatActivity implements IPresen
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         ButterKnife.bind(this);
-        setComponent();
+        setPresentComponent();
         initView();
     }
 
     public abstract int getLayoutId();
 
-    public abstract void setComponent();
+    public abstract void setPresentComponent();
 
     public abstract void initView();
 

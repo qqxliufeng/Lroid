@@ -1,24 +1,20 @@
-package com.android.lf.lroid;
+package com.android.lf.lroid.v.activity;
 
 import android.app.ProgressDialog;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.lf.lroid.component.ActivityModule;
-import com.android.lf.lroid.component.DaggerAppComponent;
+import com.android.lf.lroid.R;
+import com.android.lf.lroid.component.PresentModule;
+import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.p.common.CommonPresenter;
-import com.android.lf.lroid.v.activity.BaseActivity;
-import com.android.lf.lroid.v.views.SlidingListView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -28,7 +24,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
@@ -57,10 +52,10 @@ public class MainActivity extends BaseActivity {
     public void onClick(View view) {
         if (isTest) {
             isTest = false;
-            commonPresenter.onLogin(0x0, 0, 10);
+            commonPresenter.requestData(0x0, 0, 10);
         }else {
             isTest = true;
-            commonPresenter.onLogin(0x1, 0, 10);
+            commonPresenter.requestData(0x1, 0, 10);
         }
     }
 
@@ -70,8 +65,8 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void setComponent() {
-        DaggerAppComponent.builder().activityModule(new ActivityModule()).build().inject(this);
+    public void setPresentComponent() {
+        DaggerInjectPresentComponent.builder().presentModule(new PresentModule()).build().inject(this);
     }
 
     @Override

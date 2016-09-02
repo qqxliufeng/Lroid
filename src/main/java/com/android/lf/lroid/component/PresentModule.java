@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 
 import com.android.lf.lroid.p.common.CommonPresenter;
+import com.android.lf.lroid.p.common.HomePresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -15,11 +16,16 @@ import dagger.Provides;
  */
 
 @Module
-public class  ActivityModule {
+public class PresentModule {
 
     @Provides
     CommonPresenter getCommonPresent(){
         return new CommonPresenter();
     }
+
+    @Provides
+    HomePresenter getHomePresent(){return new HomePresenter();}
+
+
 
 }

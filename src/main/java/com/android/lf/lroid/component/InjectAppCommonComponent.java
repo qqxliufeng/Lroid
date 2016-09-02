@@ -10,7 +10,7 @@ import dagger.Component;
  * Created by feng on 2016/8/19.
  */
 @Component(modules = {AppModule.class})
-public interface PresentComponent {
+public interface InjectAppCommonComponent {
 
     void inject(BasePresenter basePresenter);
 
