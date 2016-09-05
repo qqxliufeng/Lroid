@@ -5,6 +5,7 @@ import android.app.Application;
 import com.android.lf.lroid.component.AppModule;
 import com.android.lf.lroid.component.DaggerInjectAppCommonComponent;
 import com.android.lf.lroid.component.InjectAppCommonComponent;
+import com.android.lf.lroid.volley.RequestManager;
 
 /**
  * Created by feng on 2016/8/17.
@@ -20,6 +21,7 @@ public class LroidApplication extends Application {
         super.onCreate();
         myApplication = this;
         setComponent();
+        RequestManager.init(this);
     }
 
     private void setComponent() {

@@ -9,6 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <com.android.lf.lroid.v.views.AutoScrollViewPager
+        android:id="@+id/id_vp_fragment_index_banner"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"/>
 
     <Button
         android:id="@+id/id_bt_fragment_index_click"

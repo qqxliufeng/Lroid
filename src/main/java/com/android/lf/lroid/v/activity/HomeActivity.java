@@ -45,9 +45,9 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
     private void initBottomNavigationBar() {
         BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.id_bnb_bottom_bar);
         bottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Nearby").setActiveColorResource(android.R.color.holo_orange_light))
-                .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Find").setActiveColorResource(android.R.color.holo_blue_light))
-                .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Categories").setActiveColorResource(android.R.color.holo_green_light))
+                .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "首页").setActiveColorResource(android.R.color.holo_orange_light))
+                .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "更多").setActiveColorResource(android.R.color.holo_blue_light))
+                .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "我的").setActiveColorResource(android.R.color.holo_green_light))
                 .setFirstSelectedPosition(0)
                 .initialise();
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
