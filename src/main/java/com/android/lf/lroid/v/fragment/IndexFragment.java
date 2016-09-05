@@ -1,6 +1,7 @@
 package com.android.lf.lroid.v.fragment;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.p.common.CommonPresenter;
+import com.android.lf.lroid.v.activity.HomeActivity;
 
 import javax.inject.Inject;
 
@@ -31,7 +33,6 @@ public class IndexFragment extends BaseFragment {
     @BindView(R.id.id_tl_app_top_bar)
     Toolbar tl_bar;
 
-
     public static IndexFragment newInstance() {
         return new IndexFragment();
     }
@@ -44,7 +45,8 @@ public class IndexFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         tl_bar.setTitle("首页");
-
+        tl_bar.setTitleTextColor(Color.WHITE);
+        ((HomeActivity)mContext).setSupportActionBar(tl_bar);
         commonPresenter.setPresentListener(this);
         view.findViewById(R.id.id_bt_fragment_index_click).setOnClickListener(new View.OnClickListener() {
             @Override
