@@ -2,7 +2,7 @@ package com.android.lf.lroid.component;
 
 import com.android.lf.lroid.v.activity.MainActivity;
 import com.android.lf.lroid.v.activity.HomeActivity;
-import com.android.lf.lroid.v.fragment.IndexFragment;
+import com.android.lf.lroid.v.fragment.HomeIndexFragment;
 import com.android.lf.lroid.v.fragment.LoginFragment;
 
 import javax.inject.Singleton;
@@ -22,6 +22,6 @@ public interface InjectPresentComponent {
 
     void inject(HomeActivity homeActivity);
 
-    void inject(IndexFragment indexFragment);
+    void inject(HomeIndexFragment indexFragment);
 
 }

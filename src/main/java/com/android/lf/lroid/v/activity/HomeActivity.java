@@ -4,19 +4,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.android.lf.lroid.R;
-import com.android.lf.lroid.component.PresentModule;
-import com.android.lf.lroid.component.DaggerInjectPresentComponent;
-import com.android.lf.lroid.p.common.HomePresenter;
 import com.android.lf.lroid.v.fragment.BaseFragment;
-import com.android.lf.lroid.v.fragment.IndexFragment;
-import com.android.lf.lroid.v.fragment.MineFragment;
-import com.android.lf.lroid.v.fragment.MoreFragment;
+import com.android.lf.lroid.v.fragment.HomeIndexFragment;
+import com.android.lf.lroid.v.fragment.HomeMineFragment;
+import com.android.lf.lroid.v.fragment.HomeMoreFragment;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 
 import java.util.ArrayList;
-
-import javax.inject.Inject;
 
 /**
  * Created by feng on 2016/9/1.
@@ -69,9 +64,9 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
     }
 
     private void initFragmentList() {
-        fragmentList.add(IndexFragment.newInstance());
-        fragmentList.add(MoreFragment.newInstance());
-        fragmentList.add(MineFragment.newInstance());
+        fragmentList.add(HomeIndexFragment.newInstance());
+        fragmentList.add(HomeMoreFragment.newInstance());
+        fragmentList.add(HomeMineFragment.newInstance());
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         for (int i = 0; i < fragmentList.size(); i++) {

@@ -5,11 +5,8 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.lf.lroid.R;
@@ -29,12 +26,13 @@ import butterknife.BindView;
  * Created by feng on 2016/9/2.
  */
 
-public class IndexFragment extends BaseFragment {
+public class HomeIndexFragment extends BaseFragment {
 
     @Inject
     CommonPresenter commonPresenter;
 
     private ProgressDialog progressDialog;
+
     @BindView(R.id.id_tv_fragment_content)
     TextView tv_content;
     @BindView(R.id.id_tl_app_top_bar)
@@ -50,8 +48,8 @@ public class IndexFragment extends BaseFragment {
         }
     };
 
-    public static IndexFragment newInstance() {
-        return new IndexFragment();
+    public static HomeIndexFragment newInstance() {
+        return new HomeIndexFragment();
     }
 
     @Override
