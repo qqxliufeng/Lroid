@@ -1,4 +1,4 @@
-package com.android.lf.lroid.v.fragment;
+package com.android.lf.lroid.v.activity;
 
 import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -7,17 +7,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.android.lf.lroid.R;
+import com.android.lf.lroid.v.fragment.ListFragment;
 
 import butterknife.BindView;
 
 /**
- * Created by feng on 2016/9/2.
+ * Created by feng on 2016/9/7.
  */
 
-public class HomeMoreFragment extends BaseFragment {
+public class TestActivity extends BaseActivity {
 
     @BindView(R.id.vp_container)
     ViewPager mViewPager;
@@ -31,45 +31,32 @@ public class HomeMoreFragment extends BaseFragment {
     @BindView(R.id.id_ctl_tool_bar)
     CollapsingToolbarLayout mCollapsingToolbarLayout;
 
-    public static HomeMoreFragment newInstance() {
-        return new HomeMoreFragment();
-    }
-
     @Override
-    protected int getLayoutId() {
+    public int getLayoutId() {
         return R.layout.fragment_test_layout;
     }
 
     @Override
-    protected void initView(final View view) {
-        mToolBar.setTitle("更多");
-        mToolBar.setTitleTextColor(Color.WHITE);
-        mToolBar.setNavigationIcon(R.drawable.img_app_top_back_icon);
-//        mCollapsingToolbarLayout.setTitle("title");
-        mCollapsingToolbarLayout.setTitleEnabled(false);
-        mCollapsingToolbarLayout.setStatusBarScrimColor(Color.TRANSPARENT);
-//        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
-        mViewPager.setAdapter(new MyViewPagerAdapter(getChildFragmentManager()));
-//        mTabLayout.setupWithViewPager(mViewPager);
-//        mTabLayout.setTabTextColors(Color.WHITE,getResources().getColor(R.color.red));
-
-//        view.findViewById(R.id.id_fb).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view,"点击",Snackbar.LENGTH_LONG).setAction("cancel", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                    }
-//                }).show();
-//            }
-//        });
+    public void setPresentComponent() {
     }
 
     @Override
-    protected void setComponent() {
+    public void initView() {
+        mToolBar.setTitle("更多");
+        mToolBar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(mToolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        mCollapsingToolbarLayout.setTitle("title");
+        mCollapsingToolbarLayout.setTitleEnabled(true);
+        mCollapsingToolbarLayout.setTitle("更多");
+        mCollapsingToolbarLayout.setStatusBarScrimColor(Color.TRANSPARENT);
+//        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        mViewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager()));
+//        mTabLayout.setupWithViewPager(mViewPager);
+//        mTabLayout.setTabTextColors(Color.WHITE,getResources().getColor(R.color.red));
     }
 
-    class MyViewPagerAdapter extends FragmentStatePagerAdapter{
+    class MyViewPagerAdapter extends FragmentStatePagerAdapter {
 
         public MyViewPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -90,5 +77,4 @@ public class HomeMoreFragment extends BaseFragment {
             return 5;
         }
     }
-
 }

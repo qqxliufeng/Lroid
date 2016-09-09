@@ -1,24 +1,16 @@
 package com.android.lf.lroid.v.fragment;
 
-import android.app.ProgressDialog;
 import android.graphics.Color;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.View;
-import android.widget.TextView;
 
 import com.android.lf.lroid.R;
-import com.android.lf.lroid.component.PresentModule;
-import com.android.lf.lroid.component.DaggerInjectPresentComponent;
-import com.android.lf.lroid.p.common.CommonPresenter;
 import com.android.lf.lroid.v.activity.HomeActivity;
-import com.android.lf.lroid.v.views.AutoScrollViewPager;
-
-import java.util.ArrayList;
-
-import javax.inject.Inject;
+import com.android.lf.lroid.v.views.LroidScrollView;
 
 import butterknife.BindView;
 
@@ -26,27 +18,16 @@ import butterknife.BindView;
  * Created by feng on 2016/9/2.
  */
 
-public class HomeIndexFragment extends BaseFragment {
+public class HomeIndexFragment extends BaseFragment implements LroidScrollView.ScrollViewListener {
 
-    @Inject
-    CommonPresenter commonPresenter;
-
-    private ProgressDialog progressDialog;
-
-    @BindView(R.id.id_tv_fragment_content)
-    TextView tv_content;
+    @BindView(R.id.id_nsv_fragment_index_container)
+    LroidScrollView mNestedScrollView;
     @BindView(R.id.id_tl_app_top_bar)
     Toolbar tl_bar;
-    @BindView(R.id.id_vp_fragment_index_banner)
-    AutoScrollViewPager vp_banner;
+    @BindView(R.id.id_fb_fragment_index_indicator)
+    FloatingActionButton mFloatingActionButton;
 
-    private ArrayList<String> imageUrls = new ArrayList<String>(){
-        {
-            add("http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg");
-            add("http://m2.quanjing.com/2m/alamyrf005/b1fw89.jpg");
-            add("http://image.tianjimedia.com/uploadImages/2015/129/56/J63MI042Z4P8.jpg");
-        }
-    };
+    private float height;
 
     public static HomeIndexFragment newInstance() {
         return new HomeIndexFragment();
@@ -59,62 +40,63 @@ public class HomeIndexFragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
-        commonPresenter.setPresentListener(this);
-        tl_bar.setTitle("首页");
-        tl_bar.setTitleTextColor(Color.WHITE);
-        ((HomeActivity)mContext).setSupportActionBar(tl_bar);
-        vp_banner.setAdapter(new BannerViewPagerAdapter(getChildFragmentManager()));
-        vp_banner.setCycle(true);
-        vp_banner.setDirection(AutoScrollViewPager.RIGHT);
-        vp_banner.setInterval(3000);
-        vp_banner.setBorderAnimation(true);
-        vp_banner.setScrollDurationFactor(4.0);
-        vp_banner.setOffscreenPageLimit(imageUrls.size());//设置缓存数量
-        vp_banner.startAutoScroll();
-        view.findViewById(R.id.id_bt_fragment_index_click).setOnClickListener(new View.OnClickListener() {
+        setView();
+        initFragment();
+        scrollTo();
+    }
+
+    private void scrollTo() {
+        mNestedScrollView.post(new Runnable() {
             @Override
-            public void onClick(View view) {
-                commonPresenter.requestData(0x0,0,10);
+            public void run() {
+                mNestedScrollView.smoothScrollTo(0, 0);
+                height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,180,getResources().getDisplayMetrics());
             }
         });
     }
 
+    private void setView() {
+        tl_bar.setTitle("首页");
+        tl_bar.setTitleTextColor(Color.WHITE);
+        ((HomeActivity) mContext).setSupportActionBar(tl_bar);
+        mNestedScrollView.setScrollViewListener(this);
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mNestedScrollView.smoothScrollTo(0, 0);
+            }
+        });
+    }
+
+    private void initFragment() {
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.id_fl_fragment_index_top_container, IndexTopFragment.newInstance());
+        fragmentTransaction.replace(R.id.id_fl_fragment_index_content_container, IndexListFragment.newInstance());
+        fragmentTransaction.commit();
+    }
+
     @Override
     protected void setComponent() {
-        DaggerInjectPresentComponent.builder().presentModule(new PresentModule()).build().inject(this);
     }
 
     @Override
-    public void onRequestStart(int requestID) {
-        progressDialog = ProgressDialog.show(mContext,null,"正在加载……");
-    }
+    public void onScrollChanged(LroidScrollView scrollView, int x, int y, int oldx, int oldy) {
 
-    @Override
-    public void onRequestEnd(int requestID) {
-        progressDialog.dismiss();
-    }
-
-    @Override
-    public void onRequestSuccess(int requestID, String result) {
-        tv_content.setText(result);
-    }
-
-    private class BannerViewPagerAdapter extends FragmentStatePagerAdapter{
-
-
-        public BannerViewPagerAdapter(FragmentManager fm) {
-            super(fm);
+        if (oldy > y && oldy - y > 10){//向下
+            mFloatingActionButton.setVisibility(View.GONE);
+        }else if (oldy < y && y - oldy > 10){//向上
+            mFloatingActionButton.setVisibility(View.VISIBLE);
         }
 
-        @Override
-        public Fragment getItem(int position) {
-            return ImageRequestFragment.newInstance(imageUrls.get(position));
-        }
-
-        @Override
-        public int getCount() {
-            return imageUrls.size();
+        if (y <= 0) {
+            tl_bar.setBackgroundColor(Color.argb((int) 0, 48, 63, 159));
+        } else if (y > 0 && y <= height) {
+            float scale = (float) y / height;
+            float alpha = (255 * scale);
+            tl_bar.setBackgroundColor(Color.argb((int) alpha, 48, 63, 159));
+        } else {
+            tl_bar.setBackgroundColor(Color.argb((int) 255, 48, 63, 159));
         }
     }
-
 }

@@ -1,32 +1,31 @@
 package com.android.lf.lroid.v.views;
 
 import android.content.Context;
+import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.widget.ScrollView;
 
 /**
  * 带滚动监听的scrollview
  */
-public class LriodScrollView extends ScrollView {
+public class LroidScrollView extends NestedScrollView {
 
     public interface ScrollViewListener {
-
-        void onScrollChanged(LriodScrollView scrollView, int x, int y, int oldx, int oldy);
-
+        void onScrollChanged(LroidScrollView scrollView, int x, int y, int oldx, int oldy);
     }
 
     private ScrollViewListener scrollViewListener = null;
 
-    public LriodScrollView(Context context) {
+    public LroidScrollView(Context context) {
         super(context);
     }
 
-    public LriodScrollView(Context context, AttributeSet attrs,
+    public LroidScrollView(Context context, AttributeSet attrs,
                            int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    public LriodScrollView(Context context, AttributeSet attrs) {
+    public LroidScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

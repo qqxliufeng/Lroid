@@ -1,28 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <com.android.lf.lroid.v.views.LroidScrollView
+        android:id="@+id/id_nsv_fragment_index_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/id_fl_fragment_index_top_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:id="@+id/id_fl_fragment_index_content_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </com.android.lf.lroid.v.views.LroidScrollView>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/id_tl_app_top_bar"
-        android:background="?colorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <com.android.lf.lroid.v.views.AutoScrollViewPager
-        android:id="@+id/id_vp_fragment_index_banner"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"/>
-
-    <Button
-        android:id="@+id/id_bt_fragment_index_click"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="点击"/>
+        android:layout_gravity="top"
+        android:fitsSystemWindows="true"
+        android:background="?colorPrimary"/>
 
-    <TextView
-        android:id="@+id/id_tv_fragment_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/id_fb_fragment_index_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_favorites"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="30dp"/>
 
-</LinearLayout>
+</FrameLayout>

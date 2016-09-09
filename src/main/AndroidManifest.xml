@@ -18,13 +18,18 @@
         <activity android:name=".v.activity.MainActivity">
 
         </activity>
-        <activity android:name=".v.activity.HomeActivity">
+        <activity android:name=".v.activity.HomeActivity"
+            android:theme="@style/HomeActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".v.activity.TestActivity" />
+        <provider
+            android:authorities="com.android.lf.lroid"
+            android:name=".m.database.DataProvider"/>
     </application>
 
 </manifest>
