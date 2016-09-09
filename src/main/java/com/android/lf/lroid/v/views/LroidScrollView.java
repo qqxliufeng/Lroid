@@ -20,8 +20,7 @@ public class LroidScrollView extends NestedScrollView {
         super(context);
     }
 
-    public LroidScrollView(Context context, AttributeSet attrs,
-                           int defStyle) {
+    public LroidScrollView(Context context, AttributeSet attrs,int defStyle) {
         super(context, attrs, defStyle);
     }
 

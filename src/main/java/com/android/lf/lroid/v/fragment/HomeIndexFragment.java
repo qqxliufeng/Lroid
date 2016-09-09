@@ -4,9 +4,11 @@ import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ScrollView;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.v.activity.HomeActivity;
@@ -18,12 +20,14 @@ import butterknife.BindView;
  * Created by feng on 2016/9/2.
  */
 
-public class HomeIndexFragment extends BaseFragment implements LroidScrollView.ScrollViewListener {
+public class HomeIndexFragment extends BaseFragment implements NestedScrollView.OnScrollChangeListener {
 
     @BindView(R.id.id_nsv_fragment_index_container)
-    LroidScrollView mNestedScrollView;
+    NestedScrollView mNestedScrollView;
+
     @BindView(R.id.id_tl_app_top_bar)
     Toolbar tl_bar;
+
     @BindView(R.id.id_fb_fragment_index_indicator)
     FloatingActionButton mFloatingActionButton;
 
@@ -59,7 +63,7 @@ public class HomeIndexFragment extends BaseFragment implements LroidScrollView.S
         tl_bar.setTitle("首页");
         tl_bar.setTitleTextColor(Color.WHITE);
         ((HomeActivity) mContext).setSupportActionBar(tl_bar);
-        mNestedScrollView.setScrollViewListener(this);
+        mNestedScrollView.setOnScrollChangeListener(this);
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,18 +85,16 @@ public class HomeIndexFragment extends BaseFragment implements LroidScrollView.S
     }
 
     @Override
-    public void onScrollChanged(LroidScrollView scrollView, int x, int y, int oldx, int oldy) {
-
-        if (oldy > y && oldy - y > 10){//向下
+    public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+        if (oldScrollY > scrollY && oldScrollY - scrollY > 10){//向下
             mFloatingActionButton.setVisibility(View.GONE);
-        }else if (oldy < y && y - oldy > 10){//向上
+        }else if (oldScrollY < scrollY && scrollY - oldScrollY > 10){//向上
             mFloatingActionButton.setVisibility(View.VISIBLE);
         }
-
-        if (y <= 0) {
+        if (scrollY <= 0) {
             tl_bar.setBackgroundColor(Color.argb((int) 0, 48, 63, 159));
-        } else if (y > 0 && y <= height) {
-            float scale = (float) y / height;
+        } else if (scrollY > 0 && scrollY <= height) {
+            float scale = (float) scrollY / height;
             float alpha = (255 * scale);
             tl_bar.setBackgroundColor(Color.argb((int) alpha, 48, 63, 159));
         } else {

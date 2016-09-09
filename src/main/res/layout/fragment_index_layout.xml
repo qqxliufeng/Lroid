@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.android.lf.lroid.v.views.LroidScrollView
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/id_nsv_fragment_index_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-    </com.android.lf.lroid.v.views.LroidScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/id_tl_app_top_bar"
