@@ -8,6 +8,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.ScrollView;
 
 import com.android.lf.lroid.R;

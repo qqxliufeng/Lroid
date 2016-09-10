@@ -5,7 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
@@ -55,7 +57,7 @@ public class IndexListFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(mContext,android.R.layout.simple_list_item_1,android.R.id.text1,arrayList);
-        mListView.setAdapter(arrayAdapter);
+        mListView.setAdapter(new MyLroidListViewAdapter());
     }
 
     @Override
@@ -67,22 +69,74 @@ public class IndexListFragment extends BaseFragment {
 
         @Override
         public int getCount() {
-            return 0;
+            return arrayList.size();
         }
 
         @Override
         public Object getItem(int i) {
-            return null;
+            return arrayList.get(i);
         }
 
         @Override
         public long getItemId(int i) {
-            return 0;
+            return i;
         }
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            return null;
+            int type = getItemViewType(i);
+            switch (type){
+                case 0:
+                    ViewHolderTypeOne viewHolderTypeOne;
+                    if (view == null){
+                        viewHolderTypeOne = new ViewHolderTypeOne();
+                        view = View.inflate(mContext,android.R.layout.simple_list_item_1,null);
+                        viewHolderTypeOne.tv_title = (TextView) view.findViewById(android.R.id.text1);
+                        view.setTag(viewHolderTypeOne);
+                    }
+                    viewHolderTypeOne = (ViewHolderTypeOne) view.getTag();
+                    viewHolderTypeOne.tv_title.setText(arrayList.get(i));
+                    break;
+                case 1:
+                    ViewHolderTypeTwo viewHolderTypeTwo ;
+                    if (view == null){
+                        viewHolderTypeTwo = new ViewHolderTypeTwo();
+                        view = View.inflate(mContext,android.R.layout.activity_list_item,null);
+                        viewHolderTypeTwo.iv_pic = (ImageView) view.findViewById(android.R.id.icon);
+                        viewHolderTypeTwo.tv_title = (TextView) view.findViewById(android.R.id.text1);
+                        view.setTag(viewHolderTypeTwo);
+                    }
+                    viewHolderTypeTwo = (ViewHolderTypeTwo) view.getTag();
+                    viewHolderTypeTwo.tv_title.setText(arrayList.get(i));
+                    viewHolderTypeTwo.iv_pic.setImageResource(R.mipmap.ic_launcher);
+                    break;
+            }
+            return view;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            if (position % 2 == 0){
+                return 0;
+            }else {
+                return 1;
+            }
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return 2;
         }
     }
+
+    static class ViewHolderTypeOne{
+        TextView tv_title;
+    }
+
+    static class ViewHolderTypeTwo{
+        TextView tv_title;
+        ImageView iv_pic;
+    }
+
+
 }
