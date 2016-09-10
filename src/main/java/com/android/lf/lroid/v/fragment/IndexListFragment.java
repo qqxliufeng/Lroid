@@ -86,7 +86,7 @@ public class IndexListFragment extends BaseFragment {
             int type = getItemViewType(i);
             switch (type){
                 case 0:
-                    //
+                    //**
                     ViewHolderTypeOne viewHolderTypeOne;
                     if (view == null){
                         viewHolderTypeOne = new ViewHolderTypeOne();
