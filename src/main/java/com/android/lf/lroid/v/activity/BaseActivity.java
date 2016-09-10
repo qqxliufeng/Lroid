@@ -19,6 +19,7 @@ public abstract class BaseActivity  extends AppCompatActivity implements IPresen
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        //init butterKnife
         ButterKnife.bind(this);
         setPresentComponent();
         initView();
