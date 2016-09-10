@@ -21,6 +21,7 @@ public abstract class BaseActivity  extends AppCompatActivity implements IPresen
         setContentView(getLayoutId());
         //init butterKnife
         ButterKnife.bind(this);
+        //设置代理
         setPresentComponent();
         initView();
     }
