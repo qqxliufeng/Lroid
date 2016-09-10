@@ -55,6 +55,8 @@ public class HomeIndexFragment extends BaseFragment implements NestedScrollView.
             @Override
             public void run() {
                 mNestedScrollView.smoothScrollTo(0, 0);
+                mFloatingActionButton.setVisibility(View.GONE);
+                tl_bar.setBackgroundColor(Color.argb((int) 0, 48, 63, 159));
                 height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,180,getResources().getDisplayMetrics());
             }
         });

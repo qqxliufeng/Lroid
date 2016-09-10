@@ -10,7 +10,7 @@ public interface IPresentListener {
 
     public void onRequestFail(int requestID,Throwable e);
 
-    public void onRequestSuccess(int requestID,String result);
+    public <T> void onRequestSuccess(int requestID,T result);
 
     public void onRequestEnd(int requestID);
 

@@ -41,8 +41,9 @@ public abstract class BaseActivity  extends AppCompatActivity implements IPresen
 
     }
 
+
     @Override
-    public void onRequestSuccess(int requestID,String result) {
+    public <T> void onRequestSuccess(int requestID, T result) {
 
     }
 

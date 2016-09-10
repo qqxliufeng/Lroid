@@ -104,7 +104,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void onRequestSuccess(int requestID,String result) {
+    public <T> void onRequestSuccess(int requestID,T result) {
         if (requestID == 0x0){
             Toast.makeText(this, "哈哈" + requestID, Toast.LENGTH_SHORT).show();
         }else {

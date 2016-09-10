@@ -66,7 +66,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     }
 
     @Override
-    public void onRequestSuccess(int requestID, String result) {
+    public <T> void onRequestSuccess(int requestID, T result) {
 
     }
 

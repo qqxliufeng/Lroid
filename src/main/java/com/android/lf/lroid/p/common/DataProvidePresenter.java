@@ -1,5 +1,6 @@
 package com.android.lf.lroid.p.common;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -35,8 +36,18 @@ public class DataProvidePresenter extends BasePresenter {
             try {
                 if (checkNullContext() || checkNullFragment()) {
                     cursor = mContext.getContentResolver().query(params[0], JieQiTable.PROJECTION, null, null, null);
+                    Log.e("TAG","count is ==========>    "+cursor.getCount());
                     if (cursor!=null) {
-                        Log.e("TAG","count is ----->  " + cursor.getCount());
+                        //如果查询的结果集是空的，那么就去网络请求数据
+                        if (cursor.getCount() == 0){
+                            fillDataToDB(params[0]);
+                        }else {
+                            ArrayList<String> results = new ArrayList<>();
+                            for (cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()) {
+                                results.add(cursor.getString(cursor.getColumnIndex(JieQiTable.NAME)));
+                            }
+                            return results;
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -49,13 +60,25 @@ public class DataProvidePresenter extends BasePresenter {
             return null;
         }
 
-
         @Override
         protected void onPostExecute(ArrayList<String> strings) {
-
+            if (strings == null){
+                DataProvideLoadAsyncTask dataProvideLoadAsyncTask = new DataProvideLoadAsyncTask();
+                dataProvideLoadAsyncTask.execute(DataProvider.JIE_QI_URI);
+            }else {
+                //更新完成
+                iPresentListener.onRequestSuccess(0x0,strings);
+            }
         }
-
     }
 
-
+    private void fillDataToDB(Uri uri) {
+        ContentValues[] valuesArrayList = new ContentValues[24];
+        for (int i = 0; i < 24; i++) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(JieQiTable.NAME,i+"");
+            valuesArrayList[i] = contentValues;
+        }
+        mContext.getContentResolver().bulkInsert(uri, valuesArrayList);
+    }
 }
