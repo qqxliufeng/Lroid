@@ -1,6 +1,5 @@
 package com.android.lf.lroid.v.fragment;
 
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
-import com.android.lf.lroid.component.InjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.p.common.CommonPresenter;
 import com.android.lf.lroid.v.views.LroidListView;
@@ -62,6 +60,7 @@ public class IndexListFragment extends BaseFragment {
 
     @Override
     protected void setComponent() {
+
         DaggerInjectPresentComponent.builder().presentModule(new PresentModule()).build().inject(this);
     }
 
@@ -87,6 +86,7 @@ public class IndexListFragment extends BaseFragment {
             int type = getItemViewType(i);
             switch (type){
                 case 0:
+                    //
                     ViewHolderTypeOne viewHolderTypeOne;
                     if (view == null){
                         viewHolderTypeOne = new ViewHolderTypeOne();
