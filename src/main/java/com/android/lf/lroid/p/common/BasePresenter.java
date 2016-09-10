@@ -55,6 +55,7 @@ public class BasePresenter {
     public void setBaseFragment(BaseFragment baseFragment) {
         this.baseFragment = baseFragment;
         mContext = baseFragment.getContext();
+
     }
 
 
