@@ -19,7 +19,7 @@ public class DataProvider extends ContentProvider {
 
 	private Context mContext;
 	private static final String HOST_NAME = "content://";
-	private static final String AUTHORITY = "com.android.jn.car.msxc";
+	private static final String AUTHORITY = "com.android.lf.lroid";
 	private static UriMatcher matcher;
 
 	public static final Uri JIE_QI_URI = Uri.parse(HOST_NAME  + AUTHORITY + "/jieqi");

@@ -3,10 +3,12 @@ package com.android.lf.lroid.p.common;
 
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.android.lf.lroid.application.LroidApplication;
 import com.android.lf.lroid.component.UserManagerService;
 import com.android.lf.lroid.interfaces.IPresentListener;
+import com.android.lf.lroid.v.fragment.BaseFragment;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
@@ -20,6 +22,8 @@ import javax.inject.Inject;
 public class BasePresenter {
 
     protected IPresentListener iPresentListener;
+    protected Context mContext;
+    protected BaseFragment baseFragment;
 
     @Inject
     UserManagerService userManagerService;
@@ -32,11 +36,29 @@ public class BasePresenter {
        return iPresentListener != null;
     }
 
+    protected boolean checkNullContext(){
+        return mContext!=null;
+    }
+
+    protected boolean checkNullFragment(){
+        return baseFragment!=null;
+    }
+
     public void setPresentListener(IPresentListener iPresentListener) {
         this.iPresentListener = iPresentListener;
     }
 
-    //    private Reference<T> mReferences;
+    public void setContext(Context mContext) {
+        this.mContext = mContext;
+    }
+
+    public void setBaseFragment(BaseFragment baseFragment) {
+        this.baseFragment = baseFragment;
+        mContext = baseFragment.getContext();
+    }
+
+
+//    private Reference<T> mReferences;
 //
 //    public void onAttachView(T view){
 //        mReferences = new WeakReference<T>(view);

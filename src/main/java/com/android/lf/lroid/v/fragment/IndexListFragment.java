@@ -12,6 +12,7 @@ import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.p.common.CommonPresenter;
+import com.android.lf.lroid.p.common.DataProvidePresenter;
 import com.android.lf.lroid.v.views.LroidListView;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ import butterknife.BindView;
 public class IndexListFragment extends BaseFragment {
 
     @Inject
-    CommonPresenter commonPresenter;
+    DataProvidePresenter dataProvidePresenter;
 
     @BindView(R.id.id_llv_fragment_index_content)
     LroidListView mListView;
@@ -56,6 +57,8 @@ public class IndexListFragment extends BaseFragment {
     protected void initView(View view) {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(mContext,android.R.layout.simple_list_item_1,android.R.id.text1,arrayList);
         mListView.setAdapter(new MyLroidListViewAdapter());
+        dataProvidePresenter.setBaseFragment(this);
+        dataProvidePresenter.getDataFromDB();
     }
 
     @Override
