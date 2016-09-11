@@ -23,6 +23,7 @@ public class DataProvidePresenter extends BasePresenter {
             "立夏","小满","芒种","夏至","小暑","大暑",
             "立秋","处暑","白露","秋分","寒露","霜降",
             "立冬","小雪","大雪","冬至","小寒","大寒"
+
     };
 
     private String[] jieQiTime = new String[]{
