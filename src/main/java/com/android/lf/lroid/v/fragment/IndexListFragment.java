@@ -53,6 +53,7 @@ public class IndexListFragment extends BaseFragment {
     protected void initView(View view) {
         adapter = new MyLroidListViewAdapter();
         mListView.setAdapter(adapter);
+        //设置代理
         dataProvidePresenter.setBaseFragment(this);
         dataProvidePresenter.getDataFromDB();
     }
