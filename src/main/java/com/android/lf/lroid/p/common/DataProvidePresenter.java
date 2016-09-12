@@ -19,18 +19,18 @@ import java.util.ArrayList;
 public class DataProvidePresenter extends BasePresenter {
 
     private String[] jieQiNames = new String[]{
-            "立春","雨水","惊蛰","春分","清明","谷雨",
-            "立夏","小满","芒种","夏至","小暑","大暑",
-            "立秋","处暑","白露","秋分","寒露","霜降",
-            "立冬","小雪","大雪","冬至","小寒","大寒"
+            "立春", "雨水", "惊蛰", "春分", "清明", "谷雨",
+            "立夏", "小满", "芒种", "夏至", "小暑", "大暑",
+            "立秋", "处暑", "白露", "秋分", "寒露", "霜降",
+            "立冬", "小雪", "大雪", "冬至", "小寒", "大寒"
 
     };
 
     private String[] jieQiTime = new String[]{
-            "2月3-5日","2月18-20日","3月5-7日","3月20-22日","4月4-6日","4月19-21日",
-            "5月5-7日","5月20-22日","6月5-7日","6月21-22日","7月6-8日","7月22日-24日",
-            "8月7-9日","8月22-24日","9月7-9日","9月22-24日","10月8-9日","10月23-24日",
-            "11月7-8日","11月22-23日","12月6-8日","12月21-23日","1月5-7日","1月20-21日"
+            "2月3-5日", "2月18-20日", "3月5-7日", "3月20-22日", "4月4-6日", "4月19-21日",
+            "5月5-7日", "5月20-22日", "6月5-7日", "6月21-22日", "7月6-8日", "7月22日-24日",
+            "8月7-9日", "8月22-24日", "9月7-9日", "9月22-24日", "10月8-9日", "10月23-24日",
+            "11月7-8日", "11月22-23日", "12月6-8日", "12月21-23日", "1月5-7日", "1月20-21日"
     };
 
     private String[] jieQiDetailInfoUrl = new String[]{
@@ -107,8 +107,6 @@ public class DataProvidePresenter extends BasePresenter {
                     "《月令七十二候集解》：“立夏，四月节。立字解见春。夏，假也。物至此时皆假大也。 ”\n" +
                     "在天文学上，立夏表示即将告别春天，是夏天的开始。人们习惯上都把立夏当作是温度明显升高，炎暑将临，雷雨增多，农作物进入旺季生长的一个重要节气。",
             "小满是二十四节气之一，夏季的第二个节气。小满——其含义是夏熟作物的籽粒开始灌浆饱满，但还未成熟，只是小满，还未大满。每年5月20日到22日之间视太阳到达黄经60°时为小满。",
-
-
             "芒种是农历二十四节气中的第9个节气，夏季的第三个节气，表示仲夏时节的正式开始；太阳到达黄经75°时交芒种节气。芒种字面的意思是“有芒的麦子快收，有芒的稻子可种”。《月令七十二侯集解》：“五月节，谓有芒之种谷可稼种矣。”此时中国长江中下游地区将进入多雨的黄梅时节。",
             "夏至是二十四节气之一，在每年公历6月21日或22日。夏至这天，太阳运行至黄经90度（夏至点，目前处在双子座），太阳直射地面的位置到达一年的最北端，几乎直射北回归线，此时，北半球各地的白昼时间达到全年最长。对于北回归线及其以北的地区来说，夏至日也是一年中正午太阳高度最高的一天。在北京地区，夏至日白昼可长达15小时，正午太阳高度高达73°32′。这一天北半球得到的太阳辐射最多，比南半球多了将近一倍。\n" +
                     "天文专家称，夏至是太阳的转折点，这天过后它将走“回头路”，阳光直射点开始从北回归线向南移动，北半球白昼将会逐日减短。夏至日过后，北回归线及其以北的地区，正午太阳高度角也会逐日降低。同时，夏至到来后，夜空星象也逐渐变成夏季星空。",
@@ -132,6 +130,33 @@ public class DataProvidePresenter extends BasePresenter {
             "大寒，是全年二十四节气中的最后一个节气。每年公历1月20日前后，太阳到达黄经300°时，即为大寒。"
     };
 
+    private int[] types = new int[]{
+            0,1,2,3
+    };
+
+    ArrayList<JieQiBean> jieQiBeanArrayList = new ArrayList<JieQiBean>(){
+        {
+            for (int i = 0; i < jieQiNames.length; i++) {
+                JieQiBean jieQiBean = new JieQiBean();
+                jieQiBean.setContent(jieQiContents[i]);
+                jieQiBean.setDetail_info_url(jieQiDetailInfoUrl[i]);
+                jieQiBean.setImage_url(jieQiPics[i]);
+                jieQiBean.setTime(jieQiTime[i]);
+                jieQiBean.setImage_url(jieQiPics[i]);
+                if (i>6){
+                    jieQiBean.setType(types[0]);
+                }else if (i >=6 && i <= 11){
+                    jieQiBean.setType(types[1]);
+                } else if (i >=12 && i <= 17) {
+                    jieQiBean.setType(types[2]);
+                }else {
+                    jieQiBean.setType(types[3]);
+                }
+                add(jieQiBean);
+            }
+        }
+    };
+
 
     public void getDataFromDB() {
         DataProvideLoadAsyncTask dataProvideLoadAsyncTask = new DataProvideLoadAsyncTask();
@@ -145,6 +170,7 @@ public class DataProvidePresenter extends BasePresenter {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            iPresentListener.onRequestStart(0x0);
         }
 
         @Override
@@ -152,13 +178,13 @@ public class DataProvidePresenter extends BasePresenter {
             try {
                 if (checkNullContext() || checkNullFragment()) {
                     cursor = mContext.getContentResolver().query(params[0], JieQiTable.PROJECTION, null, null, null);
-                    if (cursor!=null) {
+                    if (cursor != null) {
                         //如果查询的结果集是空的，那么就去网络请求数据
-                        if (cursor.getCount() == 0){
+                        if (cursor.getCount() == 0) {
                             fillDataToDB(params[0]);
-                        }else {
+                        } else {
                             ArrayList<String> results = new ArrayList<>();
-                            for (cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()) {
+                            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                                 results.add(cursor.getString(cursor.getColumnIndex(JieQiTable.NAME)));
                             }
                             return results;
@@ -177,22 +203,34 @@ public class DataProvidePresenter extends BasePresenter {
 
         @Override
         protected void onPostExecute(ArrayList<String> strings) {
-            if (strings == null){
+            iPresentListener.onRequestEnd(0x0);
+            if (strings == null) {
                 DataProvideLoadAsyncTask dataProvideLoadAsyncTask = new DataProvideLoadAsyncTask();
                 dataProvideLoadAsyncTask.execute(DataProvider.JIE_QI_URI);
-            }else {
+            } else {
                 //更新完成
-                iPresentListener.onRequestSuccess(0x0,strings);
+                iPresentListener.onRequestSuccess(0x0, strings);
             }
         }
     }
 
     private void fillDataToDB(Uri uri) {
-        ContentValues[] valuesArrayList = new ContentValues[24];
-        for (int i = 0; i < 24; i++) {
+        ContentValues[] valuesArrayList = new ContentValues[jieQiBeanArrayList.size()];
+        for (int i = 0; i < jieQiBeanArrayList.size(); i++) {
             ContentValues contentValues = new ContentValues();
-            contentValues.put(JieQiTable.NAME,i+"");
+            JieQiBean jieQiBean = jieQiBeanArrayList.get(i);
+            contentValues.put(JieQiTable.NAME, jieQiBean.getName());
+            contentValues.put(JieQiTable.CONTENT, jieQiBean.getContent());
+            contentValues.put(JieQiTable.DETAIL_INFO_URL, jieQiBean.getDetail_info_url());
+            contentValues.put(JieQiTable.IMAGE_URL, jieQiBean.getImage_url());
+            contentValues.put(JieQiTable.TIME, jieQiBean.getTime());
+            contentValues.put(JieQiTable.TYPE, jieQiBean.getType());
             valuesArrayList[i] = contentValues;
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         mContext.getContentResolver().bulkInsert(uri, valuesArrayList);
     }
@@ -200,4 +238,5 @@ public class DataProvidePresenter extends BasePresenter {
     private void initData() {
 
     }
+
 }

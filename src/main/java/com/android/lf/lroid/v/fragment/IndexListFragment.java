@@ -14,6 +14,7 @@ import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.p.common.CommonPresenter;
 import com.android.lf.lroid.p.common.DataProvidePresenter;
 import com.android.lf.lroid.v.views.LroidListView;
+import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -101,14 +102,16 @@ public class IndexListFragment extends BaseFragment {
                     ViewHolderTypeTwo viewHolderTypeTwo ;
                     if (view == null){
                         viewHolderTypeTwo = new ViewHolderTypeTwo();
-                        view = View.inflate(mContext,android.R.layout.activity_list_item,null);
-                        viewHolderTypeTwo.iv_pic = (ImageView) view.findViewById(android.R.id.icon);
-                        viewHolderTypeTwo.tv_title = (TextView) view.findViewById(android.R.id.text1);
+                        view = View.inflate(mContext,R.layout.fragment_index_list_item_layout,null);
+                        viewHolderTypeTwo.iv_pic = (NetworkImageView) view.findViewById(R.id.id_niv_fragment_index_list_item_pic);
+                        viewHolderTypeTwo.tv_title = (TextView) view.findViewById(R.id.id_tv_fragment_index_list_item_name);
+                        viewHolderTypeTwo.tv_time = (TextView) view.findViewById(R.id.id_tv_fragment_index_list_item_time);
+                        viewHolderTypeTwo.tv_content = (TextView) view.findViewById(R.id.id_tv_fragment_index_list_item_content);
                         view.setTag(viewHolderTypeTwo);
                     }
                     viewHolderTypeTwo = (ViewHolderTypeTwo) view.getTag();
                     viewHolderTypeTwo.tv_title.setText(arrayList.get(i));
-                    viewHolderTypeTwo.iv_pic.setImageResource(R.mipmap.ic_launcher);
+//                    viewHolderTypeTwo.iv_pic.setImageUrl();
                     break;
             }
             return view;
@@ -135,7 +138,9 @@ public class IndexListFragment extends BaseFragment {
 
     static class ViewHolderTypeTwo{
         TextView tv_title;
-        ImageView iv_pic;
+        TextView tv_time;
+        TextView tv_content;
+        NetworkImageView iv_pic;
     }
 
     @Override
@@ -143,6 +148,20 @@ public class IndexListFragment extends BaseFragment {
         arrayList.addAll((ArrayList<String>) result);
         if (adapter!=null) {
             adapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onRequestEnd(int requestID) {
+        if (requestID == 0x0){
+            mProgressBar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onRequestStart(int requestID) {
+        if (requestID == 0x0){
+            mProgressBar.setVisibility(View.VISIBLE);
         }
     }
 }
