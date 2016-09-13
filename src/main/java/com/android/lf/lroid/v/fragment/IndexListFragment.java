@@ -1,5 +1,7 @@
 package com.android.lf.lroid.v.fragment;
 
+import android.app.ProgressDialog;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,9 +17,13 @@ import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.JieQiBean;
 import com.android.lf.lroid.p.common.CommonPresenter;
 import com.android.lf.lroid.p.common.DataProvidePresenter;
+import com.android.lf.lroid.utils.MethodUtils;
+import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 import com.android.lf.lroid.v.views.LroidListView;
 import com.android.lf.lroid.volley.RequestManager;
 import com.android.volley.toolbox.NetworkImageView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,8 +43,10 @@ public class IndexListFragment extends BaseFragment implements AdapterView.OnIte
     @BindView(R.id.id_llv_fragment_index_content)
     LroidListView mListView;
 
-    @BindView(R.id.id_pb_fragment_index_progress)
-    ProgressBar mProgressBar;
+    @BindView(R.id.id_tv_fragment_index_current_time)
+    TextView mCurrentTime;
+
+    private ProgressDialog mProgressDialog;
 
     private ArrayList<JieQiBean> arrayList = new ArrayList<JieQiBean>();
 
@@ -55,10 +63,15 @@ public class IndexListFragment extends BaseFragment implements AdapterView.OnIte
 
     @Override
     protected void initView(View view) {
+        mCurrentTime.setText("当前时间："+MethodUtils.getCurrentTime(null));
         adapter = new MyLroidListViewAdapter();
         mListView.addFooterView(View.inflate(mContext,R.layout.fragment_index_list_foot_view_foot_layout,null));
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(this);
+        initData();
+    }
+
+    private void initData() {
         //设置代理
         dataProvidePresenter.setBaseFragment(this);
         dataProvidePresenter.getDataFromDB();
@@ -66,12 +79,14 @@ public class IndexListFragment extends BaseFragment implements AdapterView.OnIte
 
     @Override
     protected void setComponent() {
-
         DaggerInjectPresentComponent.builder().presentModule(new PresentModule()).build().inject(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Bundle bundle = new Bundle();
+        bundle.putString(WebContentFragment.WEB_LOAD_URL,arrayList.get(position).getDetail_info_url());
+        MethodUtils.startFragmentsActivity(mContext,arrayList.get(position).getName(), FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG,bundle);
     }
 
     private class MyLroidListViewAdapter extends BaseAdapter{
@@ -166,14 +181,19 @@ public class IndexListFragment extends BaseFragment implements AdapterView.OnIte
     @Override
     public void onRequestEnd(int requestID) {
         if (requestID == 0x0){
-            mProgressBar.setVisibility(View.GONE);
+            if (mProgressDialog!=null){
+                mProgressDialog.dismiss();
+                mProgressDialog = null;
+            }
         }
     }
 
     @Override
     public void onRequestStart(int requestID) {
         if (requestID == 0x0){
-            mProgressBar.setVisibility(View.VISIBLE);
+            if (mProgressDialog == null){
+                mProgressDialog = ProgressDialog.show(mContext,null,"正在加载……");
+            }
         }
     }
 }

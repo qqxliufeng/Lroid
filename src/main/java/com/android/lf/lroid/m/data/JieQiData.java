@@ -2,6 +2,9 @@ package com.android.lf.lroid.m.data;
 
 import com.android.lf.lroid.m.bean.JieQiBean;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 /**
  * Created by feng on 2016/9/13.
  */
@@ -157,59 +160,30 @@ public class JieQiData {
             "春", "夏", "秋", "冬"
     };
 
-    public String[] getJieQiNames() {
-        return jieQiNames;
-    }
+    ArrayList<JieQiBean> jieQiBeanArrayList = new ArrayList<JieQiBean>() {
+        {
+            for (int i = 0; i < jieQiNames.length; i++) {
+                JieQiBean jieQiBean = new JieQiBean();
+                jieQiBean.setContent(jieQiContents[i]);
+                jieQiBean.setDetail_info_url(jieQiDetailInfoUrl[i]);
+                jieQiBean.setImage_url(jieQiPics[i]);
+                jieQiBean.setTime(jieQiTime[i]);
+                jieQiBean.setName(jieQiNames[i]);
+                if (i > 6) {
+                    jieQiBean.setType(types[0]);
+                } else if (i >= 6 && i <= 11) {
+                    jieQiBean.setType(types[1]);
+                } else if (i >= 12 && i <= 17) {
+                    jieQiBean.setType(types[2]);
+                } else {
+                    jieQiBean.setType(types[3]);
+                }
+                add(jieQiBean);
+            }
+        }
+    };
 
-    public void setJieQiNames(String[] jieQiNames) {
-        this.jieQiNames = jieQiNames;
-    }
-
-    public String[] getJieQiTime() {
-        return jieQiTime;
-    }
-
-    public void setJieQiTime(String[] jieQiTime) {
-        this.jieQiTime = jieQiTime;
-    }
-
-    public String[] getJieQiDetailInfoUrl() {
-        return jieQiDetailInfoUrl;
-    }
-
-    public void setJieQiDetailInfoUrl(String[] jieQiDetailInfoUrl) {
-        this.jieQiDetailInfoUrl = jieQiDetailInfoUrl;
-    }
-
-    public String[] getJieQiPics() {
-        return jieQiPics;
-    }
-
-    public void setJieQiPics(String[] jieQiPics) {
-        this.jieQiPics = jieQiPics;
-    }
-
-    public String[] getJieQiContents() {
-        return jieQiContents;
-    }
-
-    public void setJieQiContents(String[] jieQiContents) {
-        this.jieQiContents = jieQiContents;
-    }
-
-    public int[] getTypes() {
-        return types;
-    }
-
-    public void setTypes(int[] types) {
-        this.types = types;
-    }
-
-    public static String[] getTypeName() {
-        return TYPE_NAME;
-    }
-
-    public static void setTypeName(String[] typeName) {
-        TYPE_NAME = typeName;
+    public ArrayList<JieQiBean> getJieQiBeanArrayList() {
+        return jieQiBeanArrayList;
     }
 }

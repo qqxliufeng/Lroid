@@ -27,6 +27,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".v.activity.TestActivity" />
+
+        <activity android:name=".v.activity.FragmentContainerActivity" />
+
         <provider
             android:authorities="com.android.lf.lroid"
             android:name=".m.database.DataProvider"/>

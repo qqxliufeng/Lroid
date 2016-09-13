@@ -19,29 +19,6 @@ import java.util.ArrayList;
 
 public class DataProvidePresenter extends BasePresenter {
 
-    ArrayList<JieQiBean> jieQiBeanArrayList = new ArrayList<JieQiBean>() {
-        {
-            for (int i = 0; i < JieQiData.getInstance().getJieQiNames().length; i++) {
-                JieQiBean jieQiBean = new JieQiBean();
-                jieQiBean.setContent(JieQiData.getInstance().getJieQiContents()[i]);
-                jieQiBean.setDetail_info_url(JieQiData.getInstance().getJieQiDetailInfoUrl()[i]);
-                jieQiBean.setImage_url(JieQiData.getInstance().getJieQiPics()[i]);
-                jieQiBean.setTime(JieQiData.getInstance().getJieQiTime()[i]);
-                jieQiBean.setName(JieQiData.getInstance().getJieQiNames()[i]);
-                if (i > 6) {
-                    jieQiBean.setType(JieQiData.getInstance().getTypes()[0]);
-                } else if (i >= 6 && i <= 11) {
-                    jieQiBean.setType(JieQiData.getInstance().getTypes()[1]);
-                } else if (i >= 12 && i <= 17) {
-                    jieQiBean.setType(JieQiData.getInstance().getTypes()[2]);
-                } else {
-                    jieQiBean.setType(JieQiData.getInstance().getTypes()[3]);
-                }
-                add(jieQiBean);
-            }
-        }
-    };
-
 
     public void getDataFromDB() {
         DataProvideLoadAsyncTask dataProvideLoadAsyncTask = new DataProvideLoadAsyncTask();
@@ -78,6 +55,7 @@ public class DataProvidePresenter extends BasePresenter {
                                 jieQiBean.setTime(cursor.getString(cursor.getColumnIndex(JieQiTable.TIME)));
                                 jieQiBean.setType(cursor.getInt(cursor.getColumnIndex(JieQiTable.TYPE)));
                                 results.add(jieQiBean);
+                                Thread.sleep(150);
                             }
                             return results;
                         }
@@ -107,10 +85,10 @@ public class DataProvidePresenter extends BasePresenter {
     }
 
     private void fillDataToDB(Uri uri) {
-        ContentValues[] valuesArrayList = new ContentValues[jieQiBeanArrayList.size()];
-        for (int i = 0; i < jieQiBeanArrayList.size(); i++) {
+        ContentValues[] valuesArrayList = new ContentValues[JieQiData.getInstance().getJieQiBeanArrayList().size()];
+        for (int i = 0; i < JieQiData.getInstance().getJieQiBeanArrayList().size(); i++) {
             ContentValues contentValues = new ContentValues();
-            JieQiBean jieQiBean = jieQiBeanArrayList.get(i);
+            JieQiBean jieQiBean = JieQiData.getInstance().getJieQiBeanArrayList().get(i);
             contentValues.put(JieQiTable.NAME, jieQiBean.getName());
             contentValues.put(JieQiTable.CONTENT, jieQiBean.getContent());
             contentValues.put(JieQiTable.DETAIL_INFO_URL, jieQiBean.getDetail_info_url());
