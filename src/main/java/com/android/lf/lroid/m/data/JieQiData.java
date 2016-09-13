@@ -11,7 +11,10 @@ import java.util.Calendar;
 
 public class JieQiData {
 
-    private JieQiData(){};
+    private JieQiData() {
+    }
+
+    ;
     private static JieQiData instance = null;
 
     public static JieQiData getInstance() {
@@ -160,6 +163,38 @@ public class JieQiData {
             "春", "夏", "秋", "冬"
     };
 
+    private String[] jieQiBanners = new String[]{
+            "http://a.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=bc0a162159df8db1a8237436684ab631/728da9773912b31b503bda908118367adab4e130.jpg",
+            "http://h.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=d109fa668094a4c21e2eef796f9d70b0/4e4a20a4462309f797d3b67b750e0cf3d7cad61e.jpg",
+            "http://g.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=3f39dba6ce5c10383073c690d378f876/c9fcc3cec3fdfc03442c3804dc3f8794a4c22632.jpg",
+            "http://g.hiphotos.baidu.com/baike/c0%3Dbaike180%2C5%2C5%2C180%2C60/sign=35e50a3a9545d688b70fbaf6c5ab167b/5bafa40f4bfbfbed5d7cf5767ff0f736afc31f96.jpg",
+            "http://c.hiphotos.baidu.com/baike/crop%3D26%2C0%2C944%2C623%3Bc0%3Dbaike116%2C5%2C5%2C116%2C38/sign=67ea0d3f7bf0820239ddcb7f76c9cdc1/810a19d8bc3eb135f95b5ea7ae1ea8d3fd1f440a.jpg",
+            "http://h.hiphotos.baidu.com/baike/c0%3Dbaike150%2C5%2C5%2C150%2C50/sign=bfe7397d4134970a537e187df4a3baad/50da81cb39dbb6fd455214740924ab18972b3752.jpg",
+
+            "http://g.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=5409df39a60f4bfb98dd960662261395/d439b6003af33a873f5bb0bcc45c10385343b566.jpg",
+            "http://g.hiphotos.baidu.com/baike/c0%3Dbaike150%2C5%2C5%2C150%2C50/sign=7701e8366b81800a7ae8815cd05c589f/d788d43f8794a4c2db47f69209f41bd5ad6e3926.jpg",
+            "http://g.hiphotos.baidu.com/baike/c0%3Dbaike150%2C5%2C5%2C150%2C50/sign=ae09176c31adcbef15397654cdc645b8/3b292df5e0fe9925c29a47f834a85edf8cb17187.jpg",
+            "http://c.hiphotos.baidu.com/baike/crop%3D0%2C22%2C700%2C463%3Bc0%3Dbaike92%2C5%2C5%2C92%2C30/sign=1548ee084aa7d933abe7be33907bfd21/cefc1e178a82b901506b172f7b8da9773812efec.jpg",
+            "http://d.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=aa349e686059252db71a155655f2685e/d0c8a786c9177f3e14c4807f70cf3bc79e3d56cb.jpg",
+            "http://d.hiphotos.baidu.com/baike/c0%3Dbaike220%2C5%2C5%2C220%2C73/sign=aadc2157b851f819e5280b18bbdd2188/8b13632762d0f703024132a000fa513d2797c5df.jpg",
+
+            "http://f.hiphotos.baidu.com/baike/crop%3D0%2C40%2C1266%2C837%3Bc0%3Dbaike150%2C5%2C5%2C150%2C50/sign=a2835a68a5345982d1c5bfd231c41d99/54fbb2fb43166d227a14db884e2309f79052d24f.jpg",
+            "http://a.hiphotos.baidu.com/baike/c0%3Dbaike220%2C5%2C5%2C220%2C73/sign=e1ec8a3e652762d09433acedc185639f/eaf81a4c510fd9f99f2a6074232dd42a2834a4e9.jpg",
+            "http://d.hiphotos.baidu.com/baike/crop%3D0%2C0%2C519%2C343%3Bc0%3Dbaike80%2C5%2C5%2C80%2C26/sign=ddda32783287e9505658a92c2d087f73/a2cc7cd98d1001e952db29b4b00e7bec55e797a1.jpg",
+            "http://g.hiphotos.baidu.com/baike/c0%3Dbaike180%2C5%2C5%2C180%2C60/sign=b77bdf42263fb80e18dc698557b8444b/48540923dd54564e24ca374ab4de9c82d1584f12.jpg",
+            "http://h.hiphotos.baidu.com/baike/c0%3Dbaike150%2C5%2C5%2C150%2C50/sign=d815bd48271f95cab2f89ae4a87e145b/b7fd5266d0160924e4071a2dd60735fae6cd34e1.jpg",
+            "http://a.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=ea080c7e1cd5ad6ebef46cb8e0a252be/9922720e0cf3d7ca43d808ccf51fbe096b63a959.jpg",
+
+            "http://g.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=14e98ab604d79123f4ed9c26cc5d32e7/7c1ed21b0ef41bd57307324a59da81cb39db3d3c.jpg",
+            "http://e.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=ef8d94554f4a20a425133495f13bf347/dc54564e9258d1091f4565f5d158ccbf6d814dd7.jpg",
+            "http://e.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=acc12098bd315c60579863bdecd8a076/b8014a90f603738de54880afb21bb051f819ec39.jpg",
+            "http://d.hiphotos.baidu.com/baike/c0%3Dbaike92%2C5%2C5%2C92%2C30/sign=985a529b36d12f2eda08a6322eabbe07/0eb30f2442a7d9332b23d73fad4bd11372f001f6.jpg",
+            "http://f.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=bde671c2563d26973ade000f3492d99e/bd315c6034a85edf90bbb22b4e540923dd547586.jpg",
+            "http://h.hiphotos.baidu.com/baike/c0%3Dbaike116%2C5%2C5%2C116%2C38/sign=1eb298658d13632701e0ca61f0e6cb89/f31fbe096b63f624640d3dba8044ebf81a4ca332.jpg",
+
+    };
+
+
     ArrayList<JieQiBean> jieQiBeanArrayList = new ArrayList<JieQiBean>() {
         {
             for (int i = 0; i < jieQiNames.length; i++) {
@@ -185,5 +220,9 @@ public class JieQiData {
 
     public ArrayList<JieQiBean> getJieQiBeanArrayList() {
         return jieQiBeanArrayList;
+    }
+
+    public String[] getJieQiBanners() {
+        return jieQiBanners;
     }
 }

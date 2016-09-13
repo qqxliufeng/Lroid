@@ -41,9 +41,15 @@ public class ImageRequestFragment extends BaseFragment {
         niv_image.setErrorImageResId(R.drawable.drawable_image_request_default);
         niv_image.setImageUrl(getArguments().getString(IMAGE_URL_FLAG,""), RequestManager.getImageLoader());
         niv_image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        niv_image.setOnClickListener(this);
     }
 
     @Override
     protected void setComponent() {
+    }
+
+    @Override
+    public void onClick(View view) {
+        ((IndexTopFragment)getParentFragment()).onChildViewClick();
     }
 }

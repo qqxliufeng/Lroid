@@ -12,6 +12,7 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
     <style name="HomeActivityTheme" parent="AppTheme">
+        <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 

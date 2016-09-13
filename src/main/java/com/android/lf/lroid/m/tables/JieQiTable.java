@@ -10,6 +10,7 @@ import com.android.lf.lroid.m.database.SQLiteTable;
  */
 
 public class JieQiTable implements BaseColumns{
+
     public static final String TABLE_NAME = "jie_qi_table";//1
 
     public static final String NAME = "name";//2

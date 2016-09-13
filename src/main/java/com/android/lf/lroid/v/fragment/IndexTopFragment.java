@@ -12,7 +12,11 @@ import android.view.View;
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
+import com.android.lf.lroid.m.bean.JieQiBean;
+import com.android.lf.lroid.m.data.JieQiData;
 import com.android.lf.lroid.p.common.CommonPresenter;
+import com.android.lf.lroid.utils.MethodUtils;
+import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 import com.android.lf.lroid.v.activity.HomeActivity;
 import com.android.lf.lroid.v.views.AutoScrollViewPager;
 
@@ -40,14 +44,6 @@ public class IndexTopFragment extends BaseFragment {
     @BindView(R.id.id_vp_fragment_index_banner)
     AutoScrollViewPager vp_banner;
 
-    private ArrayList<String> imageUrls = new ArrayList<String>(){
-        {
-            add("http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg");
-            add("http://m2.quanjing.com/2m/alamyrf005/b1fw89.jpg");
-            add("http://image.tianjimedia.com/uploadImages/2015/129/56/J63MI042Z4P8.jpg");
-        }
-    };
-
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_index_top_layout;
@@ -60,9 +56,10 @@ public class IndexTopFragment extends BaseFragment {
         vp_banner.setCycle(true);
         vp_banner.setDirection(AutoScrollViewPager.RIGHT);
         vp_banner.setInterval(3000);
+        vp_banner.setBorderAnimation(false);
         vp_banner.setBorderAnimation(true);
         vp_banner.setScrollDurationFactor(4.0);
-        vp_banner.setOffscreenPageLimit(imageUrls.size());//设置缓存数量
+        vp_banner.setOffscreenPageLimit(JieQiData.getInstance().getJieQiBanners().length);//设置缓存数量
         vp_banner.startAutoScroll();
     }
 
@@ -94,12 +91,21 @@ public class IndexTopFragment extends BaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-            return ImageRequestFragment.newInstance(imageUrls.get(position));
+            return ImageRequestFragment.newInstance(JieQiData.getInstance().getJieQiBanners()[position]);
         }
 
         @Override
         public int getCount() {
-            return imageUrls.size();
+            return JieQiData.getInstance().getJieQiBanners().length;
         }
     }
+
+    public void onChildViewClick(){
+        int currentItem = vp_banner.getCurrentItem();
+        JieQiBean jieQiBean = JieQiData.getInstance().getJieQiBeanArrayList().get(currentItem);
+        Bundle bundle = new Bundle();
+        bundle.putString(WebContentFragment.WEB_LOAD_URL,jieQiBean.getDetail_info_url());
+        MethodUtils.startFragmentsActivity(mContext,jieQiBean.getName(), FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG,bundle);
+    }
+
 }

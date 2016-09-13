@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
@@ -58,13 +59,13 @@ public class HomeIndexFragment extends BaseFragment implements NestedScrollView.
                 mFloatingActionButton.setVisibility(View.GONE);
                 tl_bar.setBackgroundColor(Color.argb(0, 48, 63, 159));
                 tl_bar.setTitleTextColor(Color.argb(0,255,255,255));
-                height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,180,getResources().getDisplayMetrics());
+                height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,100,getResources().getDisplayMetrics());
             }
         });
     }
 
     private void setView() {
-        tl_bar.setTitle("首页");
+        tl_bar.setTitle("节气");
         tl_bar.setTitleTextColor(Color.WHITE);
         ((HomeActivity) mContext).setSupportActionBar(tl_bar);
         mNestedScrollView.setOnScrollChangeListener(this);
