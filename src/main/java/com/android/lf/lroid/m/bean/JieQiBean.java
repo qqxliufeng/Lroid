@@ -14,6 +14,15 @@ public class JieQiBean {
     private String song;
     private String detail_info_url;
     private int type;
+    private String typeName;
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
 
     public int getType() {
         return type;

@@ -10,7 +10,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <FrameLayout
@@ -21,7 +21,7 @@
             <FrameLayout
                 android:id="@+id/id_fl_fragment_index_content_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
@@ -30,15 +30,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:fitsSystemWindows="true"
-        android:background="?colorPrimary"/>
+        android:background="?colorPrimary"
+        android:fitsSystemWindows="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/id_fb_fragment_index_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_favorites"
         android:layout_gravity="bottom|right"
-        android:layout_margin="30dp"/>
+        android:layout_margin="30dp"
+        android:src="@drawable/ic_favorites" />
 
 </FrameLayout>

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="10dp">
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/id_niv_fragment_index_list_item_pic"
@@ -12,7 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,7 +24,9 @@
                 android:id="@+id/id_tv_fragment_index_list_item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="名称" />
+                android:text="名称"
+                android:textColor="#333"
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/id_tv_fragment_index_list_item_time"
@@ -33,10 +37,13 @@
         </RelativeLayout>
 
         <TextView
+            android:layout_marginTop="10dp"
             android:id="@+id/id_tv_fragment_index_list_item_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="3"
+            android:textSize="16sp"
+            android:lineSpacingExtra="2dp"
             android:text="内容" />
 
     </LinearLayout>

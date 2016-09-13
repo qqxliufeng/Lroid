@@ -50,7 +50,7 @@ public class HomeIndexFragment extends BaseFragment implements NestedScrollView.
         scrollTo();
     }
 
-    private void scrollTo() {
+    public void scrollTo() {
         mNestedScrollView.post(new Runnable() {
             @Override
             public void run() {

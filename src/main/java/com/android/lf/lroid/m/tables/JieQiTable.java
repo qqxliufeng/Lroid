@@ -21,6 +21,7 @@ public class JieQiTable implements BaseColumns{
     public static final String SONG = "song";
     public static final String DETAIL_INFO_URL = "detail_info_url";
     public static final String TYPE = "type";
+    public static final String TYPE_NAME = "type_name";
 
     public static final String[] PROJECTION = {NAME,
             IMAGE_URL,
@@ -30,7 +31,8 @@ public class JieQiTable implements BaseColumns{
             LUNAR,
             SONG,
             DETAIL_INFO_URL,
-            TYPE
+            TYPE,
+            TYPE_NAME
     };
 
     public static final SQLiteTable TABLE = new SQLiteTable(TABLE_NAME)
@@ -42,5 +44,6 @@ public class JieQiTable implements BaseColumns{
             .addColumn(LUNAR, Column.DataType.TEXT)
             .addColumn(SONG, Column.DataType.TEXT)
             .addColumn(DETAIL_INFO_URL, Column.DataType.TEXT)
-            .addColumn(TYPE, Column.DataType.INTEGER);
+            .addColumn(TYPE, Column.DataType.INTEGER)
+            .addColumn(TYPE_NAME, Column.DataType.TEXT);
 }
