@@ -61,6 +61,4 @@ public class NavigationFragment extends LroidBaseFragment {
         }
     }
 
-
-
 }
