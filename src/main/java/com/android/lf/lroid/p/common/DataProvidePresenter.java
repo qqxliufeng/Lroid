@@ -19,10 +19,15 @@ import java.util.ArrayList;
 
 public class DataProvidePresenter extends BasePresenter {
 
+    private Uri mUri;
 
-    public void getDataFromDB() {
+    public void getDataFromDB(Uri uri) {
+        if (uri == null){
+            return;
+        }
+        mUri = uri;
         DataProvideLoadAsyncTask dataProvideLoadAsyncTask = new DataProvideLoadAsyncTask();
-        dataProvideLoadAsyncTask.execute(DataProvider.JIE_QI_URI);
+        dataProvideLoadAsyncTask.execute(mUri);
     }
 
     class DataProvideLoadAsyncTask extends AsyncTask<Uri, Integer, ArrayList<JieQiBean>> {
@@ -55,7 +60,7 @@ public class DataProvidePresenter extends BasePresenter {
                                 jieQiBean.setTime(cursor.getString(cursor.getColumnIndex(JieQiTable.TIME)));
                                 jieQiBean.setType(cursor.getInt(cursor.getColumnIndex(JieQiTable.TYPE)));
                                 results.add(jieQiBean);
-                                Thread.sleep(150);
+                                Thread.sleep(50);
                             }
                             return results;
                         }
@@ -76,7 +81,7 @@ public class DataProvidePresenter extends BasePresenter {
             iPresentListener.onRequestEnd(0x0);
             if (strings == null) {
                 DataProvideLoadAsyncTask dataProvideLoadAsyncTask = new DataProvideLoadAsyncTask();
-                dataProvideLoadAsyncTask.execute(DataProvider.JIE_QI_URI);
+                dataProvideLoadAsyncTask.execute(mUri);
             } else {
                 //更新完成
                 iPresentListener.onRequestSuccess(0x0, strings);

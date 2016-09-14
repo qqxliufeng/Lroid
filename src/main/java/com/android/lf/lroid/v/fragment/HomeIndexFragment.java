@@ -24,7 +24,7 @@ public class HomeIndexFragment extends LroidBaseFragment implements NestedScroll
     NestedScrollView mNestedScrollView;
 
     @BindView(R.id.id_tl_app_top_bar)
-    Toolbar tl_bar;
+    Toolbar mToolBar;
 
     @BindView(R.id.id_fb_fragment_index_indicator)
     FloatingActionButton mFloatingActionButton;
@@ -53,17 +53,17 @@ public class HomeIndexFragment extends LroidBaseFragment implements NestedScroll
             public void run() {
                 mNestedScrollView.smoothScrollTo(0, 0);
                 mFloatingActionButton.setVisibility(View.GONE);
-                tl_bar.setBackgroundColor(Color.argb(0, 48, 63, 159));
-                tl_bar.setTitleTextColor(Color.argb(0,255,255,255));
+                mToolBar.setBackgroundColor(Color.argb(0, 48, 63, 159));
+                mToolBar.setTitleTextColor(Color.argb(0,255,255,255));
                 height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,100,getResources().getDisplayMetrics());
             }
         });
     }
 
     private void setView() {
-        tl_bar.setTitle("节气");
-        tl_bar.setTitleTextColor(Color.WHITE);
-        ((HomeActivity) mContext).setSupportActionBar(tl_bar);
+        mToolBar.setTitle("节气");
+        mToolBar.setTitleTextColor(Color.WHITE);
+        ((HomeActivity) mContext).setSupportActionBar(mToolBar);
         mNestedScrollView.setOnScrollChangeListener(this);
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,16 +93,17 @@ public class HomeIndexFragment extends LroidBaseFragment implements NestedScroll
             mFloatingActionButton.setVisibility(View.VISIBLE);
         }
         if (scrollY <= 0) {
-            tl_bar.setBackgroundColor(Color.argb((int) 0, 48, 63, 159));
-            tl_bar.setTitleTextColor(Color.argb(0,255,255,255));
+            mToolBar.setBackgroundColor(Color.argb((int) 0, 48, 63, 159));
+            mToolBar.setTitleTextColor(Color.argb(0,255,255,255));
         } else if (scrollY > 0 && scrollY <= height) {
             float scale = (float) scrollY / height;
             float alpha = (255 * scale);
-            tl_bar.setBackgroundColor(Color.argb((int) alpha, 48, 63, 159));
-            tl_bar.setTitleTextColor(Color.argb((int) alpha,255,255,255));
+            mToolBar.setBackgroundColor(Color.argb((int) alpha, 48, 63, 159));
+            mToolBar.setTitleTextColor(Color.argb((int) alpha,255,255,255));
         } else {
-            tl_bar.setBackgroundColor(Color.argb((int) 255, 48, 63, 159));
-            tl_bar.setTitleTextColor(Color.argb(255,255,255,255));
+            mToolBar.setBackgroundColor(Color.argb((int) 255, 48, 63, 159));
+            mToolBar.setTitleTextColor(Color.argb(255,255,255,255));
         }
     }
+
 }

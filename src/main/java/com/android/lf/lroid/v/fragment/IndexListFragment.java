@@ -12,6 +12,7 @@ import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.JieQiBean;
+import com.android.lf.lroid.m.database.DataProvider;
 import com.android.lf.lroid.p.common.DataProvidePresenter;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
@@ -67,7 +68,7 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
     private void initData() {
         //设置代理
         dataProvidePresenter.setBaseFragment(this);
-        dataProvidePresenter.getDataFromDB();
+        dataProvidePresenter.getDataFromDB(DataProvider.JIE_QI_URI);
     }
 
     @Override
