@@ -5,17 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.JieQiBean;
-import com.android.lf.lroid.p.common.CommonPresenter;
 import com.android.lf.lroid.p.common.DataProvidePresenter;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
@@ -23,10 +19,7 @@ import com.android.lf.lroid.v.views.LroidListView;
 import com.android.lf.lroid.volley.RequestManager;
 import com.android.volley.toolbox.NetworkImageView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.inject.Inject;
 
@@ -36,7 +29,7 @@ import butterknife.BindView;
  * Created by feng on 2016/9/9.
  */
 
-public class IndexListFragment extends BaseFragment implements AdapterView.OnItemClickListener {
+public class IndexListFragment extends LroidBaseFragment implements AdapterView.OnItemClickListener {
 
     @Inject
     DataProvidePresenter dataProvidePresenter;

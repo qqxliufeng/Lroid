@@ -4,7 +4,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.android.lf.lroid.R;
-import com.android.lf.lroid.v.fragment.BaseFragment;
+import com.android.lf.lroid.v.fragment.LroidBaseFragment;
 import com.android.lf.lroid.v.fragment.HomeIndexFragment;
 import com.android.lf.lroid.v.fragment.HomeMineFragment;
 import com.android.lf.lroid.v.fragment.HomeMoreFragment;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class HomeActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener {
 
-    private ArrayList<BaseFragment> fragmentList = new ArrayList<>();
+    private ArrayList<LroidBaseFragment> fragmentList = new ArrayList<>();
 
     @Override
     public int getLayoutId() {

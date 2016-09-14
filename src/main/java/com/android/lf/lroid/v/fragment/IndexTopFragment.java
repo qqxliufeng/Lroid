@@ -1,12 +1,10 @@
 package com.android.lf.lroid.v.fragment;
 
 import android.app.ProgressDialog;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.android.lf.lroid.R;
@@ -17,10 +15,7 @@ import com.android.lf.lroid.m.data.JieQiData;
 import com.android.lf.lroid.p.common.CommonPresenter;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
-import com.android.lf.lroid.v.activity.HomeActivity;
 import com.android.lf.lroid.v.views.AutoScrollViewPager;
-
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -30,7 +25,7 @@ import butterknife.BindView;
  * Created by feng on 2016/9/9.
  */
 
-public class IndexTopFragment extends BaseFragment {
+public class IndexTopFragment extends LroidBaseFragment {
 
     public static IndexTopFragment newInstance() {
         IndexTopFragment fragment = new IndexTopFragment();

@@ -5,16 +5,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.ExpandableListView;
-import android.widget.ScrollView;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.v.activity.HomeActivity;
-import com.android.lf.lroid.v.views.LroidScrollView;
 
 import butterknife.BindView;
 
@@ -22,7 +18,7 @@ import butterknife.BindView;
  * Created by feng on 2016/9/2.
  */
 
-public class HomeIndexFragment extends BaseFragment implements NestedScrollView.OnScrollChangeListener {
+public class HomeIndexFragment extends LroidBaseFragment implements NestedScrollView.OnScrollChangeListener {
 
     @BindView(R.id.id_nsv_fragment_index_container)
     NestedScrollView mNestedScrollView;

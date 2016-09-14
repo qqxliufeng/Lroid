@@ -13,7 +13,7 @@ import javax.inject.Inject;
  * Created by feng on 2016/8/19.
  */
 
-public class LoginFragment extends BaseFragment {
+public class LoginFragment extends LroidBaseFragment {
 
     @Inject
     CommonPresenter commonPresenter;

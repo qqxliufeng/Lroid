@@ -2,7 +2,6 @@ package com.android.lf.lroid.v.fragment;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -18,7 +17,7 @@ import butterknife.BindView;
  * Created by feng on 2016/9/13.
  */
 
-public class WebContentFragment extends BaseFragment {
+public class WebContentFragment extends LroidBaseFragment {
 
     public static final String WEB_LOAD_URL = "web_load_url";
 

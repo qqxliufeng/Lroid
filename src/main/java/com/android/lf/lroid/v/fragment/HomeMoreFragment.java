@@ -17,7 +17,7 @@ import butterknife.BindView;
  * Created by feng on 2016/9/2.
  */
 
-public class HomeMoreFragment extends BaseFragment {
+public class HomeMoreFragment extends LroidBaseFragment {
 
     @BindView(R.id.vp_container)
     ViewPager mViewPager;

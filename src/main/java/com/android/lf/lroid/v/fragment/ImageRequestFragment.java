@@ -1,7 +1,6 @@
 package com.android.lf.lroid.v.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -15,7 +14,7 @@ import butterknife.BindView;
  * Created by feng on 2016/9/5.
  */
 
-public class ImageRequestFragment extends BaseFragment {
+public class ImageRequestFragment extends LroidBaseFragment {
 
     public static final String IMAGE_URL_FLAG = "image_url_flag";
 
@@ -50,6 +49,9 @@ public class ImageRequestFragment extends BaseFragment {
 
     @Override
     public void onClick(View view) {
-        ((IndexTopFragment)getParentFragment()).onChildViewClick();
+        if (getParentFragment() instanceof IndexTopFragment){
+            ((IndexTopFragment)getParentFragment()).onChildViewClick();
+        }
     }
+
 }

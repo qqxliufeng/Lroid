@@ -2,16 +2,12 @@ package com.android.lf.lroid.p.common;
 
 
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.android.lf.lroid.application.LroidApplication;
 import com.android.lf.lroid.component.UserManagerService;
 import com.android.lf.lroid.interfaces.IPresentListener;
-import com.android.lf.lroid.v.fragment.BaseFragment;
-
-import java.lang.ref.Reference;
-import java.lang.ref.WeakReference;
+import com.android.lf.lroid.v.fragment.LroidBaseFragment;
 
 import javax.inject.Inject;
 
@@ -23,7 +19,7 @@ public class BasePresenter {
 
     protected IPresentListener iPresentListener;
     protected Context mContext;
-    protected BaseFragment baseFragment;
+    protected LroidBaseFragment baseFragment;
 
     @Inject
     UserManagerService userManagerService;
@@ -52,7 +48,7 @@ public class BasePresenter {
         this.mContext = mContext;
     }
 
-    public void setBaseFragment(BaseFragment baseFragment) {
+    public void setBaseFragment(LroidBaseFragment baseFragment) {
         this.baseFragment = baseFragment;
         iPresentListener = baseFragment;
         mContext = baseFragment.getContext();

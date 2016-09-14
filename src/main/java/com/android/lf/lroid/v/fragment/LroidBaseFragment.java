@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
  * Created by feng on 2016/8/1.
  */
 
-public abstract class BaseFragment extends Fragment implements View.OnClickListener,IPresentListener{
+public abstract class LroidBaseFragment extends Fragment implements View.OnClickListener,IPresentListener{
 
     protected Context mContext;
 

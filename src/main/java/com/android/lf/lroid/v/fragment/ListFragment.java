@@ -1,6 +1,5 @@
 package com.android.lf.lroid.v.fragment;
 
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +17,7 @@ import butterknife.BindView;
  * Created by feng on 2016/9/7.
  */
 
-public class ListFragment extends BaseFragment {
+public class ListFragment extends LroidBaseFragment {
 
     public static ListFragment newInstance() {
         return new ListFragment();
