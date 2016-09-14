@@ -16,19 +16,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".v.activity.MainActivity">
-
         </activity>
         <activity android:name=".v.activity.HomeActivity"
             android:theme="@style/HomeActivityTheme">
+        </activity>
+        <activity android:name=".v.activity.TestActivity" />
+
+        <activity android:name=".v.activity.FragmentContainerActivity" />
+        <activity android:name=".v.activity.SplashActivity"
+            android:theme="@style/launcherTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".v.activity.TestActivity" />
-
-        <activity android:name=".v.activity.FragmentContainerActivity" />
 
         <provider
             android:authorities="com.android.lf.lroid"

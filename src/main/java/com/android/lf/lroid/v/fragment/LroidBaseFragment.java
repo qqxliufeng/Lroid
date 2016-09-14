@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.lf.lroid.interfaces.IPresentListener;
+import com.android.lf.lroid.v.activity.BaseActivity;
 
 import butterknife.ButterKnife;
 
@@ -73,6 +74,10 @@ public abstract class LroidBaseFragment extends Fragment implements View.OnClick
     @Override
     public void onRequestEnd(int requestID) {
 
+    }
+
+    protected void  finishActivity(){
+        ((BaseActivity)mContext).finish();
     }
 
 }

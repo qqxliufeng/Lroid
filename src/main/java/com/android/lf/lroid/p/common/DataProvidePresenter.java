@@ -30,7 +30,32 @@ public class DataProvidePresenter extends BasePresenter {
         dataProvideLoadAsyncTask.execute(mUri);
     }
 
-    class DataProvideLoadAsyncTask extends AsyncTask<Uri, Integer, ArrayList<JieQiBean>> {
+    private void fillDataToDB(Uri uri) {
+        ContentValues[] valuesArrayList = new ContentValues[JieQiData.getInstance().getJieQiBeanArrayList().size()];
+        for (int i = 0; i < JieQiData.getInstance().getJieQiBeanArrayList().size(); i++) {
+            ContentValues contentValues = new ContentValues();
+            JieQiBean jieQiBean = JieQiData.getInstance().getJieQiBeanArrayList().get(i);
+            contentValues.put(JieQiTable.NAME, jieQiBean.getName());
+            contentValues.put(JieQiTable.CONTENT, jieQiBean.getContent());
+            contentValues.put(JieQiTable.DETAIL_INFO_URL, jieQiBean.getDetail_info_url());
+            contentValues.put(JieQiTable.IMAGE_URL, jieQiBean.getImage_url());
+            contentValues.put(JieQiTable.TIME, jieQiBean.getTime());
+            contentValues.put(JieQiTable.TYPE, jieQiBean.getType());
+            contentValues.put(JieQiTable.TYPE_NAME, jieQiBean.getTypeName());
+            valuesArrayList[i] = contentValues;
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        mContext.getContentResolver().bulkInsert(uri, valuesArrayList);
+    }
+
+    private void initData() {
+    }
+
+    private class DataProvideLoadAsyncTask extends AsyncTask<Uri, Integer, ArrayList<JieQiBean>> {
 
         private Cursor cursor;
 
@@ -87,31 +112,6 @@ public class DataProvidePresenter extends BasePresenter {
                 iPresentListener.onRequestSuccess(0x0, strings);
             }
         }
-    }
-
-    private void fillDataToDB(Uri uri) {
-        ContentValues[] valuesArrayList = new ContentValues[JieQiData.getInstance().getJieQiBeanArrayList().size()];
-        for (int i = 0; i < JieQiData.getInstance().getJieQiBeanArrayList().size(); i++) {
-            ContentValues contentValues = new ContentValues();
-            JieQiBean jieQiBean = JieQiData.getInstance().getJieQiBeanArrayList().get(i);
-            contentValues.put(JieQiTable.NAME, jieQiBean.getName());
-            contentValues.put(JieQiTable.CONTENT, jieQiBean.getContent());
-            contentValues.put(JieQiTable.DETAIL_INFO_URL, jieQiBean.getDetail_info_url());
-            contentValues.put(JieQiTable.IMAGE_URL, jieQiBean.getImage_url());
-            contentValues.put(JieQiTable.TIME, jieQiBean.getTime());
-            contentValues.put(JieQiTable.TYPE, jieQiBean.getType());
-            contentValues.put(JieQiTable.TYPE_NAME, jieQiBean.getTypeName());
-            valuesArrayList[i] = contentValues;
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        mContext.getContentResolver().bulkInsert(uri, valuesArrayList);
-    }
-
-    private void initData() {
     }
 
 }
