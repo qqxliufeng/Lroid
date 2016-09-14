@@ -1,13 +1,16 @@
 package com.android.lf.lroid.v.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.lf.lroid.R;
+import com.android.lf.lroid.v.activity.HomeActivity;
 
 import butterknife.BindView;
 
@@ -19,6 +22,8 @@ public class NavigationFragment extends LroidBaseFragment {
 
     @BindView(R.id.id_vp_fragment_navigation_container)
     ViewPager mViewPager;
+    @BindView(R.id.id_tv_fragment_navigation_jump)
+    TextView mJump;
 
     private int[] imgIds = new int[]{R.drawable.img_navigation_one,R.drawable.img_navigation_two,R.drawable.img_navigation_three};
 
@@ -35,10 +40,19 @@ public class NavigationFragment extends LroidBaseFragment {
     protected void initView(View view) {
         mViewPager.setOffscreenPageLimit(imgIds.length);
         mViewPager.setAdapter(new NavigationViewPagerAdapter(getChildFragmentManager()));
+        mJump.setOnClickListener(this);
     }
 
     @Override
     protected void setComponent() {
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.id_tv_fragment_navigation_jump){
+            startActivity(new Intent(mContext, HomeActivity.class));
+            finishActivity();
+        }
     }
 
     class NavigationViewPagerAdapter extends FragmentStatePagerAdapter{
