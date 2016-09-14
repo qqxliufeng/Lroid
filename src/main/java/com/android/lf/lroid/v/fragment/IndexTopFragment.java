@@ -86,12 +86,13 @@ public class IndexTopFragment extends LroidBaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-            return ImageRequestFragment.newInstance(JieQiData.getInstance().getJieQiBanners()[position]);
+            return ImageRequestFragment.newInstance(JieQiData.getInstance().getJieQiBanners()[position%JieQiData.getInstance().getJieQiBanners().length]);
         }
 
         @Override
         public int getCount() {
-            return JieQiData.getInstance().getJieQiBanners().length;
+//            return JieQiData.getInstance().getJieQiBanners().length;
+            return Integer.MAX_VALUE;
         }
     }
 
