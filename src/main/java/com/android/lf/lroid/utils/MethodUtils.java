@@ -2,6 +2,8 @@ package com.android.lf.lroid.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.icu.text.DateFormat;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -41,4 +43,18 @@ public class MethodUtils {
         return dateFormat.format(new Date(times));
     }
 
+    public static int getCurrentCode(Context context){
+        try {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(),0);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static boolean isCurrentVersion(Context context){
+        int oldCode = PreferenceUtils.getPrefInt(context,"currentCode",1);
+        return getCurrentCode(context) > oldCode;
+    }
 }

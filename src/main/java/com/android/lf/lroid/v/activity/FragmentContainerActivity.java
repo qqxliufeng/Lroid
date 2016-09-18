@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.android.lf.lroid.R;
+import com.android.lf.lroid.v.fragment.LoginFragment;
 import com.android.lf.lroid.v.fragment.WebContentFragment;
 
 import butterknife.BindView;
@@ -22,6 +23,7 @@ public class FragmentContainerActivity extends BaseActivity {
     public static final String EXTRA_FLAG = "extra_flag";
 
     public static final int WEB_CONTENT_CONTAINER_FLAG = 0x0;
+    public static final int LOGIN_FRAGMENT= 0x1;
 
     @BindView(R.id.id_tl_app_top_bar)
     Toolbar mToolBar;
@@ -57,6 +59,9 @@ public class FragmentContainerActivity extends BaseActivity {
         switch (fragmentId){
             case WEB_CONTENT_CONTAINER_FLAG:
                 fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, WebContentFragment.newInstance(getIntent().getBundleExtra(EXTRA_FLAG)));
+                break;
+            case LOGIN_FRAGMENT:
+                fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, LoginFragment.newInstance());
                 break;
         }
         fragmentTransaction.commitAllowingStateLoss();

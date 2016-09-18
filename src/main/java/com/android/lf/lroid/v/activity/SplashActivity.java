@@ -4,6 +4,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.android.lf.lroid.R;
+import com.android.lf.lroid.utils.MethodUtils;
+import com.android.lf.lroid.utils.PreferenceUtils;
 import com.android.lf.lroid.v.fragment.NavigationFragment;
 import com.android.lf.lroid.v.fragment.SplashFragment;
 
@@ -15,23 +17,29 @@ import butterknife.BindView;
 
 public class SplashActivity extends BaseActivity {
 
+    public static final String IS_NAVIGATION_FLAG = "is_navigation_flag";
+
     private boolean isNavigation = true;
+    private boolean NAVIGATION_FLAG = true;
 
     @Override
     public int getLayoutId() {
         return R.layout.activity_splash_layout;
     }
+
     @Override
-    public void setPresentComponent() {}
+    public void setPresentComponent() {
+    }
 
     @Override
     public void initView() {
         setSwipeBackEnable(false);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if (isNavigation){
+        isNavigation = (PreferenceUtils.getPrefBoolean(this, IS_NAVIGATION_FLAG, true) || MethodUtils.isCurrentVersion(this)) && NAVIGATION_FLAG;
+        if (isNavigation) {
             fragmentTransaction.replace(R.id.id_fl_activity_splash_fragment_container, NavigationFragment.newInstance());
-        }else {
+        } else {
             fragmentTransaction.replace(R.id.id_fl_activity_splash_fragment_container, SplashFragment.newInstance());
         }
         fragmentTransaction.commitAllowingStateLoss();

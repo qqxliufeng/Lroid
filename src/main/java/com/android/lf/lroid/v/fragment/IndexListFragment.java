@@ -78,9 +78,10 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Bundle bundle = new Bundle();
-        bundle.putString(WebContentFragment.WEB_LOAD_URL,arrayList.get(position).getDetail_info_url());
-        MethodUtils.startFragmentsActivity(mContext,arrayList.get(position).getName(), FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG,bundle);
+        MethodUtils.startFragmentsActivity(mContext,"登录",FragmentContainerActivity.LOGIN_FRAGMENT);
+//        Bundle bundle = new Bundle();
+//        bundle.putString(WebContentFragment.WEB_LOAD_URL,arrayList.get(position).getDetail_info_url());
+//        MethodUtils.startFragmentsActivity(mContext,arrayList.get(position).getName(), FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG,bundle);
     }
 
     private class MyLroidListViewAdapter extends BaseAdapter{

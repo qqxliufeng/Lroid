@@ -4,6 +4,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.android.lf.lroid.R;
+import com.android.lf.lroid.utils.MethodUtils;
+import com.android.lf.lroid.utils.PreferenceUtils;
 import com.android.lf.lroid.v.fragment.LroidBaseFragment;
 import com.android.lf.lroid.v.fragment.HomeIndexFragment;
 import com.android.lf.lroid.v.fragment.HomeMineFragment;
@@ -49,6 +51,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
         bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         bottomNavigationBar.setTabSelectedListener(this);
         setSwipeBackEnable(false);
+        PreferenceUtils.setPrefInt(this,"currentCode", MethodUtils.getCurrentCode(this));
     }
 
     private void setDefaultFragment() {

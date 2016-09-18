@@ -7,7 +7,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.android.lf.lroid.R;
+import com.android.lf.lroid.utils.PreferenceUtils;
 import com.android.lf.lroid.v.activity.HomeActivity;
+import com.android.lf.lroid.v.activity.SplashActivity;
 
 import butterknife.BindView;
 
@@ -54,6 +56,7 @@ public class NavigationItemFragment extends LroidBaseFragment {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.id_bt_fragment_navigation_item_enter){
+            PreferenceUtils.setPrefBoolean(mContext, SplashActivity.IS_NAVIGATION_FLAG,false);
             startActivity(new Intent(mContext, HomeActivity.class));
             finishActivity();
         }

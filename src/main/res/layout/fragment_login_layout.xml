@@ -3,9 +3,14 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <android.support.design.widget.TabLayout
+        android:id="@+id/id_tl_fragment_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="login"
-        android:id="@+id/id_bt_login"/>
+        android:layout_height="wrap_content"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/id_vp_fragment_login_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </LinearLayout>
