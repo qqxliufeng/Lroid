@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:hint="请输入用户名" />
         </LinearLayout>
 
@@ -59,7 +59,7 @@
                 android:id="@+id/id_et_fragment_login_normal_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:hint="请输入密码"
                 android:background="@null"
                 android:inputType="textPassword" />
@@ -70,11 +70,12 @@
         android:id="@+id/id_bt_login_normal_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/selector_bt_bg"
         android:text="登   录"
+        android:enabled="false"
         android:textColor="#fff"
         android:textSize="18sp" />
 
