@@ -23,7 +23,6 @@ public class LoginFastFragment extends LroidBaseFragment {
 
     @Override
     protected void initView(View view) {
-
     }
 
     @Override
