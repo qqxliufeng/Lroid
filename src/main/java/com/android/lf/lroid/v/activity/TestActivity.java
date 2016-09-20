@@ -64,7 +64,8 @@ public class TestActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return IndexMoreListFragment.newInstance();
+//            return IndexMoreListFragment.newInstance();
+            return null;
         }
 
         @Override

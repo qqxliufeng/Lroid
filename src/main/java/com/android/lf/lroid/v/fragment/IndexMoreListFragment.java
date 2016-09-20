@@ -1,11 +1,14 @@
 package com.android.lf.lroid.v.fragment;
 
+import android.app.ProgressDialog;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
@@ -30,8 +33,14 @@ public class IndexMoreListFragment extends LroidBaseFragment {
     @Inject
     JieRiDataProvidePresenter jieRiDataProvidePresenter;
 
-    public static IndexMoreListFragment newInstance() {
-        return new IndexMoreListFragment();
+    private ProgressDialog progressDialog;
+
+    public static IndexMoreListFragment newInstance(String selectArg) {
+        Bundle bundle = new Bundle();
+        bundle.putString("selectArg",selectArg);
+        IndexMoreListFragment indexMoreListFragment = new IndexMoreListFragment();
+        indexMoreListFragment.setArguments(bundle);
+        return indexMoreListFragment;
     }
 
     @BindView(R.id.id_rv_fragment_list)
@@ -53,7 +62,7 @@ public class IndexMoreListFragment extends LroidBaseFragment {
         myListViewAdapter = new MyListViewAdapter();
         mRecycleView.setAdapter(myListViewAdapter);
         jieRiDataProvidePresenter.setFragment(this);
-        jieRiDataProvidePresenter.getDataFromDB(DataProvider.FEAST_URI);
+        jieRiDataProvidePresenter.getDataFromDB(DataProvider.FEAST_URI,getArguments().getString("selectArg"));
     }
 
     @Override
@@ -62,14 +71,11 @@ public class IndexMoreListFragment extends LroidBaseFragment {
     }
 
     @Override
-    public void onRequestStart(int requestID) {
-        super.onRequestStart(requestID);
-    }
-
-    @Override
     public <T> void onRequestSuccess(int requestID, T result) {
-        mArrayList.addAll((ArrayList<JieRiBean>)result);
-        myListViewAdapter.notifyDataSetChanged();
+        if (result!=null) {
+            mArrayList.addAll((ArrayList<JieRiBean>) result);
+            myListViewAdapter.notifyDataSetChanged();
+        }
     }
 
     class MyListViewAdapter extends RecyclerView.Adapter<MyListViewHolder>{
