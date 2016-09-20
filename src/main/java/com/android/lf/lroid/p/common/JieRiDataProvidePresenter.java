@@ -24,7 +24,6 @@ public class JieRiDataProvidePresenter extends BasePresenter {
     private Uri mUri;
     private String[] selectArgs;
 
-    private boolean isFirstLoad = true;
 
     public void getDataFromDB(Uri uri, String... selectArgs) {
         if (uri == null) {
@@ -85,13 +84,8 @@ public class JieRiDataProvidePresenter extends BasePresenter {
         @Override
         protected void onPostExecute(ArrayList<JieRiBean> jieRiBeen) {
             iPresentListener.onRequestEnd(0x0);
-            if (jieRiBeen == null && isFirstLoad) {
-                DataLoadAsyncTask asyncTask = new DataLoadAsyncTask();
-                asyncTask.execute(mUri);
-            } else {
-                if (iPresentListener != null) {
-                    iPresentListener.onRequestSuccess(0x0, jieRiBeen);
-                }
+            if (iPresentListener != null) {
+                iPresentListener.onRequestSuccess(0x0, jieRiBeen);
             }
         }
     }
