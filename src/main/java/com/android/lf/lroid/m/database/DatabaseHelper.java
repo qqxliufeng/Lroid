@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.SparseArray;
 
 import com.android.lf.lroid.m.tables.JieQiTable;
+import com.android.lf.lroid.m.tables.JieRiTable;
 
 
 /**
@@ -22,6 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase database) {
         JieQiTable.TABLE.create(database);
+        JieRiTable.TABLE.create(database);
     }
 
     @Override

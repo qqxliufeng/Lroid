@@ -48,7 +48,7 @@ public class BasePresenter {
         this.mContext = mContext;
     }
 
-    public void setBaseFragment(LroidBaseFragment baseFragment) {
+    public void setFragment(LroidBaseFragment baseFragment) {
         this.baseFragment = baseFragment;
         iPresentListener = baseFragment;
         mContext = baseFragment.getContext();

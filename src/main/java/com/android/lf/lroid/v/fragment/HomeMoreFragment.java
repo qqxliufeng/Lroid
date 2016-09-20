@@ -12,9 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.android.lf.lroid.R;
-import com.android.lf.lroid.m.data.JieQiData;
 import com.android.lf.lroid.m.data.JieRiData;
-import com.android.lf.lroid.v.views.AppBarStateChangeListener;
 
 import butterknife.BindView;
 
@@ -70,17 +68,17 @@ public class HomeMoreFragment extends LroidBaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-            return ListFragment.newInstance();
+            return IndexMoreListFragment.newInstance();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return JieRiData.jieRiNames[position];
+            return JieRiData.jieRiTitles[position];
         }
 
         @Override
         public int getCount() {
-            return JieRiData.jieRiNames.length;
+            return JieRiData.jieRiMap.size();
         }
     }
 

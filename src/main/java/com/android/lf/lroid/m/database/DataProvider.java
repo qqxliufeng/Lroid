@@ -14,6 +14,7 @@ import android.provider.BaseColumns;
 import android.util.Log;
 
 import com.android.lf.lroid.m.tables.JieQiTable;
+import com.android.lf.lroid.m.tables.JieRiTable;
 
 public class DataProvider extends ContentProvider {
 
@@ -43,8 +44,7 @@ public class DataProvider extends ContentProvider {
             case JIE_QI_URI_CODE:
                 return JieQiTable.TABLE_NAME;
             case FEAST_URI_CODE:
-
-                break;
+				return JieRiTable.TABLE_NAME;
 		}
 		return "";
 	}

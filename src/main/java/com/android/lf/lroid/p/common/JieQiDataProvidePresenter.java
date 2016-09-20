@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * Created by feng on 2016/9/10.
  */
 
-public class DataProvidePresenter extends BasePresenter {
+public class JieQiDataProvidePresenter extends BasePresenter {
 
     private Uri mUri;
 

@@ -8,8 +8,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.lf.lroid.R;
+import com.android.lf.lroid.component.DaggerInjectPresentComponent;
+import com.android.lf.lroid.component.PresentModule;
+import com.android.lf.lroid.m.bean.JieRiBean;
+import com.android.lf.lroid.m.data.JieRiData;
+import com.android.lf.lroid.m.database.DataProvider;
+import com.android.lf.lroid.p.common.JieRiDataProvidePresenter;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 
@@ -17,22 +25,21 @@ import butterknife.BindView;
  * Created by feng on 2016/9/7.
  */
 
-public class ListFragment extends LroidBaseFragment {
+public class IndexMoreListFragment extends LroidBaseFragment {
 
-    public static ListFragment newInstance() {
-        return new ListFragment();
+    @Inject
+    JieRiDataProvidePresenter jieRiDataProvidePresenter;
+
+    public static IndexMoreListFragment newInstance() {
+        return new IndexMoreListFragment();
     }
 
     @BindView(R.id.id_rv_fragment_list)
     RecyclerView mRecycleView;
 
-    ArrayList<String> mArrayList = new ArrayList<String>(){
-        {
-            for (int i = 0;i<50;i++){
-                add("item is --> " + i);
-            }
-        }
-    };
+    ArrayList<JieRiBean> mArrayList = new ArrayList<JieRiBean>();
+
+    private MyListViewAdapter myListViewAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -43,11 +50,26 @@ public class ListFragment extends LroidBaseFragment {
     protected void initView(View view) {
         mRecycleView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecycleView.setItemAnimator(new DefaultItemAnimator());
-        mRecycleView.setAdapter(new MyListViewAdapter());
+        myListViewAdapter = new MyListViewAdapter();
+        mRecycleView.setAdapter(myListViewAdapter);
+        jieRiDataProvidePresenter.setFragment(this);
+        jieRiDataProvidePresenter.getDataFromDB(DataProvider.FEAST_URI);
     }
 
     @Override
     protected void setComponent() {
+        DaggerInjectPresentComponent.builder().presentModule(new PresentModule()).build().inject(this);
+    }
+
+    @Override
+    public void onRequestStart(int requestID) {
+        super.onRequestStart(requestID);
+    }
+
+    @Override
+    public <T> void onRequestSuccess(int requestID, T result) {
+        mArrayList.addAll((ArrayList<JieRiBean>)result);
+        myListViewAdapter.notifyDataSetChanged();
     }
 
     class MyListViewAdapter extends RecyclerView.Adapter<MyListViewHolder>{
@@ -59,7 +81,7 @@ public class ListFragment extends LroidBaseFragment {
 
         @Override
         public void onBindViewHolder(MyListViewHolder holder, int position) {
-            holder.tv_content.setText(mArrayList.get(position));
+            holder.tv_content.setText(mArrayList.get(position).getName());
         }
 
         @Override

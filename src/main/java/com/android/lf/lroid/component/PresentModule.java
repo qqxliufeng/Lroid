@@ -1,12 +1,10 @@
 package com.android.lf.lroid.component;
 
 
-import android.app.Activity;
-import android.support.v4.app.Fragment;
-
 import com.android.lf.lroid.p.common.CommonPresenter;
-import com.android.lf.lroid.p.common.DataProvidePresenter;
+import com.android.lf.lroid.p.common.JieQiDataProvidePresenter;
 import com.android.lf.lroid.p.common.HomePresenter;
+import com.android.lf.lroid.p.common.JieRiDataProvidePresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -28,8 +26,13 @@ public class PresentModule {
     HomePresenter getHomePresent(){return new HomePresenter();}
 
     @Provides
-    DataProvidePresenter getDataProvidePresenter(){
-        return new DataProvidePresenter();
+    JieQiDataProvidePresenter getJieQiDataProvidePresenter(){
+        return new JieQiDataProvidePresenter();
+    }
+
+    @Provides
+    JieRiDataProvidePresenter getJieRiDatatProvidePresenter(){
+        return new JieRiDataProvidePresenter();
     }
 
 

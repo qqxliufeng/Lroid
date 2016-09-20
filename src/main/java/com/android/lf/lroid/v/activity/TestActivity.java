@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
 import com.android.lf.lroid.R;
-import com.android.lf.lroid.v.fragment.ListFragment;
+import com.android.lf.lroid.v.fragment.IndexMoreListFragment;
 
 import butterknife.BindView;
 
@@ -64,7 +64,7 @@ public class TestActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return ListFragment.newInstance();
+            return IndexMoreListFragment.newInstance();
         }
 
         @Override

@@ -4,6 +4,7 @@ import com.android.lf.lroid.v.activity.MainActivity;
 import com.android.lf.lroid.v.activity.HomeActivity;
 import com.android.lf.lroid.v.fragment.HomeIndexFragment;
 import com.android.lf.lroid.v.fragment.IndexListFragment;
+import com.android.lf.lroid.v.fragment.IndexMoreListFragment;
 import com.android.lf.lroid.v.fragment.IndexTopFragment;
 import com.android.lf.lroid.v.fragment.LoginFastFragment;
 import com.android.lf.lroid.v.fragment.LoginFragment;
@@ -31,5 +32,7 @@ public interface InjectPresentComponent {
     void inject(LoginNormalFragment loginNormalFragment);
 
     void inject(LoginFastFragment loginFastFragment);
+
+    void inject(IndexMoreListFragment indexMoreListFragment);
 
 }

@@ -1,7 +1,6 @@
 package com.android.lf.lroid.v.fragment;
 
 import android.app.ProgressDialog;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -13,7 +12,7 @@ import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.JieQiBean;
 import com.android.lf.lroid.m.database.DataProvider;
-import com.android.lf.lroid.p.common.DataProvidePresenter;
+import com.android.lf.lroid.p.common.JieQiDataProvidePresenter;
 import com.android.lf.lroid.utils.LunarUtils;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
@@ -35,7 +34,7 @@ import butterknife.BindView;
 public class IndexListFragment extends LroidBaseFragment implements AdapterView.OnItemClickListener {
 
     @Inject
-    DataProvidePresenter dataProvidePresenter;
+    JieQiDataProvidePresenter dataProvidePresenter;
     @BindView(R.id.id_llv_fragment_index_content)
     LroidListView mListView;
 
@@ -71,7 +70,7 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     private void initData() {
         //设置代理
-        dataProvidePresenter.setBaseFragment(this);
+        dataProvidePresenter.setFragment(this);
         dataProvidePresenter.getDataFromDB(DataProvider.JIE_QI_URI);
     }
 
