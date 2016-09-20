@@ -106,7 +106,7 @@ public class JieRiDataProvidePresenter extends BasePresenter {
         @Override
         protected Integer doInBackground(Uri... params) {
             cursor = mContext.getContentResolver().query(params[0], JieRiTable.PROJECTION, null, null, null);
-            if (cursor.getCount() == 0) {
+            if (cursor!=null && cursor.getCount() == 0) {
                 int size = JieRiData.getInstance().getArrayList().size();
                 ContentValues[] valuesArrayList = new ContentValues[size];
                 for (int i = 0; i < size; i++) {
@@ -123,8 +123,8 @@ public class JieRiDataProvidePresenter extends BasePresenter {
                     }
                 }
                 result = mContext.getContentResolver().bulkInsert(params[0], valuesArrayList);
+                cursor.close();
             }
-            cursor.close();
             return result;
         }
 

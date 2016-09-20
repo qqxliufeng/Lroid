@@ -49,6 +49,7 @@ public class HomeMoreFragment extends LroidBaseFragment {
 
     private ProgressDialog progressDialog;
 
+    private boolean isFirstLoad = true;
 
     public static HomeMoreFragment newInstance() {
         return new HomeMoreFragment();
@@ -66,14 +67,13 @@ public class HomeMoreFragment extends LroidBaseFragment {
         mCollapsingToolbarLayout.setTitleEnabled(false);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         providePresenter.setFragment(this);
-        providePresenter.fillDataToDB(DataProvider.FEAST_URI);
+
     }
 
     @Override
     public void onRequestStart(int requestID) {
         progressDialog = ProgressDialog.show(mContext, "", "正在加载……");
     }
-
 
     @Override
     public void onRequestEnd(int requestID) {
@@ -94,6 +94,15 @@ public class HomeMoreFragment extends LroidBaseFragment {
     @Override
     protected void setComponent() {
         DaggerInjectPresentComponent.builder().presentModule(new PresentModule()).build().inject(this);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden && isFirstLoad){
+            isFirstLoad = false;
+            providePresenter.fillDataToDB(DataProvider.FEAST_URI);
+        }
     }
 
     class MyViewPagerAdapter extends FragmentStatePagerAdapter {
