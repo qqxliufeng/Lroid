@@ -14,6 +14,7 @@ import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.JieQiBean;
 import com.android.lf.lroid.m.database.DataProvider;
 import com.android.lf.lroid.p.common.DataProvidePresenter;
+import com.android.lf.lroid.utils.LunarUtils;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 import com.android.lf.lroid.v.views.LroidListView;
@@ -21,6 +22,7 @@ import com.android.lf.lroid.volley.RequestManager;
 import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.inject.Inject;
 
@@ -57,7 +59,9 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     @Override
     protected void initView(View view) {
-        mCurrentTime.setText("当前时间："+MethodUtils.getCurrentTime(null));
+        LunarUtils lunarUtils = new LunarUtils(Calendar.getInstance());
+        mCurrentTime.setText("当前时间：公历："+MethodUtils.getCurrentTime(null)+"  农历："+lunarUtils.toString());
+        mCurrentTime.setSelected(true);
         adapter = new MyLroidListViewAdapter();
         mListView.addFooterView(View.inflate(mContext,R.layout.fragment_index_list_foot_view_foot_layout,null));
         mListView.setAdapter(adapter);

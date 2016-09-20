@@ -7,6 +7,7 @@ package com.android.lf.lroid.m.data;
 public class JieRiData {
 
     public static String[] jieRiNames = new String[]{
+            "农历",
             "一月",
             "二月",
             "三月",
