@@ -84,7 +84,8 @@
                 android:layout_marginLeft="10dp"
                 android:background="@null"
                 android:hint="请输入验证码"
-                android:inputType="textPassword" />
+                android:maxLength="4"
+                android:inputType="number" />
         </LinearLayout>
     </LinearLayout>
 

@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.lf.lroid.R;
@@ -48,9 +50,11 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
     MobApiPresenter mobApiPresenter;
     @BindView(R.id.id_llv_fragment_index_content)
     LroidListView mListView;
-    @BindView(R.id.id_tv_fragment_index_current_time)
-    TextView mCurrentTime;
 
+    @BindView(R.id.id_ll_fragment_index_content_date_container)
+    LinearLayout ll_container;
+    @BindView(R.id.id_pb_fragment_index_content_date)
+    ProgressBar pb_progress;
     @BindView(R.id.id_tv_fragment_index_content_date_date)
     TextView tv_data;
     @BindView(R.id.id_tv_fragment_index_content_date_lunar)
@@ -78,11 +82,8 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     @Override
     protected void initView(View view) {
-//        LunarUtils lunarUtils = new LunarUtils(Calendar.getInstance());
-//        mCurrentTime.setText("当前时间：公历："+MethodUtils.getCurrentTime(null)+"  农历："+lunarUtils.toString());
-//        mCurrentTime.setSelected(true);
         adapter = new MyLroidListViewAdapter();
-        mListView.addFooterView(View.inflate(mContext,R.layout.fragment_index_list_foot_view_foot_layout,null));
+        mListView.addFooterView(View.inflate(mContext, R.layout.fragment_index_list_foot_view_foot_layout, null));
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(this);
         initData();
@@ -93,7 +94,7 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
         dataProvidePresenter.setFragment(this);
         dataProvidePresenter.getDataFromDB(DataProvider.JIE_QI_URI);
         mobApiPresenter.setFragment(this);
-        mobApiPresenter.getData(MobAPI.getAPI(com.mob.mobapi.apis.Calendar.NAME),MethodUtils.getCurrentTime(null));
+        mobApiPresenter.getData(MobAPI.getAPI(com.mob.mobapi.apis.Calendar.NAME), MethodUtils.getCurrentTime(null));
     }
 
     @Override
@@ -103,13 +104,13 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        MethodUtils.startFragmentsActivity(mContext,"登录",FragmentContainerActivity.LOGIN_FRAGMENT);
+        MethodUtils.startFragmentsActivity(mContext, "登录", FragmentContainerActivity.LOGIN_FRAGMENT);
 //        Bundle bundle = new Bundle();
 //        bundle.putString(WebContentFragment.WEB_LOAD_URL,arrayList.get(position).getDetail_info_url());
 //        MethodUtils.startFragmentsActivity(mContext,arrayList.get(position).getName(), FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG,bundle);
     }
 
-    private class MyLroidListViewAdapter extends BaseAdapter{
+    private class MyLroidListViewAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -129,12 +130,12 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             int type = getItemViewType(i);
-            switch (type){
+            switch (type) {
                 case 0:
                     ViewHolderTypeOne viewHolderTypeOne;
-                    if (view == null){
+                    if (view == null) {
                         viewHolderTypeOne = new ViewHolderTypeOne();
-                        view = View.inflate(mContext,android.R.layout.simple_list_item_1,null);
+                        view = View.inflate(mContext, android.R.layout.simple_list_item_1, null);
                         viewHolderTypeOne.tv_title = (TextView) view.findViewById(android.R.id.text1);
                         view.setTag(viewHolderTypeOne);
                     }
@@ -143,9 +144,9 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
                     break;
                 case 1:
                     ViewHolderTypeTwo viewHolderTypeTwo;
-                    if (view == null){
+                    if (view == null) {
                         viewHolderTypeTwo = new ViewHolderTypeTwo();
-                        view = View.inflate(mContext,R.layout.fragment_index_list_item_layout,null);
+                        view = View.inflate(mContext, R.layout.fragment_index_list_item_layout, null);
                         viewHolderTypeTwo.iv_pic = (NetworkImageView) view.findViewById(R.id.id_niv_fragment_index_list_item_pic);
                         viewHolderTypeTwo.tv_title = (TextView) view.findViewById(R.id.id_tv_fragment_index_list_item_name);
                         viewHolderTypeTwo.tv_time = (TextView) view.findViewById(R.id.id_tv_fragment_index_list_item_time);
@@ -172,17 +173,18 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
             }*/
             return 1;
         }
+
         @Override
         public int getViewTypeCount() {
             return 2;
         }
     }
 
-    static class ViewHolderTypeOne{
+    static class ViewHolderTypeOne {
         TextView tv_title;
     }
 
-    static class ViewHolderTypeTwo{
+    static class ViewHolderTypeTwo {
         TextView tv_title;
         TextView tv_time;
         TextView tv_content;
@@ -197,9 +199,8 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
                 adapter.notifyDataSetChanged();
                 ((HomeIndexFragment) getParentFragment()).scrollTo();
             }
-        }else if (requestID == 0x1){
-//            {msg=success, retCode=200, result={date=2016-09-21, lunar=八月廿一, avoid=安葬 出行 安葬 针灸 , weekday=星期三, zodiac=猴, suit=纳财 收获 开仓 交易 入学 婚礼 造作 动土 , lunarYear=丙申}}
-            if (result!=null && result.toString().contains("200")) {
+        } else if (requestID == 0x1) {
+            if (result != null && result.toString().contains("200")) {
                 HashMap<String, Object> res = forceCast(((Map) result).get("result"));
                 String date = (String) res.get("date");
                 String lunar = (String) res.get("lunar");
@@ -208,8 +209,8 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
                 String zodiac = (String) res.get("zodiac");
                 String suit = (String) res.get("suit");
                 String lunarYear = (String) res.get("lunarYear");
-                tv_data.setText(date+"  "+lunar+"  "+weekday);
-                tv_lunar.setText(zodiac+"   "+lunarYear);
+                tv_data.setText(date + "  " + lunar + "  " + weekday);
+                tv_lunar.setText(lunarYear + " " + zodiac + "年");
                 tv_avoid.setText(avoid);
                 tv_suit.setText(suit);
             }
@@ -218,20 +219,26 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     @Override
     public void onRequestEnd(int requestID) {
-        if (requestID == 0x0){
-            if (mProgressDialog!=null){
+        if (requestID == 0x0) {
+            if (mProgressDialog != null) {
                 mProgressDialog.dismiss();
                 mProgressDialog = null;
             }
+        } else if (requestID == 0x1) {
+            ll_container.setVisibility(View.VISIBLE);
+            pb_progress.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void onRequestStart(int requestID) {
-        if (requestID == 0x0){
-            if (mProgressDialog == null){
-                mProgressDialog = ProgressDialog.show(mContext,null,"正在加载……");
+        if (requestID == 0x0) {
+            if (mProgressDialog == null) {
+                mProgressDialog = ProgressDialog.show(mContext, null, "正在加载……");
             }
+        } else if (requestID == 0x1) {
+            ll_container.setVisibility(View.INVISIBLE);
+            pb_progress.setVisibility(View.VISIBLE);
         }
     }
 }

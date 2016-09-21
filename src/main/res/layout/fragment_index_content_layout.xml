@@ -4,52 +4,72 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/id_ll_fragment_index_content_date_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/id_tv_fragment_index_content_date_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#333"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/id_tv_fragment_index_content_date_lunar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#333"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/id_tv_fragment_index_content_date_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sdfasdf" />
+                android:text="忌"
+                android:textColor="#ed4b4b"
+                android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/id_tv_fragment_index_content_date_lunar"
+                android:id="@+id/id_tv_fragment_index_content_date_avoid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="asdasd" />
+                android:layout_marginTop="5dp"
+                android:text="宜"
+                android:textColor="#4beded"
+                android:textSize="18sp" />
 
-        </RelativeLayout>
+            <TextView
+                android:id="@+id/id_tv_fragment_index_content_date_suit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="忌"
-            android:textColor="#ed4b4b" />
+        <ProgressBar
+            android:id="@+id/id_pb_fragment_index_content_date"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center" />
 
-        <TextView
-            android:id="@+id/id_tv_fragment_index_content_date_avoid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="宜"
-            android:textColor="#ed4b4b" />
-
-        <TextView
-            android:id="@+id/id_tv_fragment_index_content_date_suit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    </FrameLayout>
 
     <View
         android:layout_width="match_parent"
