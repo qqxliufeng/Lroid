@@ -143,7 +143,7 @@ public class IndexTopFragment extends LroidBaseFragment implements ViewPager.OnP
     }
 
     public void onChildViewClick(){
-        int currentItem = vp_banner.getCurrentItem();
+        int currentItem = vp_banner.getCurrentItem()%JieQiData.getInstance().getJieQiBanners().length;
         JieQiBean jieQiBean = JieQiData.getInstance().getJieQiBeanArrayList().get(currentItem);
         Bundle bundle = new Bundle();
         bundle.putString(WebContentFragment.WEB_LOAD_URL,jieQiBean.getDetail_info_url());

@@ -5,6 +5,7 @@ import com.android.lf.lroid.p.common.CommonPresenter;
 import com.android.lf.lroid.p.common.JieQiDataProvidePresenter;
 import com.android.lf.lroid.p.common.HomePresenter;
 import com.android.lf.lroid.p.common.JieRiDataProvidePresenter;
+import com.android.lf.lroid.p.common.MobApiPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -33,6 +34,11 @@ public class PresentModule {
     @Provides
     JieRiDataProvidePresenter getJieRiDatatProvidePresenter(){
         return new JieRiDataProvidePresenter();
+    }
+
+    @Provides
+    MobApiPresenter getMobApiPresenter(){
+        return new MobApiPresenter();
     }
 
 

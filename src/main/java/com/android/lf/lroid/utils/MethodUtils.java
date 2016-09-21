@@ -57,4 +57,6 @@ public class MethodUtils {
         int oldCode = PreferenceUtils.getPrefInt(context,"currentCode",1);
         return getCurrentCode(context) > oldCode;
     }
+
+
 }

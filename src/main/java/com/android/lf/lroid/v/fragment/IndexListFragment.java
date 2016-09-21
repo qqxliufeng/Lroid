@@ -1,5 +1,8 @@
 package com.android.lf.lroid.v.fragment;
 
+import static com.mob.tools.utils.R.forceCast;
+
+import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +16,21 @@ import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.JieQiBean;
 import com.android.lf.lroid.m.database.DataProvider;
 import com.android.lf.lroid.p.common.JieQiDataProvidePresenter;
+import com.android.lf.lroid.p.common.MobApiPresenter;
 import com.android.lf.lroid.utils.LunarUtils;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 import com.android.lf.lroid.v.views.LroidListView;
 import com.android.lf.lroid.volley.RequestManager;
 import com.android.volley.toolbox.NetworkImageView;
+import com.mob.mobapi.MobAPI;
+import com.mob.mobapi.apis.Weather;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -35,11 +44,22 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     @Inject
     JieQiDataProvidePresenter dataProvidePresenter;
+    @Inject
+    MobApiPresenter mobApiPresenter;
     @BindView(R.id.id_llv_fragment_index_content)
     LroidListView mListView;
-
     @BindView(R.id.id_tv_fragment_index_current_time)
     TextView mCurrentTime;
+
+    @BindView(R.id.id_tv_fragment_index_content_date_date)
+    TextView tv_data;
+    @BindView(R.id.id_tv_fragment_index_content_date_lunar)
+    TextView tv_lunar;
+    @BindView(R.id.id_tv_fragment_index_content_date_avoid)
+    TextView tv_avoid;
+    @BindView(R.id.id_tv_fragment_index_content_date_suit)
+    TextView tv_suit;
+
 
     private ProgressDialog mProgressDialog;
 
@@ -58,9 +78,9 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     @Override
     protected void initView(View view) {
-        LunarUtils lunarUtils = new LunarUtils(Calendar.getInstance());
-        mCurrentTime.setText("当前时间：公历："+MethodUtils.getCurrentTime(null)+"  农历："+lunarUtils.toString());
-        mCurrentTime.setSelected(true);
+//        LunarUtils lunarUtils = new LunarUtils(Calendar.getInstance());
+//        mCurrentTime.setText("当前时间：公历："+MethodUtils.getCurrentTime(null)+"  农历："+lunarUtils.toString());
+//        mCurrentTime.setSelected(true);
         adapter = new MyLroidListViewAdapter();
         mListView.addFooterView(View.inflate(mContext,R.layout.fragment_index_list_foot_view_foot_layout,null));
         mListView.setAdapter(adapter);
@@ -72,6 +92,8 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
         //设置代理
         dataProvidePresenter.setFragment(this);
         dataProvidePresenter.getDataFromDB(DataProvider.JIE_QI_URI);
+        mobApiPresenter.setFragment(this);
+        mobApiPresenter.getData(MobAPI.getAPI(com.mob.mobapi.apis.Calendar.NAME),MethodUtils.getCurrentTime(null));
     }
 
     @Override
@@ -169,10 +191,28 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     @Override
     public <T> void onRequestSuccess(int requestID, T result) {
-        arrayList.addAll((ArrayList<JieQiBean>) result);
-        if (adapter!=null) {
-            adapter.notifyDataSetChanged();
-            ((HomeIndexFragment)getParentFragment()).scrollTo();
+        if (requestID == 0x0) {
+            arrayList.addAll((ArrayList<JieQiBean>) result);
+            if (adapter != null) {
+                adapter.notifyDataSetChanged();
+                ((HomeIndexFragment) getParentFragment()).scrollTo();
+            }
+        }else if (requestID == 0x1){
+//            {msg=success, retCode=200, result={date=2016-09-21, lunar=八月廿一, avoid=安葬 出行 安葬 针灸 , weekday=星期三, zodiac=猴, suit=纳财 收获 开仓 交易 入学 婚礼 造作 动土 , lunarYear=丙申}}
+            if (result!=null && result.toString().contains("200")) {
+                HashMap<String, Object> res = forceCast(((Map) result).get("result"));
+                String date = (String) res.get("date");
+                String lunar = (String) res.get("lunar");
+                String avoid = (String) res.get("avoid");
+                String weekday = (String) res.get("weekday");
+                String zodiac = (String) res.get("zodiac");
+                String suit = (String) res.get("suit");
+                String lunarYear = (String) res.get("lunarYear");
+                tv_data.setText(date+"  "+lunar+"  "+weekday);
+                tv_lunar.setText(zodiac+"   "+lunarYear);
+                tv_avoid.setText(avoid);
+                tv_suit.setText(suit);
+            }
         }
     }
 

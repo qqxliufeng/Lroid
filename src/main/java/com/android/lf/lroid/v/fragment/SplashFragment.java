@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.v.activity.HomeActivity;
+import com.orhanobut.logger.Logger;
 
 /**
  * Created by feng on 2016/9/14.
@@ -26,6 +27,7 @@ public class SplashFragment extends LroidBaseFragment {
     @Override
     protected void initView(View view) {
         new Handler().postDelayed(new Runnable() {
+
             @Override
             public void run() {
                 startActivity(new Intent(mContext, HomeActivity.class));

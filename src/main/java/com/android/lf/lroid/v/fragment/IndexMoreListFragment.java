@@ -17,6 +17,7 @@ import com.android.lf.lroid.m.bean.JieRiBean;
 import com.android.lf.lroid.m.data.JieRiData;
 import com.android.lf.lroid.m.database.DataProvider;
 import com.android.lf.lroid.p.common.JieRiDataProvidePresenter;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,7 @@ public class IndexMoreListFragment extends LroidBaseFragment {
     JieRiDataProvidePresenter jieRiDataProvidePresenter;
 
     private ProgressDialog progressDialog;
+
 
     public static IndexMoreListFragment newInstance(String selectArg) {
         Bundle bundle = new Bundle();
