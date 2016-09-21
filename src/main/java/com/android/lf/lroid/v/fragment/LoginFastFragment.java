@@ -24,8 +24,8 @@ import cn.smssdk.SMSSDK;
 
 public class LoginFastFragment extends LroidBaseFragment {
 
-    private long countTime = 60000;
-    private long countDownInterval = 1000;
+    private static final long countTime = 60000;
+    private static final long countDownInterval = 1000;
 
     @BindView(R.id.id_et_fragment_login_fast_user_name)
     EditText mPhone;
