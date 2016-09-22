@@ -50,7 +50,6 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
     MobApiPresenter mobApiPresenter;
     @BindView(R.id.id_llv_fragment_index_content)
     LroidListView mListView;
-
     @BindView(R.id.id_ll_fragment_index_content_date_container)
     LinearLayout ll_container;
     @BindView(R.id.id_pb_fragment_index_content_date)
@@ -63,7 +62,6 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
     TextView tv_avoid;
     @BindView(R.id.id_tv_fragment_index_content_date_suit)
     TextView tv_suit;
-
 
     private ProgressDialog mProgressDialog;
 
@@ -241,4 +239,5 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
             pb_progress.setVisibility(View.VISIBLE);
         }
     }
+
 }

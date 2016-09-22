@@ -1,5 +1,6 @@
 package com.android.lf.lroid.v.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +22,8 @@ import butterknife.ButterKnife;
 public abstract class LroidBaseFragment extends Fragment implements View.OnClickListener,IPresentListener{
 
     protected Context mContext;
+
+    protected ProgressDialog mProgressDialog;
 
     @Override
     public void onAttach(Context context) {

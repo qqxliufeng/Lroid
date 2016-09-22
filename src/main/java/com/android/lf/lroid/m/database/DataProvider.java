@@ -15,6 +15,7 @@ import android.util.Log;
 
 import com.android.lf.lroid.m.tables.JieQiTable;
 import com.android.lf.lroid.m.tables.JieRiTable;
+import com.android.lf.lroid.m.tables.UserTable;
 
 public class DataProvider extends ContentProvider {
 
@@ -25,6 +26,7 @@ public class DataProvider extends ContentProvider {
 
 	public static final Uri JIE_QI_URI = Uri.parse(HOST_NAME  + AUTHORITY + "/jieqi");
 	public static final Uri FEAST_URI = Uri.parse(HOST_NAME  + AUTHORITY + "/feast");
+	public static final Uri USER_URI = Uri.parse(HOST_NAME + AUTHORITY + "/user");
 
 	private static DatabaseHelper helper;
 
@@ -32,11 +34,14 @@ public class DataProvider extends ContentProvider {
 
 	private static final int JIE_QI_URI_CODE = 1;
 	private static final int FEAST_URI_CODE = 2;
+	private static final int USER_URI_CODE = 3;
+
 
 	static {
 		matcher = new UriMatcher(UriMatcher.NO_MATCH);
         matcher.addURI(AUTHORITY,"jieqi",JIE_QI_URI_CODE);
         matcher.addURI(AUTHORITY,"feast",FEAST_URI_CODE);
+		matcher.addURI(AUTHORITY,"user",USER_URI_CODE);
 	}
 
 	private String matchTable(Uri uri) {
@@ -45,6 +50,8 @@ public class DataProvider extends ContentProvider {
                 return JieQiTable.TABLE_NAME;
             case FEAST_URI_CODE:
 				return JieRiTable.TABLE_NAME;
+			case USER_URI_CODE:
+				return UserTable.TABLE_NAME;
 		}
 		return "";
 	}

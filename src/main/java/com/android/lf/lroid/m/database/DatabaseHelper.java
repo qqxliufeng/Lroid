@@ -7,12 +7,9 @@ import android.util.SparseArray;
 
 import com.android.lf.lroid.m.tables.JieQiTable;
 import com.android.lf.lroid.m.tables.JieRiTable;
+import com.android.lf.lroid.m.tables.UserTable;
 
 
-/**
- * Date: 13-8-5
- * To change this template use File | Settings | File Templates.
- */
 public class DatabaseHelper extends SQLiteOpenHelper{
 
     private static SparseArray<DatabaseHelper> sHelpers = new SparseArray<DatabaseHelper>();
@@ -24,6 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase database) {
         JieQiTable.TABLE.create(database);
         JieRiTable.TABLE.create(database);
+        UserTable.TABLE.create(database);
     }
 
     @Override
