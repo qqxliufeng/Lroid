@@ -33,7 +33,7 @@ public class LoginFragment extends LroidBaseFragment {
     @BindView(R.id.id_vp_fragment_login_container)
     ViewPager mViewPager;
 
-    private String[] titles = new String[]{"普通登录","快速登录"};
+    private String[] titles = new String[]{"快速登录","帐号登录"};
 
     @Override
     protected int getLayoutId() {
@@ -60,7 +60,7 @@ public class LoginFragment extends LroidBaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 0)
+            if (position == 1)
                 return LoginNormalFragment.newInstance();
             return LoginFastFragment.newInstance();
         }

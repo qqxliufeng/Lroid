@@ -95,11 +95,6 @@ public class LoginFastFragment extends LroidBaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-//                if (!TextUtils.isEmpty(mPassword.getText().toString()) && mPassword.getText().toString().length() == 4) {
-//                    SMSSDK.submitVerificationCode("+86", mPhone.getText().toString(), mPassword.getText().toString());
-//                }else {
-//                    mLogin.setEnabled(false);
-//                }
             }
         });
         mCode.setOnClickListener(this);
@@ -128,7 +123,7 @@ public class LoginFastFragment extends LroidBaseFragment {
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                mLogin.setEnabled(true);
+                                mUserHelperPresenter.fastLogin(mPhone.getText().toString());
                             }
                         });
                     } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
@@ -136,6 +131,13 @@ public class LoginFastFragment extends LroidBaseFragment {
                             @Override
                             public void run() {
                                 Toast.makeText(mContext, "短信已经发送，请注意查收", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }else {
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, "验证码不正确", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -158,13 +160,17 @@ public class LoginFastFragment extends LroidBaseFragment {
             if (!TextUtils.isEmpty(mPhone.getText().toString()) && RegexMatches.matchesPhone(mPhone.getText().toString())) {
                 mCountDownTimer.start();
                 mCode.setEnabled(false);
-//                SMSSDK.getVerificationCode("+86", mPhone.getText().toString());
+                SMSSDK.getVerificationCode("+86", mPhone.getText().toString());
                 mPassword.requestFocus();
             } else {
                 Toast.makeText(mContext, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
             }
         } else {
-            mUserHelperPresenter.fastLogin(mPhone.getText().toString());
+            if (!TextUtils.isEmpty(mCode.getText().toString())) {
+                SMSSDK.submitVerificationCode("+86", mPhone.getText().toString(), mPassword.getText().toString());
+            }else {
+                Toast.makeText(mContext, "请输入验证码", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
