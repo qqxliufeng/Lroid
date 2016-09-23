@@ -83,6 +83,7 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
         adapter = new MyLroidListViewAdapter();
         mListView.addFooterView(View.inflate(mContext, R.layout.fragment_index_list_foot_view_foot_layout, null));
         mListView.setAdapter(adapter);
+        mListView.setFocusable(false);
         mListView.setOnItemClickListener(this);
         initData();
     }
@@ -127,59 +128,25 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            int type = getItemViewType(i);
-            switch (type) {
-                case 0:
-                    ViewHolderTypeOne viewHolderTypeOne;
-                    if (view == null) {
-                        viewHolderTypeOne = new ViewHolderTypeOne();
-                        view = View.inflate(mContext, android.R.layout.simple_list_item_1, null);
-                        viewHolderTypeOne.tv_title = (TextView) view.findViewById(android.R.id.text1);
-                        view.setTag(viewHolderTypeOne);
-                    }
-                    viewHolderTypeOne = (ViewHolderTypeOne) view.getTag();
-                    viewHolderTypeOne.tv_title.setText(arrayList.get(i).getTypeName());
-                    break;
-                case 1:
-                    ViewHolderTypeTwo viewHolderTypeTwo;
-                    if (view == null) {
-                        viewHolderTypeTwo = new ViewHolderTypeTwo();
-                        view = View.inflate(mContext, R.layout.fragment_index_list_item_layout, null);
-                        viewHolderTypeTwo.iv_pic = (NetworkImageView) view.findViewById(R.id.id_niv_fragment_index_list_item_pic);
-                        viewHolderTypeTwo.tv_title = (TextView) view.findViewById(R.id.id_tv_fragment_index_list_item_name);
-                        viewHolderTypeTwo.tv_time = (TextView) view.findViewById(R.id.id_tv_fragment_index_list_item_time);
-                        viewHolderTypeTwo.tv_content = (TextView) view.findViewById(R.id.id_tv_fragment_index_list_item_content);
-                        view.setTag(viewHolderTypeTwo);
-                    }
-                    JieQiBean jieQiBean = arrayList.get(i);
-                    viewHolderTypeTwo = (ViewHolderTypeTwo) view.getTag();
-                    viewHolderTypeTwo.tv_title.setText(jieQiBean.getName());
-                    viewHolderTypeTwo.iv_pic.setImageUrl(jieQiBean.getImage_url(), RequestManager.getImageLoader());
-                    viewHolderTypeTwo.tv_content.setText(jieQiBean.getContent());
-                    viewHolderTypeTwo.tv_time.setText(jieQiBean.getTime());
-                    break;
+            ViewHolderTypeTwo viewHolderTypeTwo;
+            if (view == null) {
+                viewHolderTypeTwo = new ViewHolderTypeTwo();
+                view = View.inflate(mContext, R.layout.fragment_index_list_item_layout, null);
+                viewHolderTypeTwo.iv_pic = (NetworkImageView) view.findViewById(R.id.id_niv_fragment_index_list_item_pic);
+                viewHolderTypeTwo.tv_title = (TextView) view.findViewById(R.id.id_tv_fragment_index_list_item_name);
+                viewHolderTypeTwo.tv_time = (TextView) view.findViewById(R.id.id_tv_fragment_index_list_item_time);
+                viewHolderTypeTwo.tv_content = (TextView) view.findViewById(R.id.id_tv_fragment_index_list_item_content);
+                view.setTag(viewHolderTypeTwo);
             }
+            JieQiBean jieQiBean = arrayList.get(i);
+            viewHolderTypeTwo = (ViewHolderTypeTwo) view.getTag();
+            viewHolderTypeTwo.tv_title.setText(jieQiBean.getName());
+            viewHolderTypeTwo.iv_pic.setImageUrl(jieQiBean.getImage_url(), RequestManager.getImageLoader());
+            viewHolderTypeTwo.tv_content.setText(jieQiBean.getContent());
+            viewHolderTypeTwo.tv_time.setText(jieQiBean.getTime());
             return view;
         }
 
-        @Override
-        public int getItemViewType(int position) {
-            /*if (position % 7 == 0){
-                return 0;
-            }else {
-                return 1;
-            }*/
-            return 1;
-        }
-
-        @Override
-        public int getViewTypeCount() {
-            return 2;
-        }
-    }
-
-    static class ViewHolderTypeOne {
-        TextView tv_title;
     }
 
     static class ViewHolderTypeTwo {
@@ -195,7 +162,7 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
             arrayList.addAll((ArrayList<JieQiBean>) result);
             if (adapter != null) {
                 adapter.notifyDataSetChanged();
-                ((HomeIndexFragment) getParentFragment()).scrollTo();
+//                ((HomeIndexFragment) getParentFragment()).scrollTo();
             }
         } else if (requestID == 0x1) {
             if (result != null && result.toString().contains("200")) {

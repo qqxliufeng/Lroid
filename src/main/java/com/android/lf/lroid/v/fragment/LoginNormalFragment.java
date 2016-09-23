@@ -87,20 +87,20 @@ public class LoginNormalFragment extends LroidBaseFragment {
             }
         });
         mUserHelperPresenter.setFragment(this);
-//        UserBean.getInstance().setSex(1);
-//        UserBean.getInstance().setPhone("123");
-//        UserBean.getInstance().setPersonalizedSignature("11111111111");
-//        UserBean.getInstance().setFace("face url ");
-//        UserBean.getInstance().setName("哈哈");
-//        UserBean.getInstance().setPassword("456");
-//        UserBean.getInstance().setNickName("nick");
-//        mUserHelperPresenter.insertUser();
+        /*UserBean.getInstance().setSex(1);
+        UserBean.getInstance().setPhone("123");
+        UserBean.getInstance().setPersonalizedSignature("11111111111");
+        UserBean.getInstance().setFace("face url ");
+        UserBean.getInstance().setName("哈哈");
+        UserBean.getInstance().setPassword("456");
+        UserBean.getInstance().setNickName("nick");
+        mUserHelperPresenter.insertUser();*/
     }
 
     @OnClick(R.id.id_bt_login_normal_login)
     public void onLogin(View view) {
         if (!TextUtils.isEmpty(mUserName.getText().toString()) && !TextUtils.isEmpty(mPassword.getText().toString())) {
-            mUserHelperPresenter.selectUser(UserTable.PHONE, UserTable.PASSWORD, mUserName.getText().toString(), mPassword.getText().toString());
+            mUserHelperPresenter.selectUser(mUserName.getText().toString(), mPassword.getText().toString());
         }else {
             Toast.makeText(mContext, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
         }
@@ -113,9 +113,9 @@ public class LoginNormalFragment extends LroidBaseFragment {
 
     @Override
     public void onRequestStart(int requestID) {
-        if(requestID == 0x0){
+        if(requestID == UserHelperPresenter.REQUEST_CODE_LOGIN){
             if (mProgressDialog == null) {
-                mProgressDialog = ProgressDialog.show(mContext, "", "正在登录……");
+                mProgressDialog = ProgressDialog.show(mContext, "", "正在登录，请稍后……");
             }else {
                 mProgressDialog.show();
             }
@@ -136,5 +136,11 @@ public class LoginNormalFragment extends LroidBaseFragment {
         }else {
             Toast.makeText(mContext, "用户名或密码错误", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onRequestFail(int requestID, Throwable e) {
+        Logger.e(e," ---> error ");
+        Toast.makeText(mContext, "登录异常", Toast.LENGTH_SHORT).show();
     }
 }

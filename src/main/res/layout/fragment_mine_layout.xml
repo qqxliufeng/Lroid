@@ -7,10 +7,14 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="#eee"
+        android:layout_height="180dp"
         android:fitsSystemWindows="true">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_home_mine_top_bg"/>
 
     </FrameLayout>
 

@@ -16,10 +16,12 @@ import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.Future;
 
+import retrofit2.http.PUT;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -30,16 +32,18 @@ import rx.schedulers.Schedulers;
 
 public class UserHelperPresenter extends BasePresenter {
 
+    public static final int REQUEST_CODE_LOGIN = 0x0;
+    public static final int REQUEST_CODE_REGISTER = 0x1;
+
     //user select
-    public void selectUser(final String userName,final String userPassword, final String... args) {
+    public void selectUser(final String userName, final String userPassword) {
         try {
             if (iPresentListener != null) {
-                iPresentListener.onRequestStart(0x0);
                 Observable.just(userName).map(new Func1<String, UserBean>() {
                     @Override
                     public UserBean call(String s) {
                         SystemClock.sleep(3000);
-                        Cursor cursor = mContext.getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, s + " = ? and "+ userPassword +" = ? ", args, null);
+                        Cursor cursor = mContext.getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, UserTable.PHONE + " = ? and " + UserTable.PASSWORD + " = ? ", new String[]{userName, userPassword}, null);
                         if (cursor != null) {
                             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                                 UserBean.getInstance().setFace(cursor.getString(cursor.getColumnIndex(UserTable.FACE)));
@@ -55,78 +59,31 @@ public class UserHelperPresenter extends BasePresenter {
                         return UserBean.getInstance();
                     }
                 }).subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<UserBean>() {
-                    @Override
-                    public void onCompleted() {
-                        iPresentListener.onRequestEnd(0x0);
-                    }
+                        .doOnSubscribe(new Action0() {
+                            @Override
+                            public void call() {
+                                iPresentListener.onRequestStart(REQUEST_CODE_LOGIN);
+                            }
+                        })
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<UserBean>() {
+                            @Override
+                            public void onCompleted() {
+                                iPresentListener.onRequestEnd(REQUEST_CODE_LOGIN);
+                            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        iPresentListener.onRequestFail(0x0, e);
-                    }
+                            @Override
+                            public void onError(Throwable e) {
+                                iPresentListener.onRequestEnd(REQUEST_CODE_LOGIN);
+                                iPresentListener.onRequestFail(REQUEST_CODE_LOGIN, e);
+                            }
 
-                    @Override
-                    public void onNext(UserBean o) {
-                        iPresentListener.onRequestSuccess(0x0, o);
-                    }
-                });
-
-
-//                Observable.just(userName).map(new Func1<String, Integer>() {
-//                    @Override
-//                    public Integer call(String s) {
-//                        Cursor cursor = mContext.getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, s + " = ? ", args, null);
-//                        if (cursor!=null){
-//                            int result = cursor.getCount();
-//                            cursor.close();
-//                            return result;
-//                        }
-//                        return 0;
-//                    }
-//                }).flatMap(new Func1<Integer, Observable<UserBean>>() {
-//                    @Override
-//                    public Observable<UserBean> call(Integer integer) {
-//                        if (integer<=0){
-//                            return null;
-//                        }
-//                        return Observable.create(new Observable.OnSubscribe<UserBean>(){
-//
-//                            @Override
-//                            public void call(Subscriber<? super UserBean> subscriber) {
-//                                Cursor cursor = mContext.getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, userName + " = ? ", args, null);
-//                                if (cursor != null) {
-//                                    for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-//                                        UserBean.getInstance().setFace(cursor.getString(cursor.getColumnIndex(UserTable.FACE)));
-//                                        UserBean.getInstance().setName(cursor.getString(cursor.getColumnIndex(UserTable.NAME)));
-//                                        UserBean.getInstance().setNickName(cursor.getString(cursor.getColumnIndex(UserTable.NICK_NAME)));
-//                                        UserBean.getInstance().setPassword(cursor.getString(cursor.getColumnIndex(UserTable.PASSWORD)));
-//                                        UserBean.getInstance().setPersonalizedSignature(cursor.getString(cursor.getColumnIndex(UserTable.PERSONALIZED_SIGNATURE)));
-//                                        UserBean.getInstance().setPhone(cursor.getString(cursor.getColumnIndex(UserTable.PHONE)));
-//                                        UserBean.getInstance().setSex(cursor.getInt(cursor.getColumnIndex(UserTable.SEX)));
-//                                    }
-//                                    cursor.close();
-//                                }
-//                            }
-//                        });
-//                    }
-//                }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<UserBean>() {
-//                    @Override
-//                    public void onCompleted() {
-//                        iPresentListener.onRequestEnd(0x0);
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(UserBean userBean) {
-//                        Logger.e("user name " + userBean.getName());
-//                    }
-//                });
-
+                            @Override
+                            public void onNext(UserBean o) {
+                                iPresentListener.onRequestSuccess(REQUEST_CODE_LOGIN, o);
+                            }
+                        });
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -200,37 +157,49 @@ public class UserHelperPresenter extends BasePresenter {
     }
 
     //user insert
-    public void insertUser() {
+    public void insertUser(final UserBean userBean) {
         Observable.create(new Observable.OnSubscribe<Uri>() {
             @Override
             public void call(Subscriber<? super Uri> subscriber) {
+                SystemClock.sleep(3000);
                 ContentValues contentValues = new ContentValues();
-                contentValues.put(UserTable.NAME, UserBean.getInstance().getName());
-                contentValues.put(UserTable.FACE, UserBean.getInstance().getFace());
-                contentValues.put(UserTable.PASSWORD, UserBean.getInstance().getPassword());
-                contentValues.put(UserTable.NICK_NAME, UserBean.getInstance().getNickName());
-                contentValues.put(UserTable.PHONE, UserBean.getInstance().getPhone());
-                contentValues.put(UserTable.PERSONALIZED_SIGNATURE, UserBean.getInstance().getPersonalizedSignature());
-                contentValues.put(UserTable.SEX, UserBean.getInstance().getSex());
+                contentValues.put(UserTable.NAME, userBean.getName());
+                contentValues.put(UserTable.FACE, userBean.getFace());
+                contentValues.put(UserTable.PASSWORD, userBean.getPassword());
+                contentValues.put(UserTable.NICK_NAME, userBean.getNickName());
+                contentValues.put(UserTable.PHONE, userBean.getPhone());
+                contentValues.put(UserTable.PERSONALIZED_SIGNATURE, userBean.getPersonalizedSignature());
+                contentValues.put(UserTable.SEX, userBean.getSex());
                 Uri result = mContext.getContentResolver().insert(DataProvider.USER_URI, contentValues);
                 subscriber.onNext(result);
                 subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        iPresentListener.onRequestStart(REQUEST_CODE_REGISTER);
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Uri>() {
                     @Override
                     public void onCompleted() {
+                        iPresentListener.onRequestEnd(REQUEST_CODE_REGISTER);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Logger.e(e, "error");
+                        iPresentListener.onRequestFail(REQUEST_CODE_REGISTER, e);
+                        iPresentListener.onRequestEnd(REQUEST_CODE_REGISTER);
                     }
 
                     @Override
                     public void onNext(Uri uri) {
                         Logger.e(uri.getPath());
+                        iPresentListener.onRequestSuccess(REQUEST_CODE_REGISTER, uri);
                     }
                 });
     }

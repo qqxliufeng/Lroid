@@ -97,7 +97,6 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/selector_bt_bg"
-        android:enabled="false"
         android:text="登   录"
         android:textColor="#fff"
         android:textSize="18sp" />

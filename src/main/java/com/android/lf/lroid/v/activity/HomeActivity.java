@@ -94,7 +94,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
                 transaction.hide(fragmentList.get(i));
             }
         }
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     @Override

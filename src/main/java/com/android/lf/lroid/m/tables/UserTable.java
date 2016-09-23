@@ -31,11 +31,11 @@ public class UserTable implements BaseColumns{
     };
 
     public static final SQLiteTable TABLE = new SQLiteTable(TABLE_NAME)
-            .addColumn(NAME, Column.DataType.TEXT)
+            .addColumn(NAME, Column.Constraint.UNIQUE,Column.DataType.TEXT)
             .addColumn(PASSWORD, Column.DataType.TEXT)
             .addColumn(FACE, Column.DataType.TEXT)
             .addColumn(PERSONALIZED_SIGNATURE, Column.DataType.TEXT)
-            .addColumn(PHONE, Column.DataType.TEXT)
+            .addColumn(PHONE, Column.Constraint.UNIQUE,Column.DataType.TEXT)
             .addColumn(NICK_NAME, Column.DataType.TEXT)
             .addColumn(SEX, Column.DataType.INTEGER);
 }
