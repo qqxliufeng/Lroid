@@ -1,10 +1,8 @@
 package com.android.lf.lroid.v.fragment;
 
 import android.app.ProgressDialog;
-import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.Looper;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -23,7 +21,6 @@ import com.android.lf.lroid.utils.RegexMatches;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
@@ -167,21 +164,13 @@ public class LoginFastFragment extends LroidBaseFragment {
                 Toast.makeText(mContext, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
             }
         } else {
-//            UserBean.getInstance().setNickName("");
-//            UserBean.getInstance().setName(mPhone.getText().toString());
-//            UserBean.getInstance().setSex(0);
-//            UserBean.getInstance().setPhone(mPhone.getText().toString());
-//            UserBean.getInstance().setPassword(mPassword.getText().toString());
-//            UserBean.getInstance().setFace("");
-//            UserBean.getInstance().setPersonalizedSignature("");
-//            mUserHelperPresenter.insertUser(UserBean.getInstance());
-            mUserHelperPresenter.selectUser(mPhone.getText().toString(),mPassword.getText().toString());
+            mUserHelperPresenter.fastLogin(mPhone.getText().toString());
         }
     }
 
     @Override
     public void onRequestStart(int requestID) {
-        if (requestID == UserHelperPresenter.REQUEST_CODE_REGISTER || requestID == UserHelperPresenter.REQUEST_CODE_LOGIN) {
+        if (requestID == UserHelperPresenter.REQUEST_CODE_LOGIN) {
             if (mProgressDialog == null) {
                 mProgressDialog = ProgressDialog.show(mContext, "", "正在登录，请稍后……");
             } else {
@@ -192,20 +181,9 @@ public class LoginFastFragment extends LroidBaseFragment {
 
     @Override
     public <T> void onRequestSuccess(int requestID, T result) {
-        if (result != null) {
-            if (requestID == UserHelperPresenter.REQUEST_CODE_REGISTER) {
+        if (result != null && requestID == UserHelperPresenter.REQUEST_CODE_LOGIN) {
+            if (!TextUtils.isEmpty(((UserBean) result).getName())) {
                 Toast.makeText(mContext, "登录成功", Toast.LENGTH_SHORT).show();
-            } else {
-                if (!TextUtils.isEmpty(((UserBean) result).getName())) {
-                    UserBean.getInstance().setNickName("");
-                    UserBean.getInstance().setName(mPhone.getText().toString());
-                    UserBean.getInstance().setSex(0);
-                    UserBean.getInstance().setPhone(mPhone.getText().toString());
-                    UserBean.getInstance().setPassword(mPassword.getText().toString());
-                    UserBean.getInstance().setFace("");
-                    UserBean.getInstance().setPersonalizedSignature("");
-                    mUserHelperPresenter.insertUser(UserBean.getInstance());
-                }
             }
         }
     }

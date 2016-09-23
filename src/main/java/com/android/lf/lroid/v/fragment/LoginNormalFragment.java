@@ -1,7 +1,6 @@
 package com.android.lf.lroid.v.fragment;
 
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,7 +13,6 @@ import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.UserBean;
-import com.android.lf.lroid.m.tables.UserTable;
 import com.android.lf.lroid.p.common.UserHelperPresenter;
 import com.orhanobut.logger.Logger;
 
@@ -94,13 +92,13 @@ public class LoginNormalFragment extends LroidBaseFragment {
         UserBean.getInstance().setName("哈哈");
         UserBean.getInstance().setPassword("456");
         UserBean.getInstance().setNickName("nick");
-        mUserHelperPresenter.insertUser();*/
+        mUserHelperPresenter.register();*/
     }
 
     @OnClick(R.id.id_bt_login_normal_login)
     public void onLogin(View view) {
         if (!TextUtils.isEmpty(mUserName.getText().toString()) && !TextUtils.isEmpty(mPassword.getText().toString())) {
-            mUserHelperPresenter.selectUser(mUserName.getText().toString(), mPassword.getText().toString());
+            mUserHelperPresenter.normalLogin(mUserName.getText().toString(), mPassword.getText().toString());
         }else {
             Toast.makeText(mContext, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
         }

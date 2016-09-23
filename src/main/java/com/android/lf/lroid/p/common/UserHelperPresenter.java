@@ -36,7 +36,7 @@ public class UserHelperPresenter extends BasePresenter {
     public static final int REQUEST_CODE_REGISTER = 0x1;
 
     //user select
-    public void selectUser(final String userName, final String userPassword) {
+    public void normalLogin(final String userName, final String userPassword) {
         try {
             if (iPresentListener != null) {
                 Observable.just(userName).map(new Func1<String, UserBean>() {
@@ -90,8 +90,79 @@ public class UserHelperPresenter extends BasePresenter {
         }
     }
 
+    public void fastLogin(final String phone) {
+        Observable.just(phone).map(new Func1<String, UserBean>() {
+            @Override
+            public UserBean call(String s) {
+                Cursor cursor = mContext.getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, UserTable.PHONE + " = ? ", new String[]{s}, null);
+                if (cursor != null) {
+                    SystemClock.sleep(2000);
+                    int result = cursor.getCount();
+                    if (result == 0) {
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(UserTable.NAME, phone);
+                        contentValues.put(UserTable.FACE, "");
+                        contentValues.put(UserTable.PASSWORD, "lroid");
+                        contentValues.put(UserTable.NICK_NAME,"");
+                        contentValues.put(UserTable.PHONE, phone);
+                        contentValues.put(UserTable.PERSONALIZED_SIGNATURE, "");
+                        contentValues.put(UserTable.SEX,0);
+                        if(mContext.getContentResolver().insert(DataProvider.USER_URI, contentValues)!=null){
+                            UserBean.getInstance().setNickName("");
+                            UserBean.getInstance().setPersonalizedSignature("");
+                            UserBean.getInstance().setFace("");
+                            UserBean.getInstance().setName(phone);
+                            UserBean.getInstance().setPhone(phone);
+                            UserBean.getInstance().setSex(0);
+                            UserBean.getInstance().setPassword("lroid");
+                        }else {
+                            cursor.close();
+                            return null;
+                        }
+                    } else {
+                        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                            UserBean.getInstance().setFace(cursor.getString(cursor.getColumnIndex(UserTable.FACE)));
+                            UserBean.getInstance().setName(cursor.getString(cursor.getColumnIndex(UserTable.NAME)));
+                            UserBean.getInstance().setNickName(cursor.getString(cursor.getColumnIndex(UserTable.NICK_NAME)));
+                            UserBean.getInstance().setPassword(cursor.getString(cursor.getColumnIndex(UserTable.PASSWORD)));
+                            UserBean.getInstance().setPersonalizedSignature(cursor.getString(cursor.getColumnIndex(UserTable.PERSONALIZED_SIGNATURE)));
+                            UserBean.getInstance().setPhone(cursor.getString(cursor.getColumnIndex(UserTable.PHONE)));
+                            UserBean.getInstance().setSex(cursor.getInt(cursor.getColumnIndex(UserTable.SEX)));
+                        }
+                    }
+                    cursor.close();
+                }
+                return UserBean.getInstance();
+            }
+        }).subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        iPresentListener.onRequestStart(REQUEST_CODE_LOGIN);
+                    }
+                }).subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<UserBean>() {
+                    @Override
+                    public void onCompleted() {
+                        iPresentListener.onRequestEnd(REQUEST_CODE_LOGIN);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        iPresentListener.onRequestFail(REQUEST_CODE_LOGIN, e);
+                        iPresentListener.onRequestEnd(REQUEST_CODE_LOGIN);
+                    }
+
+                    @Override
+                    public void onNext(UserBean userBean) {
+                        iPresentListener.onRequestSuccess(REQUEST_CODE_LOGIN, userBean);
+                    }
+                });
+    }
+
     //user delete
-    public void deleteUser(final String where, final String... args) {
+    public void logout(final String where, final String... args) {
         if (TextUtils.isEmpty(where))
             throw new IllegalArgumentException("where must be not null or \"\" ");
         Observable.just(where).map(new Func1<String, Integer>() {
@@ -118,7 +189,7 @@ public class UserHelperPresenter extends BasePresenter {
     }
 
     //user update
-    public void updateUser(final ContentValues contentValues, final String where, final String... args) {
+    public void modifyUserInfo(final ContentValues contentValues, final String where, final String... args) {
         if (contentValues == null)
             throw new IllegalArgumentException("contentValues must be not null");
         if (TextUtils.isEmpty(where))
@@ -157,7 +228,7 @@ public class UserHelperPresenter extends BasePresenter {
     }
 
     //user insert
-    public void insertUser(final UserBean userBean) {
+    public void register(final UserBean userBean) {
         Observable.create(new Observable.OnSubscribe<Uri>() {
             @Override
             public void call(Subscriber<? super Uri> subscriber) {
