@@ -30,17 +30,16 @@ import rx.schedulers.Schedulers;
 
 public class UserHelperPresenter extends BasePresenter {
 
-
     //user select
-    public void selectUser(final String column, final String... args) {
+    public void selectUser(final String userName,final String userPassword, final String... args) {
         try {
             if (iPresentListener != null) {
                 iPresentListener.onRequestStart(0x0);
-                Observable.just(column).map(new Func1<String, UserBean>() {
+                Observable.just(userName).map(new Func1<String, UserBean>() {
                     @Override
                     public UserBean call(String s) {
                         SystemClock.sleep(3000);
-                        Cursor cursor = mContext.getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, s + " = ? ", args, null);
+                        Cursor cursor = mContext.getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, s + " = ? and "+ userPassword +" = ? ", args, null);
                         if (cursor != null) {
                             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                                 UserBean.getInstance().setFace(cursor.getString(cursor.getColumnIndex(UserTable.FACE)));
@@ -73,7 +72,8 @@ public class UserHelperPresenter extends BasePresenter {
                     }
                 });
 
-//                Observable.just(column).map(new Func1<String, Integer>() {
+
+//                Observable.just(userName).map(new Func1<String, Integer>() {
 //                    @Override
 //                    public Integer call(String s) {
 //                        Cursor cursor = mContext.getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, s + " = ? ", args, null);
@@ -94,7 +94,7 @@ public class UserHelperPresenter extends BasePresenter {
 //
 //                            @Override
 //                            public void call(Subscriber<? super UserBean> subscriber) {
-//                                Cursor cursor = mContext.getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, column + " = ? ", args, null);
+//                                Cursor cursor = mContext.getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, userName + " = ? ", args, null);
 //                                if (cursor != null) {
 //                                    for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 //                                        UserBean.getInstance().setFace(cursor.getString(cursor.getColumnIndex(UserTable.FACE)));

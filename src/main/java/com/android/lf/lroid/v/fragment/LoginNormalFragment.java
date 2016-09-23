@@ -16,6 +16,7 @@ import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.UserBean;
 import com.android.lf.lroid.m.tables.UserTable;
 import com.android.lf.lroid.p.common.UserHelperPresenter;
+import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
@@ -86,19 +87,23 @@ public class LoginNormalFragment extends LroidBaseFragment {
             }
         });
         mUserHelperPresenter.setFragment(this);
-        UserBean.getInstance().setSex(1);
-        UserBean.getInstance().setPhone("123");
-        UserBean.getInstance().setPersonalizedSignature("11111111111");
-        UserBean.getInstance().setFace("face url ");
-        UserBean.getInstance().setName("哈哈");
-        UserBean.getInstance().setPassword("456");
-        UserBean.getInstance().setNickName("nick");
-        mUserHelperPresenter.insertUser();
+//        UserBean.getInstance().setSex(1);
+//        UserBean.getInstance().setPhone("123");
+//        UserBean.getInstance().setPersonalizedSignature("11111111111");
+//        UserBean.getInstance().setFace("face url ");
+//        UserBean.getInstance().setName("哈哈");
+//        UserBean.getInstance().setPassword("456");
+//        UserBean.getInstance().setNickName("nick");
+//        mUserHelperPresenter.insertUser();
     }
 
     @OnClick(R.id.id_bt_login_normal_login)
     public void onLogin(View view) {
-        mUserHelperPresenter.selectUser(UserTable.PHONE,mUserName.getText().toString());
+        if (!TextUtils.isEmpty(mUserName.getText().toString()) && !TextUtils.isEmpty(mPassword.getText().toString())) {
+            mUserHelperPresenter.selectUser(UserTable.PHONE, UserTable.PASSWORD, mUserName.getText().toString(), mPassword.getText().toString());
+        }else {
+            Toast.makeText(mContext, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -110,7 +115,7 @@ public class LoginNormalFragment extends LroidBaseFragment {
     public void onRequestStart(int requestID) {
         if(requestID == 0x0){
             if (mProgressDialog == null) {
-                mProgressDialog = ProgressDialog.show(mContext, "", "正在加载……");
+                mProgressDialog = ProgressDialog.show(mContext, "", "正在登录……");
             }else {
                 mProgressDialog.show();
             }
