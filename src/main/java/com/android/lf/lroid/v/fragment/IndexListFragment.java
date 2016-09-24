@@ -4,6 +4,8 @@ import static com.mob.tools.utils.R.forceCast;
 
 import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,6 +18,7 @@ import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.JieQiBean;
+import com.android.lf.lroid.m.bean.UserBean;
 import com.android.lf.lroid.m.database.DataProvider;
 import com.android.lf.lroid.p.common.JieQiDataProvidePresenter;
 import com.android.lf.lroid.p.common.MobApiPresenter;
@@ -29,6 +32,7 @@ import com.mob.mobapi.MobAPI;
 import com.mob.mobapi.apis.Weather;
 import com.orhanobut.logger.Logger;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -69,6 +73,8 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     private MyLroidListViewAdapter adapter;
 
+    private JieQiBean jieQiBean;
+
     public static IndexListFragment newInstance() {
         return new IndexListFragment();
     }
@@ -103,10 +109,19 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        MethodUtils.startFragmentsActivity(mContext, "登录", FragmentContainerActivity.LOGIN_FRAGMENT);
-//        Bundle bundle = new Bundle();
-//        bundle.putString(WebContentFragment.WEB_LOAD_URL,arrayList.get(position).getDetail_info_url());
-//        MethodUtils.startFragmentsActivity(mContext,arrayList.get(position).getName(), FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG,bundle);
+        jieQiBean = arrayList.get(position);
+        if (TextUtils.isEmpty(UserBean.getInstance().getName())) {
+            UserBean.getInstance().setOnUserLoginSuccessListener(this);
+            MethodUtils.startFragmentsActivity(mContext, "登录", FragmentContainerActivity.LOGIN_FRAGMENT);
+        } else {
+            startDetail();
+        }
+    }
+
+    private void startDetail() {
+        Bundle bundle = new Bundle();
+        bundle.putString(WebContentFragment.WEB_LOAD_URL, jieQiBean.getDetail_info_url());
+        MethodUtils.startFragmentsActivity(mContext, jieQiBean.getName(), FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG, bundle);
     }
 
     private class MyLroidListViewAdapter extends BaseAdapter {
@@ -207,4 +222,10 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
         }
     }
 
+    @Override
+    public void onUserLoginSuccess() {
+        if (jieQiBean!=null) {
+            startDetail();
+        }
+    }
 }

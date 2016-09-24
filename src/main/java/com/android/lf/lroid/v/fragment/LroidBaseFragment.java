@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.lf.lroid.interfaces.IPresentListener;
+import com.android.lf.lroid.interfaces.OnUserLoginSuccessListener;
 import com.android.lf.lroid.v.activity.BaseActivity;
 
 import butterknife.ButterKnife;
@@ -19,7 +20,7 @@ import butterknife.ButterKnife;
  * Created by feng on 2016/8/1.
  */
 
-public abstract class LroidBaseFragment extends Fragment implements View.OnClickListener,IPresentListener{
+public abstract class LroidBaseFragment extends Fragment implements View.OnClickListener,IPresentListener,OnUserLoginSuccessListener{
 
     protected Context mContext;
 
@@ -83,4 +84,8 @@ public abstract class LroidBaseFragment extends Fragment implements View.OnClick
         ((BaseActivity)mContext).finish();
     }
 
+    @Override
+    public void onUserLoginSuccess() {
+
+    }
 }

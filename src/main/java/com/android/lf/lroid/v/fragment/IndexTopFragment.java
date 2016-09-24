@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -15,6 +16,7 @@ import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.JieQiBean;
+import com.android.lf.lroid.m.bean.UserBean;
 import com.android.lf.lroid.m.data.JieQiData;
 import com.android.lf.lroid.p.common.CommonPresenter;
 import com.android.lf.lroid.utils.MethodUtils;
@@ -31,6 +33,8 @@ import butterknife.BindView;
  */
 
 public class IndexTopFragment extends LroidBaseFragment implements ViewPager.OnPageChangeListener {
+
+    private int currentItem;
 
     public static IndexTopFragment newInstance() {
         IndexTopFragment fragment = new IndexTopFragment();
@@ -143,11 +147,25 @@ public class IndexTopFragment extends LroidBaseFragment implements ViewPager.OnP
     }
 
     public void onChildViewClick(){
-        int currentItem = vp_banner.getCurrentItem()%JieQiData.getInstance().getJieQiBanners().length;
+        if (TextUtils.isEmpty(UserBean.getInstance().getName())){
+            UserBean.getInstance().setOnUserLoginSuccessListener(this);
+            MethodUtils.startFragmentsActivity(mContext, "登录", FragmentContainerActivity.LOGIN_FRAGMENT);
+        }else {
+            startDetail();
+        }
+    }
+
+    private void startDetail() {
+        currentItem = vp_banner.getCurrentItem()% JieQiData.getInstance().getJieQiBanners().length;
         JieQiBean jieQiBean = JieQiData.getInstance().getJieQiBeanArrayList().get(currentItem);
         Bundle bundle = new Bundle();
         bundle.putString(WebContentFragment.WEB_LOAD_URL,jieQiBean.getDetail_info_url());
         MethodUtils.startFragmentsActivity(mContext,jieQiBean.getName(), FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG,bundle);
     }
 
+
+    @Override
+    public void onUserLoginSuccess() {
+        startDetail();
+    }
 }

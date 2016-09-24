@@ -1,5 +1,12 @@
 package com.android.lf.lroid.m.bean;
 
+import com.android.lf.lroid.interfaces.OnUserLoginSuccessListener;
+import com.android.lf.lroid.v.activity.BaseActivity;
+import com.android.lf.lroid.v.fragment.LroidBaseFragment;
+
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
+
 /**
  * Created by feng on 2016/9/22.
  */
@@ -29,6 +36,24 @@ public class UserBean {
     private String password;
     private String personalizedSignature;
     private int sex;
+
+    private WeakReference<OnUserLoginSuccessListener> onUserLoginSuccessListener;
+
+    public OnUserLoginSuccessListener getOnUserLoginSuccessListener() {
+        if (onUserLoginSuccessListener!=null) {
+            return onUserLoginSuccessListener.get();
+        }
+        return null;
+    }
+
+    public void setOnUserLoginSuccessListener(OnUserLoginSuccessListener onUserLoginSuccessListener) {
+        if (onUserLoginSuccessListener!=null) {
+            this.onUserLoginSuccessListener = new WeakReference<OnUserLoginSuccessListener>(onUserLoginSuccessListener);
+        }else{
+            this.onUserLoginSuccessListener = null;
+        }
+
+    }
 
     public String getPersonalizedSignature() {
         return personalizedSignature;

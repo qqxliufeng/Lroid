@@ -17,6 +17,7 @@ import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.UserBean;
 import com.android.lf.lroid.p.common.UserHelperPresenter;
 import com.android.lf.lroid.utils.RegexMatches;
+import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
@@ -123,6 +124,9 @@ public class LoginFastFragment extends LroidBaseFragment {
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
+                                if(mProgressDialog!=null && mProgressDialog.isShowing()){
+                                    mProgressDialog.dismiss();
+                                }
                                 mUserHelperPresenter.fastLogin(mPhone.getText().toString());
                             }
                         });
@@ -133,16 +137,29 @@ public class LoginFastFragment extends LroidBaseFragment {
                                 Toast.makeText(mContext, "短信已经发送，请注意查收", Toast.LENGTH_SHORT).show();
                             }
                         });
-                    }else {
-                        mHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(mContext, "验证码不正确", Toast.LENGTH_SHORT).show();
-                            }
-                        });
                     }
                 } else {
-                    ((Throwable) data).printStackTrace();
+                    if (((Throwable) data).getLocalizedMessage()!=null){
+                        if (((Throwable) data).getMessage().contains("468")) {
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (mProgressDialog != null && mProgressDialog.isShowing()) {
+                                        mProgressDialog.dismiss();
+                                    }
+                                    Toast.makeText(mContext, "验证码不正确", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }else if (((Throwable) data).getMessage().contains("477")){
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(mContext, "当前手机号发送短信的数量超过限额", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                    Logger.e(((Throwable) data),"error data");
                 }
             }
         };
@@ -166,7 +183,8 @@ public class LoginFastFragment extends LroidBaseFragment {
                 Toast.makeText(mContext, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
             }
         } else {
-            if (!TextUtils.isEmpty(mCode.getText().toString())) {
+            if (!TextUtils.isEmpty(mPassword.getText().toString())) {
+                mProgressDialog = ProgressDialog.show(mContext, "", "正在登录，请稍后……");
                 SMSSDK.submitVerificationCode("+86", mPhone.getText().toString(), mPassword.getText().toString());
             }else {
                 Toast.makeText(mContext, "请输入验证码", Toast.LENGTH_SHORT).show();
@@ -190,6 +208,11 @@ public class LoginFastFragment extends LroidBaseFragment {
         if (result != null && requestID == UserHelperPresenter.REQUEST_CODE_LOGIN) {
             if (!TextUtils.isEmpty(((UserBean) result).getName())) {
                 Toast.makeText(mContext, "登录成功", Toast.LENGTH_SHORT).show();
+                if(UserBean.getInstance().getOnUserLoginSuccessListener()!=null){
+                    finishActivity();
+                    UserBean.getInstance().getOnUserLoginSuccessListener().onUserLoginSuccess();
+                    UserBean.getInstance().setOnUserLoginSuccessListener(null);
+                }
             }
         }
     }

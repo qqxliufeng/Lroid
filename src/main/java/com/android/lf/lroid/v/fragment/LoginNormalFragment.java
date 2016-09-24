@@ -1,6 +1,7 @@
 package com.android.lf.lroid.v.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -131,6 +132,11 @@ public class LoginNormalFragment extends LroidBaseFragment {
     public <T> void onRequestSuccess(int requestID, T result) {
         if (!TextUtils.isEmpty(((UserBean)result).getName())){
             Toast.makeText(mContext, "登录成功", Toast.LENGTH_SHORT).show();
+            if(UserBean.getInstance().getOnUserLoginSuccessListener()!=null){
+                finishActivity();
+                UserBean.getInstance().getOnUserLoginSuccessListener().onUserLoginSuccess();
+                UserBean.getInstance().setOnUserLoginSuccessListener(null);
+            }
         }else {
             Toast.makeText(mContext, "用户名或密码错误", Toast.LENGTH_SHORT).show();
         }
@@ -141,4 +147,6 @@ public class LoginNormalFragment extends LroidBaseFragment {
         Logger.e(e," ---> error ");
         Toast.makeText(mContext, "登录异常", Toast.LENGTH_SHORT).show();
     }
+
+
 }
