@@ -1,4 +1,4 @@
-package com.android.lf.lroid.p.common;
+package com.android.lf.lroid.p;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -62,7 +62,9 @@ public class UserHelperPresenter extends BasePresenter {
                         .doOnSubscribe(new Action0() {
                             @Override
                             public void call() {
-                                iPresentListener.onRequestStart(REQUEST_CODE_LOGIN);
+                                if (checkNullPresent()) {
+                                    iPresentListener.onRequestStart(REQUEST_CODE_LOGIN);
+                                }
                             }
                         })
                         .subscribeOn(AndroidSchedulers.mainThread())
@@ -70,18 +72,24 @@ public class UserHelperPresenter extends BasePresenter {
                         .subscribe(new Observer<UserBean>() {
                             @Override
                             public void onCompleted() {
-                                iPresentListener.onRequestEnd(REQUEST_CODE_LOGIN);
+                                if (checkNullPresent()) {
+                                    iPresentListener.onRequestEnd(REQUEST_CODE_LOGIN);
+                                }
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                iPresentListener.onRequestEnd(REQUEST_CODE_LOGIN);
-                                iPresentListener.onRequestFail(REQUEST_CODE_LOGIN, e);
+                                if (checkNullPresent()) {
+                                    iPresentListener.onRequestEnd(REQUEST_CODE_LOGIN);
+                                    iPresentListener.onRequestFail(REQUEST_CODE_LOGIN, e);
+                                }
                             }
 
                             @Override
                             public void onNext(UserBean o) {
-                                iPresentListener.onRequestSuccess(REQUEST_CODE_LOGIN, o);
+                                if (checkNullPresent()) {
+                                    iPresentListener.onRequestSuccess(REQUEST_CODE_LOGIN, o);
+                                }
                             }
                         });
             }
@@ -103,11 +111,11 @@ public class UserHelperPresenter extends BasePresenter {
                         contentValues.put(UserTable.NAME, phone);
                         contentValues.put(UserTable.FACE, "");
                         contentValues.put(UserTable.PASSWORD, "lroid");
-                        contentValues.put(UserTable.NICK_NAME,"");
+                        contentValues.put(UserTable.NICK_NAME, "");
                         contentValues.put(UserTable.PHONE, phone);
                         contentValues.put(UserTable.PERSONALIZED_SIGNATURE, "");
-                        contentValues.put(UserTable.SEX,0);
-                        if(mContext.getContentResolver().insert(DataProvider.USER_URI, contentValues)!=null){
+                        contentValues.put(UserTable.SEX, 0);
+                        if (mContext.getContentResolver().insert(DataProvider.USER_URI, contentValues) != null) {
                             UserBean.getInstance().setNickName("");
                             UserBean.getInstance().setPersonalizedSignature("");
                             UserBean.getInstance().setFace("");
@@ -115,7 +123,7 @@ public class UserHelperPresenter extends BasePresenter {
                             UserBean.getInstance().setPhone(phone);
                             UserBean.getInstance().setSex(0);
                             UserBean.getInstance().setPassword("lroid");
-                        }else {
+                        } else {
                             cursor.close();
                             return null;
                         }
@@ -138,25 +146,33 @@ public class UserHelperPresenter extends BasePresenter {
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
-                        iPresentListener.onRequestStart(REQUEST_CODE_LOGIN);
+                        if (checkNullPresent()) {
+                            iPresentListener.onRequestStart(REQUEST_CODE_LOGIN);
+                        }
                     }
                 }).subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<UserBean>() {
                     @Override
                     public void onCompleted() {
-                        iPresentListener.onRequestEnd(REQUEST_CODE_LOGIN);
+                        if (checkNullPresent()) {
+                            iPresentListener.onRequestEnd(REQUEST_CODE_LOGIN);
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        iPresentListener.onRequestFail(REQUEST_CODE_LOGIN, e);
-                        iPresentListener.onRequestEnd(REQUEST_CODE_LOGIN);
+                        if (checkNullPresent()) {
+                            iPresentListener.onRequestFail(REQUEST_CODE_LOGIN, e);
+                            iPresentListener.onRequestEnd(REQUEST_CODE_LOGIN);
+                        }
                     }
 
                     @Override
                     public void onNext(UserBean userBean) {
-                        iPresentListener.onRequestSuccess(REQUEST_CODE_LOGIN, userBean);
+                        if (checkNullPresent()) {
+                            iPresentListener.onRequestSuccess(REQUEST_CODE_LOGIN, userBean);
+                        }
                     }
                 });
     }
@@ -249,7 +265,9 @@ public class UserHelperPresenter extends BasePresenter {
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
-                        iPresentListener.onRequestStart(REQUEST_CODE_REGISTER);
+                        if (checkNullPresent()) {
+                            iPresentListener.onRequestStart(REQUEST_CODE_REGISTER);
+                        }
                     }
                 })
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -257,20 +275,26 @@ public class UserHelperPresenter extends BasePresenter {
                 .subscribe(new Subscriber<Uri>() {
                     @Override
                     public void onCompleted() {
-                        iPresentListener.onRequestEnd(REQUEST_CODE_REGISTER);
+                        if (checkNullPresent()) {
+                            iPresentListener.onRequestEnd(REQUEST_CODE_REGISTER);
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Logger.e(e, "error");
-                        iPresentListener.onRequestFail(REQUEST_CODE_REGISTER, e);
-                        iPresentListener.onRequestEnd(REQUEST_CODE_REGISTER);
+                        if (checkNullPresent()) {
+                            iPresentListener.onRequestFail(REQUEST_CODE_REGISTER, e);
+                            iPresentListener.onRequestEnd(REQUEST_CODE_REGISTER);
+                        }
                     }
 
                     @Override
                     public void onNext(Uri uri) {
                         Logger.e(uri.getPath());
-                        iPresentListener.onRequestSuccess(REQUEST_CODE_REGISTER, uri);
+                        if (checkNullPresent()) {
+                            iPresentListener.onRequestSuccess(REQUEST_CODE_REGISTER, uri);
+                        }
                     }
                 });
     }

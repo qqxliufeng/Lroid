@@ -20,8 +20,8 @@ import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.JieQiBean;
 import com.android.lf.lroid.m.bean.UserBean;
 import com.android.lf.lroid.m.database.DataProvider;
-import com.android.lf.lroid.p.common.JieQiDataProvidePresenter;
-import com.android.lf.lroid.p.common.MobApiPresenter;
+import com.android.lf.lroid.p.JieQiDataProvidePresenter;
+import com.android.lf.lroid.p.MobApiPresenter;
 import com.android.lf.lroid.utils.LunarUtils;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
@@ -41,6 +41,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by feng on 2016/9/9.
@@ -52,6 +53,7 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
     JieQiDataProvidePresenter dataProvidePresenter;
     @Inject
     MobApiPresenter mobApiPresenter;
+
     @BindView(R.id.id_llv_fragment_index_content)
     LroidListView mListView;
     @BindView(R.id.id_ll_fragment_index_content_date_container)
@@ -228,4 +230,10 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
             startDetail();
         }
     }
+
+    @OnClick(R.id.id_ll_fragment_index_content_date_container)
+    public void interDataDetail(View view){
+
+    }
+
 }

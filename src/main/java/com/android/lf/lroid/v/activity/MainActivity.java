@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
-import com.android.lf.lroid.p.common.CommonPresenter;
+import com.android.lf.lroid.p.CommonPresenter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 

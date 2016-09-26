@@ -1,6 +1,7 @@
-package com.android.lf.lroid.p.common;
+package com.android.lf.lroid.p;
 
 import android.util.Log;
+
 
 
 import rx.Observable;
@@ -13,7 +14,7 @@ import rx.schedulers.Schedulers;
  * Created by feng on 2016/8/1.
  */
 
-public class CommonPresenter extends BasePresenter{
+public class CommonPresenter extends BasePresenter {
 
     public void requestData(int requestID, int start, int count){
 //        requestMethod1(start, count);

@@ -16,7 +16,7 @@ import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.JieRiBean;
 import com.android.lf.lroid.m.data.JieRiData;
 import com.android.lf.lroid.m.database.DataProvider;
-import com.android.lf.lroid.p.common.JieRiDataProvidePresenter;
+import com.android.lf.lroid.p.JieRiDataProvidePresenter;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;

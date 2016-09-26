@@ -2,6 +2,7 @@ package com.android.lf.lroid.v.activity;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.utils.MethodUtils;
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 public class HomeActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener {
 
     private ArrayList<LroidBaseFragment> fragmentList = new ArrayList<>();
+
+    private long exitTime = 0l;
 
     @Override
     public int getLayoutId() {
@@ -81,10 +84,6 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void onTabSelected(int position) {
-       /* FragmentManager fm = this.getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.id_fl_activity_home_container, fragmentList.get(position));
-        transaction.commit();*/
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         for (int i = 0; i < fragmentList.size(); i++) {
@@ -104,6 +103,15 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void onTabReselected(int position) {
+    }
 
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - exitTime > 2000){
+            exitTime = System.currentTimeMillis();
+            Toast.makeText(this, "请再按一次退出", Toast.LENGTH_SHORT).show();
+        }else {
+            System.exit(0);
+        }
     }
 }

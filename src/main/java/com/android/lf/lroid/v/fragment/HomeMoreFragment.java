@@ -17,7 +17,7 @@ import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.data.JieRiData;
 import com.android.lf.lroid.m.database.DataProvider;
-import com.android.lf.lroid.p.common.JieRiDataProvidePresenter;
+import com.android.lf.lroid.p.JieRiDataProvidePresenter;
 
 import javax.inject.Inject;
 

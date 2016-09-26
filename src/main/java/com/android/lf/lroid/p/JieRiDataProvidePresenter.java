@@ -1,4 +1,4 @@
-package com.android.lf.lroid.p.common;
+package com.android.lf.lroid.p;
 
 import android.content.ContentValues;
 import android.database.Cursor;

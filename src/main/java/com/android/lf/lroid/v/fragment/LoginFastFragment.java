@@ -15,7 +15,7 @@ import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.UserBean;
-import com.android.lf.lroid.p.common.UserHelperPresenter;
+import com.android.lf.lroid.p.UserHelperPresenter;
 import com.android.lf.lroid.utils.RegexMatches;
 import com.orhanobut.logger.Logger;
 

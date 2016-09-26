@@ -11,7 +11,6 @@ import android.view.View;
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
-import com.android.lf.lroid.p.common.CommonPresenter;
 
 import javax.inject.Inject;
 

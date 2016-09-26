@@ -18,7 +18,7 @@ import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.JieQiBean;
 import com.android.lf.lroid.m.bean.UserBean;
 import com.android.lf.lroid.m.data.JieQiData;
-import com.android.lf.lroid.p.common.CommonPresenter;
+import com.android.lf.lroid.p.CommonPresenter;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 import com.android.lf.lroid.v.views.AutoScrollViewPager;

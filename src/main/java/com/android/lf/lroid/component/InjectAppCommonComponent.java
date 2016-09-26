@@ -1,7 +1,7 @@
 package com.android.lf.lroid.component;
 
-import com.android.lf.lroid.p.common.BasePresenter;
-import com.android.lf.lroid.p.common.CommonPresenter;
+
+import com.android.lf.lroid.p.BasePresenter;
 
 import dagger.Component;
 

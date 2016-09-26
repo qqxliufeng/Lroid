@@ -1,4 +1,4 @@
-package com.android.lf.lroid.p.common;
+package com.android.lf.lroid.p;
 
 import com.mob.mobapi.API;
 import com.mob.mobapi.APICallback;

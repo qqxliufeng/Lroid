@@ -18,4 +18,12 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="LroidRelativeStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/selector_rl_bg</item>
+        <item name="android:clickable">true</item>
+        <item name="android:padding">15dp</item>
+    </style>
+
 </resources>

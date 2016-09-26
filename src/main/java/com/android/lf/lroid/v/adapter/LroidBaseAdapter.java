@@ -27,6 +27,5 @@ public class LroidBaseAdapter extends BaseQuickAdapter {
 
     @Override
     protected void convert(BaseViewHolder baseViewHolder, Object o) {
-
     }
 }
