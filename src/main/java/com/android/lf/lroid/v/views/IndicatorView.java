@@ -35,6 +35,7 @@ public class IndicatorView extends View {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs,R.styleable.IndicatorView,defStyleAttr,0);
         indicatorColor = typedArray.getColor(R.styleable.IndicatorView_indicator_color,context.getResources().getColor(R.color.colorPrimary));
+        typedArray.recycle();
     }
 
     @Override

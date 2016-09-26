@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.v.fragment.LoginFragment;
+import com.android.lf.lroid.v.fragment.PersonalInfoFragment;
 import com.android.lf.lroid.v.fragment.WebContentFragment;
 
 import butterknife.BindView;
@@ -24,6 +25,7 @@ public class FragmentContainerActivity extends BaseActivity {
 
     public static final int WEB_CONTENT_CONTAINER_FLAG = 0x0;
     public static final int LOGIN_FRAGMENT= 0x1;
+    public static final int PERSONAL_INFO_FRAGMENT_FLAG = 0x2;
 
     @BindView(R.id.id_tl_app_top_bar)
     Toolbar mToolBar;
@@ -62,6 +64,9 @@ public class FragmentContainerActivity extends BaseActivity {
                 break;
             case LOGIN_FRAGMENT:
                 fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, LoginFragment.newInstance());
+                break;
+            case PERSONAL_INFO_FRAGMENT_FLAG:
+                fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, PersonalInfoFragment.newInstance());
                 break;
         }
         fragmentTransaction.commitAllowingStateLoss();

@@ -28,13 +28,13 @@ import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.ImageView;
 
 import com.android.lf.lroid.R;
+import com.android.volley.toolbox.NetworkImageView;
 
 
 @SuppressWarnings("UnusedDeclaration")
-public class RoundedImageView extends ImageView {
+public class NetworkRoundedImageView extends NetworkImageView {
 
     // Constants for tile mode attributes
     private static final int TILE_MODE_UNDEFINED = -2;
@@ -76,15 +76,15 @@ public class RoundedImageView extends ImageView {
 
     private ScaleType mScaleType;
 
-    public RoundedImageView(Context context) {
+    public NetworkRoundedImageView(Context context) {
         super(context);
     }
 
-    public RoundedImageView(Context context, AttributeSet attrs) {
+    public NetworkRoundedImageView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public RoundedImageView(Context context, AttributeSet attrs, int defStyle) {
+    public NetworkRoundedImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.NetworkRoundedImageView, defStyle, 0);

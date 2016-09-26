@@ -1,99 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#eee"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent"
+        android:background="#eee"
+        android:orientation="vertical">
 
-        <ImageView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img_home_mine_top_bg" />
+            android:layout_height="180dp"
+            android:background="@color/colorPrimary"
+            android:fitsSystemWindows="true">
 
-    </FrameLayout>
+            <LinearLayout
+                android:id="@+id/id_ll_fragment_mine_face_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
 
-    <RelativeLayout style="@style/LroidRelativeStyle">
+                <com.android.lf.lroid.v.views.RoundedImageView
+                    android:id="@+id/id_niv_fragment_mine_face"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/img_home_mine_default_face_icon" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/img_home_mine_personal_information_icon"
-            android:drawablePadding="10dp"
-            android:gravity="center"
-            android:text="个人信息"
-            android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/id_tv_fragment_mine_nick_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18sp"
+                    android:text="登录/注册"
+                    android:textColor="#fff" />
+            </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/img_enter_icon" />
-    </RelativeLayout>
+        </FrameLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#eee"/>
+        <RelativeLayout
+            android:id="@+id/id_rl_fragment_mine_personal_info"
+            style="@style/LroidRelativeStyle">
 
-    <RelativeLayout
-        style="@style/LroidRelativeStyle">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/img_home_mine_personal_information_icon"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="个人信息"
+                android:textColor="#333"
+                android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/img_home_mine_reset_password_icon"
-            android:drawablePadding="10dp"
-            android:gravity="center"
-            android:text="修改密码"
-            android:textSize="16sp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/img_enter_icon" />
+        </RelativeLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/img_enter_icon" />
-    </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#eee" />
+
+        <RelativeLayout
+            android:id="@+id/id_rl_fragment_mine_reset_password"
+            style="@style/LroidRelativeStyle">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/img_home_mine_reset_password_icon"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="修改密码"
+                android:textColor="#333"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/img_enter_icon" />
+        </RelativeLayout>
 
 
-    <RelativeLayout
-        style="@style/LroidRelativeStyle"
-        android:layout_marginTop="10dp">
+        <RelativeLayout
+            android:id="@+id/id_rl_fragment_mine_about"
+            style="@style/LroidRelativeStyle"
+            android:layout_marginTop="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/img_home_mine_about_icon"
-            android:drawablePadding="10dp"
-            android:gravity="center"
-            android:text="关  于"
-            android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/img_home_mine_about_icon"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="关  于"
+                android:textColor="#333"
+                android:textSize="16sp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/img_enter_icon" />
-    </RelativeLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/img_enter_icon" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <Button
+        android:id="@+id/id_bt_fragment_mine_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:textColor="#fff"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/selector_bt_bg"
+        android:elevation="0dp"
         android:text="退出登录"
-        android:textSize="18sp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/selector_bt_bg"/>
-
-</LinearLayout>
+        android:enabled="false"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+</RelativeLayout>

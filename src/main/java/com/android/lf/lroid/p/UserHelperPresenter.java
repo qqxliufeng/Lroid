@@ -111,12 +111,12 @@ public class UserHelperPresenter extends BasePresenter {
                         contentValues.put(UserTable.NAME, phone);
                         contentValues.put(UserTable.FACE, "");
                         contentValues.put(UserTable.PASSWORD, "lroid");
-                        contentValues.put(UserTable.NICK_NAME, "");
+                        contentValues.put(UserTable.NICK_NAME, "lroid");
                         contentValues.put(UserTable.PHONE, phone);
                         contentValues.put(UserTable.PERSONALIZED_SIGNATURE, "");
                         contentValues.put(UserTable.SEX, 0);
                         if (mContext.getContentResolver().insert(DataProvider.USER_URI, contentValues) != null) {
-                            UserBean.getInstance().setNickName("");
+                            UserBean.getInstance().setNickName("lroid");
                             UserBean.getInstance().setPersonalizedSignature("");
                             UserBean.getInstance().setFace("");
                             UserBean.getInstance().setName(phone);

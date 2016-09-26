@@ -233,7 +233,6 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     @OnClick(R.id.id_ll_fragment_index_content_date_container)
     public void interDataDetail(View view){
-
     }
 
 }
