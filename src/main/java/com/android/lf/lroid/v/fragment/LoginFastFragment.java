@@ -117,6 +117,7 @@ public class LoginFastFragment extends LroidBaseFragment {
 
     private void initSMS() {
         EventHandler eh = new EventHandler() {
+
             @Override
             public void afterEvent(int event, int result, Object data) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
@@ -139,7 +140,7 @@ public class LoginFastFragment extends LroidBaseFragment {
                         });
                     }
                 } else {
-                    if (((Throwable) data).getLocalizedMessage()!=null){
+                    if (data!=null && ((Throwable) data).getLocalizedMessage()!=null){
                         if (((Throwable) data).getMessage().contains("468")) {
                             mHandler.post(new Runnable() {
                                 @Override
@@ -159,7 +160,6 @@ public class LoginFastFragment extends LroidBaseFragment {
                             });
                         }
                     }
-                    Logger.e(((Throwable) data),"error data");
                 }
             }
         };
