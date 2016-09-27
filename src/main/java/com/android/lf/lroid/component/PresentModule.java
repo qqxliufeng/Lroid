@@ -4,6 +4,7 @@ package com.android.lf.lroid.component;
 import com.android.lf.lroid.p.CommonPresenter;
 import com.android.lf.lroid.p.JieQiDataProvidePresenter;
 import com.android.lf.lroid.p.JieRiDataProvidePresenter;
+import com.android.lf.lroid.p.LoadPhotoPresenter;
 import com.android.lf.lroid.p.MobApiPresenter;
 import com.android.lf.lroid.p.UserHelperPresenter;
 
@@ -41,6 +42,11 @@ public class PresentModule {
     @Provides
     UserHelperPresenter getUserHelperPresenter(){
         return new UserHelperPresenter();
+    }
+
+    @Provides
+    LoadPhotoPresenter getLoadPhotoPresenter(){
+        return new LoadPhotoPresenter();
     }
 
 

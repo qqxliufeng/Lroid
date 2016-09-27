@@ -1,11 +1,17 @@
 package com.android.lf.lroid.v.fragment;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.m.bean.UserBean;
@@ -89,4 +95,7 @@ public class HomeMineFragment extends LroidBaseFragment {
                 break;
         }
     }
+
+
+
 }

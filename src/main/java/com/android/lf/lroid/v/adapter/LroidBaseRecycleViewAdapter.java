@@ -11,17 +11,17 @@ import java.util.List;
  * Created by feng on 2016/9/14.
  */
 
-public class LroidBaseAdapter extends BaseQuickAdapter {
+public class LroidBaseRecycleViewAdapter extends BaseQuickAdapter {
 
-    public LroidBaseAdapter(int layoutResId, List data) {
+    public LroidBaseRecycleViewAdapter(int layoutResId, List data) {
         super(layoutResId, data);
     }
 
-    public LroidBaseAdapter(List data) {
+    public LroidBaseRecycleViewAdapter(List data) {
         super(data);
     }
 
-    public LroidBaseAdapter(View contentView, List data) {
+    public LroidBaseRecycleViewAdapter(View contentView, List data) {
         super(contentView, data);
     }
 

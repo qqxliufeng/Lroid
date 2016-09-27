@@ -1,15 +1,23 @@
 package com.android.lf.lroid.v.fragment;
 
-import android.os.Bundle;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.m.bean.UserBean;
+import com.android.lf.lroid.utils.MethodUtils;
+import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 import com.android.lf.lroid.v.views.RoundedImageView;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by feng on 2016/9/26.
@@ -48,10 +56,35 @@ public class PersonalInfoFragment extends LroidBaseFragment {
         super.onResume();
         mPhone.setText(UserBean.getInstance().getPhone());
         mName.setText(UserBean.getInstance().getName());
-        mNickName.setText(TextUtils.isEmpty(UserBean.getInstance().getNickName()) ? "未设置": UserBean.getInstance().getNickName());
-        mSex.setText(UserBean.getInstance().getSex() == 0?"男":"女");
-        mPersonalSignature.setText(TextUtils.isEmpty(UserBean.getInstance().getPersonalizedSignature()) ? "未设置": UserBean.getInstance().getPersonalizedSignature());
+        mNickName.setText(TextUtils.isEmpty(UserBean.getInstance().getNickName()) ? "未设置" : UserBean.getInstance().getNickName());
+        mSex.setText(UserBean.getInstance().getSex() == 0 ? "男" : "女");
+        mPersonalSignature.setText(TextUtils.isEmpty(UserBean.getInstance().getPersonalizedSignature()) ? "未设置" : UserBean.getInstance().getPersonalizedSignature());
     }
+
+    @OnClick(R.id.id_rl_fragment_personal_info_face_container)
+    public void onFaceClick(View view) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0x0);
+            } else {
+                MethodUtils.startFragmentsActivity(mContext, "选取照片", FragmentContainerActivity.PHOTO_SELECT_FRAGMENT_FLAG);
+            }
+        } else {
+            MethodUtils.startFragmentsActivity(mContext, "选取照片", FragmentContainerActivity.PHOTO_SELECT_FRAGMENT_FLAG);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 0x0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                MethodUtils.startFragmentsActivity(mContext, "选取照片", FragmentContainerActivity.PHOTO_SELECT_FRAGMENT_FLAG);
+            } else {
+                Toast.makeText(mContext, "请开启读取照片权限", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
     @Override
     protected void setComponent() {

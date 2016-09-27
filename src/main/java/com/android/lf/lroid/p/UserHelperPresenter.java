@@ -220,22 +220,16 @@ public class UserHelperPresenter extends BasePresenter {
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Integer>() {
-
                     @Override
                     public void onStart() {
                         Logger.e("update result --> " + Thread.currentThread().getName());
                     }
-
                     @Override
                     public void onCompleted() {
-
                     }
-
                     @Override
                     public void onError(Throwable e) {
-
                     }
-
                     @Override
                     public void onNext(Integer integer) {
                         Logger.e("update result --> " + integer);

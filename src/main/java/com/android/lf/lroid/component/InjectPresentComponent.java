@@ -10,6 +10,7 @@ import com.android.lf.lroid.v.fragment.IndexTopFragment;
 import com.android.lf.lroid.v.fragment.LoginFastFragment;
 import com.android.lf.lroid.v.fragment.LoginFragment;
 import com.android.lf.lroid.v.fragment.LoginNormalFragment;
+import com.android.lf.lroid.v.fragment.PhotoSelectFragment;
 
 import javax.inject.Singleton;
 
@@ -37,5 +38,7 @@ public interface InjectPresentComponent {
     void inject(IndexMoreListFragment indexMoreListFragment);
 
     void inject(HomeMoreFragment homeMoreFragment);
+
+    void inject(PhotoSelectFragment photoSelectFragment);
 
 }
