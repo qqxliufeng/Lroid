@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
 
     <application
         android:name=".application.LroidApplication"
@@ -15,15 +17,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".v.activity.MainActivity">
-        </activity>
-        <activity android:name=".v.activity.HomeActivity"
-            android:theme="@style/HomeActivityTheme">
-        </activity>
+        <activity
+            android:name=".v.activity.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".v.activity.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeActivityTheme"/>
         <activity android:name=".v.activity.TestActivity" />
 
         <activity android:name=".v.activity.FragmentContainerActivity" />
-        <activity android:name=".v.activity.SplashActivity"
+        <activity
+            android:name=".v.activity.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/launcherTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,9 +38,14 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <provider
-            android:authorities="com.android.lf.lroid"
-            android:name=".m.database.DataProvider"/>
+            android:name=".m.database.DataProvider"
+            android:authorities="com.android.lf.lroid" />
     </application>
 
 </manifest>

@@ -1,7 +1,9 @@
 package com.android.lf.lroid.v.fragment;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -15,6 +17,9 @@ import com.android.lf.lroid.m.bean.UserBean;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 import com.android.lf.lroid.v.views.RoundedImageView;
+import com.orhanobut.logger.Logger;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -49,6 +54,7 @@ public class PersonalInfoFragment extends LroidBaseFragment {
 
     @Override
     protected void initView(View view) {
+        mFace.setOval(true);
     }
 
     @Override
@@ -67,24 +73,41 @@ public class PersonalInfoFragment extends LroidBaseFragment {
             if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0x0);
             } else {
-                MethodUtils.startFragmentsActivity(mContext, "选取照片", FragmentContainerActivity.PHOTO_SELECT_FRAGMENT_FLAG);
+//                MethodUtils.startFragmentsActivity(mContext, "选取照片", FragmentContainerActivity.PHOTO_SELECT_FRAGMENT_FLAG);
+                openSelectImage();
             }
         } else {
             MethodUtils.startFragmentsActivity(mContext, "选取照片", FragmentContainerActivity.PHOTO_SELECT_FRAGMENT_FLAG);
         }
     }
 
+    private void openSelectImage() {
+        Intent intent = new Intent(mContext, FragmentContainerActivity.class);
+        intent.putExtra(FragmentContainerActivity.FRAGMENT_FLAG, FragmentContainerActivity.PHOTO_SELECT_FRAGMENT_FLAG);
+        intent.putExtra(FragmentContainerActivity.TITLE_FLAG, "选取照片");
+        startActivityForResult(intent, 0x0);
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == 0x0) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                MethodUtils.startFragmentsActivity(mContext, "选取照片", FragmentContainerActivity.PHOTO_SELECT_FRAGMENT_FLAG);
+                openSelectImage();
             } else {
                 Toast.makeText(mContext, "请开启读取照片权限", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            String path = data.getStringExtra("data");
+            mFace.setImageURI(Uri.fromFile(new File(path)));
+        }
+    }
 
     @Override
     protected void setComponent() {
