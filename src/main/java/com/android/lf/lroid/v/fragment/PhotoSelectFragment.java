@@ -118,7 +118,7 @@ public class PhotoSelectFragment extends LroidBaseFragment implements AdapterVie
             }
         });
         mLoadPhotoPresenter.setFragment(this);
-        mLoadPhotoPresenter.loadingPhoto();
+        mLoadPhotoPresenter.doSomethingWithRxJavaMap(0x0,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
     }
 
     private void initActionBarSize() {
@@ -177,22 +177,28 @@ public class PhotoSelectFragment extends LroidBaseFragment implements AdapterVie
 
     @Override
     public <T> void onRequestSuccess(int requestID, T result) {
-        if (result != null) {
-            Map<String, PhotoFolderBean> folderBeanMap = (Map<String, PhotoFolderBean>) result;
-            Set<String> keys = folderBeanMap.keySet();
-            for (String key : keys) {
-                mPhotoFolderList.add(folderBeanMap.get(key));
+        if (requestID == 0x0) {
+            if (result != null) {
+                Map<String, PhotoFolderBean> folderBeanMap = (Map<String, PhotoFolderBean>) result;
+                Set<String> keys = folderBeanMap.keySet();
+                for (String key : keys) {
+                    mPhotoFolderList.add(folderBeanMap.get(key));
+                }
+                Collections.reverse(mPhotoFolderList);
+                mPhotoFolderList.get(0).setIsSelected(true);
+                folderAdapter.notifyDataSetChanged();
+                toggle();
+                ArrayList<PhotoBean> list = (ArrayList<PhotoBean>) folderBeanMap.get(LoadPhotoPresenter.ALL_PICTURE).getPhotoList();
+                if (list != null && list.size() > 0) {
+                    mItemCount.setText("共 " + list.size() + " 张");
+                    mPhotoList.addAll(list);
+                    selectAdapter.notifyDataSetChanged();
+                }
             }
-            Collections.reverse(mPhotoFolderList);
-            mPhotoFolderList.get(0).setIsSelected(true);
-            folderAdapter.notifyDataSetChanged();
-            toggle();
-            ArrayList<PhotoBean> list = (ArrayList<PhotoBean>) folderBeanMap.get(LoadPhotoPresenter.ALL_PICTURE).getPhotoList();
-            if (list != null && list.size() > 0) {
-                mItemCount.setText("共 " + list.size() + " 张");
-                mPhotoList.addAll(list);
-                selectAdapter.notifyDataSetChanged();
-            }
+        }else if (requestID == 0x1){
+            if (mCameraTempFile!=null && mCameraTempFile.exists())
+                mCameraTempFile.delete();
+            openCrop((String) result);
         }
     }
 
@@ -249,7 +255,7 @@ public class PhotoSelectFragment extends LroidBaseFragment implements AdapterVie
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        mCameraTempFile = new File(dir, System.currentTimeMillis() + ".jpg");
+        mCameraTempFile = new File(dir, System.currentTimeMillis() + ".png");
         if (!mCameraTempFile.exists()) {
             try {
                 mCameraTempFile.createNewFile();
@@ -267,8 +273,7 @@ public class PhotoSelectFragment extends LroidBaseFragment implements AdapterVie
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0x0 && resultCode == Activity.RESULT_OK) {
             if (mCameraTempFile != null) {
-                String path = ImageUtils.getSaveImage(mContext, mCameraTempFile.getAbsolutePath());
-                openCrop(path);
+                mLoadPhotoPresenter.doSomethingWithRxJavaMap(0x1,mCameraTempFile.getAbsolutePath());
             }
         }else if (requestCode  == UCrop.REQUEST_CROP){
             if (resultPath!=null) {
@@ -284,7 +289,7 @@ public class PhotoSelectFragment extends LroidBaseFragment implements AdapterVie
         UCrop.Options options = new UCrop.Options();
         options.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
-        resultPath = SDCardUtils.getSDCardPath() + "/Lroid/image/" + System.currentTimeMillis() + ".jpg";
+        resultPath = SDCardUtils.getSDCardPath() + "/Lroid/image/" + System.currentTimeMillis() + ".png";
         UCrop.of(Uri.fromFile(new File(path)), Uri.fromFile(new File(resultPath)))
                 .withAspectRatio(16, 16)
                 .withMaxResultSize(400, 400)
