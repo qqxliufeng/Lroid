@@ -55,15 +55,16 @@
             </RelativeLayout>
 
             <FrameLayout
+                android:id="@+id/id_fl_fragment_photo_select_folder_list_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone"
                 android:layout_above="@+id/id_rl_fragment_photo_select_bottom_bar">
 
                 <View
+                    android:id="@+id/id_fl_fragment_photo_select_folder_list_bg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#000000" />
+                    android:background="#aa000000" />
 
                 <ListView
                     android:id="@+id/id_lv_fragment_photo_select_item"

@@ -71,13 +71,15 @@ public class HomeMineFragment extends LroidBaseFragment {
 
     @OnClick(R.id.id_rl_fragment_mine_personal_info)
     public void onPersonalInfo(View view) {
-        if (TextUtils.isEmpty(UserBean.getInstance().getName())) {
-            LOGIN_SUCCESS_FLAG = 1;
-            UserBean.getInstance().setOnUserLoginSuccessListener(this);
-            MethodUtils.startFragmentsActivity(mContext, "登录", FragmentContainerActivity.LOGIN_FRAGMENT);
-        } else {
-            MethodUtils.startFragmentsActivity(mContext, "个人信息", FragmentContainerActivity.PERSONAL_INFO_FRAGMENT_FLAG);
-        }
+//        if (TextUtils.isEmpty(UserBean.getInstance().getName())) {
+//            LOGIN_SUCCESS_FLAG = 1;
+//            UserBean.getInstance().setOnUserLoginSuccessListener(this);
+//            MethodUtils.startFragmentsActivity(mContext, "登录", FragmentContainerActivity.LOGIN_FRAGMENT);
+//        } else {
+//            MethodUtils.startFragmentsActivity(mContext, "个人信息", FragmentContainerActivity.PERSONAL_INFO_FRAGMENT_FLAG);
+//        }
+        MethodUtils.startFragmentsActivity(mContext, "个人信息", FragmentContainerActivity.PERSONAL_INFO_FRAGMENT_FLAG);
+
     }
 
     @Override
@@ -95,7 +97,4 @@ public class HomeMineFragment extends LroidBaseFragment {
                 break;
         }
     }
-
-
-
 }
