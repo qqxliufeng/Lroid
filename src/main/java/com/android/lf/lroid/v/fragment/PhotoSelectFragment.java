@@ -302,6 +302,4 @@ public class PhotoSelectFragment extends LroidBaseFragment implements AdapterVie
         Toast.makeText(mContext, "请开启相机权限", Toast.LENGTH_SHORT).show();
     }
 
-
-
 }
