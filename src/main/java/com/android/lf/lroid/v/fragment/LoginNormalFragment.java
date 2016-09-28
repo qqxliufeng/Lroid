@@ -15,6 +15,8 @@ import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.UserBean;
 import com.android.lf.lroid.p.UserHelperPresenter;
+import com.android.lf.lroid.utils.Constants;
+import com.android.lf.lroid.utils.PreferenceUtils;
 import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
@@ -132,6 +134,8 @@ public class LoginNormalFragment extends LroidBaseFragment {
     public <T> void onRequestSuccess(int requestID, T result) {
         if (!TextUtils.isEmpty(((UserBean)result).getName())){
             Toast.makeText(mContext, "登录成功", Toast.LENGTH_SHORT).show();
+            PreferenceUtils.setPrefString(mContext, Constants.USER_NAME_FLAG,UserBean.getInstance().getPhone());
+            PreferenceUtils.setPrefString(mContext,Constants.USER_PASSWORD_FLAG,UserBean.getInstance().getPassword());
             if(UserBean.getInstance().getOnUserLoginSuccessListener()!=null){
                 finishActivity();
                 UserBean.getInstance().getOnUserLoginSuccessListener().onUserLoginSuccess();

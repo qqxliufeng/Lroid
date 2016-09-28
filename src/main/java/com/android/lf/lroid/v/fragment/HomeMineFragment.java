@@ -1,10 +1,14 @@
 package com.android.lf.lroid.v.fragment;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +22,8 @@ import com.android.lf.lroid.m.bean.UserBean;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 import com.android.lf.lroid.v.views.RoundedImageView;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -43,6 +49,8 @@ public class HomeMineFragment extends LroidBaseFragment {
 
     private static int LOGIN_SUCCESS_FLAG = 0;
 
+    public static boolean IS_CHANGE_FACE = false;
+
     public static HomeMineFragment newInstance() {
         return new HomeMineFragment();
     }
@@ -54,7 +62,27 @@ public class HomeMineFragment extends LroidBaseFragment {
 
     @Override
     protected void initView(View view) {
+        mFace.setOval(true);
         mFace.setImageResource(R.drawable.img_home_mine_default_face_icon);
+        if ( UserBean.getInstance()!=null && !TextUtils.isEmpty(UserBean.getInstance().getFace())) {
+            setFace();
+            mLogout.setEnabled(true);
+            mNickName.setText(UserBean.getInstance().getNickName());
+        }
+    }
+
+    private void setFace() {
+        Bitmap bitmap = BitmapFactory.decodeFile(UserBean.getInstance().getFace());
+        mFace.setImageBitmap(bitmap);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (IS_CHANGE_FACE) {
+            IS_CHANGE_FACE = false;
+            setFace();
+        }
     }
 
     @Override
@@ -71,15 +99,13 @@ public class HomeMineFragment extends LroidBaseFragment {
 
     @OnClick(R.id.id_rl_fragment_mine_personal_info)
     public void onPersonalInfo(View view) {
-//        if (TextUtils.isEmpty(UserBean.getInstance().getName())) {
-//            LOGIN_SUCCESS_FLAG = 1;
-//            UserBean.getInstance().setOnUserLoginSuccessListener(this);
-//            MethodUtils.startFragmentsActivity(mContext, "登录", FragmentContainerActivity.LOGIN_FRAGMENT);
-//        } else {
-//            MethodUtils.startFragmentsActivity(mContext, "个人信息", FragmentContainerActivity.PERSONAL_INFO_FRAGMENT_FLAG);
-//        }
-        MethodUtils.startFragmentsActivity(mContext, "个人信息", FragmentContainerActivity.PERSONAL_INFO_FRAGMENT_FLAG);
-
+        if (TextUtils.isEmpty(UserBean.getInstance().getName())) {
+            LOGIN_SUCCESS_FLAG = 1;
+            UserBean.getInstance().setOnUserLoginSuccessListener(this);
+            MethodUtils.startFragmentsActivity(mContext, "登录", FragmentContainerActivity.LOGIN_FRAGMENT);
+        } else {
+            MethodUtils.startFragmentsActivity(mContext, "个人信息", FragmentContainerActivity.PERSONAL_INFO_FRAGMENT_FLAG);
+        }
     }
 
     @Override
@@ -87,7 +113,7 @@ public class HomeMineFragment extends LroidBaseFragment {
         mLogout.setEnabled(true);
         mNickName.setText(UserBean.getInstance().getNickName());
         if (!TextUtils.isEmpty(UserBean.getInstance().getFace())) {
-            mFace.setImageResource(R.drawable.img_home_mine_default_face_icon);
+            setFace();
         } else {
             mFace.setImageResource(R.drawable.img_home_mine_default_face_icon);
         }
@@ -96,5 +122,19 @@ public class HomeMineFragment extends LroidBaseFragment {
                 MethodUtils.startFragmentsActivity(mContext, "个人信息", FragmentContainerActivity.PERSONAL_INFO_FRAGMENT_FLAG);
                 break;
         }
+    }
+
+    @OnClick(R.id.id_bt_fragment_mine_logout)
+    public void onLogout(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setPositiveButton("退出", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setNegativeButton("取消",null);
+        builder.setMessage("是否要退出?");
+        builder.create().show();
     }
 }

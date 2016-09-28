@@ -10,7 +10,9 @@ import com.android.lf.lroid.v.fragment.IndexTopFragment;
 import com.android.lf.lroid.v.fragment.LoginFastFragment;
 import com.android.lf.lroid.v.fragment.LoginFragment;
 import com.android.lf.lroid.v.fragment.LoginNormalFragment;
+import com.android.lf.lroid.v.fragment.PersonalInfoFragment;
 import com.android.lf.lroid.v.fragment.PhotoSelectFragment;
+import com.android.lf.lroid.v.fragment.SplashFragment;
 
 import javax.inject.Singleton;
 
@@ -40,5 +42,9 @@ public interface InjectPresentComponent {
     void inject(HomeMoreFragment homeMoreFragment);
 
     void inject(PhotoSelectFragment photoSelectFragment);
+
+    void inject(PersonalInfoFragment personalInfoFragment);
+
+    void inject(SplashFragment splashFragment);
 
 }

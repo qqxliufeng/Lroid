@@ -65,8 +65,7 @@ public class ImageUtils {
     public static String getSaveImage(Context context, String srcPath) {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
         newOpts.inJustDecodeBounds = true;
-        Log.e("TAG", " imageUtils " + srcPath);
-        Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts); // 此时返回bm为空   
+        Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts); // 此时返回bm为空
         int w = newOpts.outWidth;
         int h = newOpts.outHeight;
         Log.e("TAG", "w is --->  " + w + "    h is ------>   " + h);

@@ -229,6 +229,8 @@ public class UserHelperPresenter extends BasePresenter {
                     }
                     @Override
                     public void onError(Throwable e) {
+                        Logger.e(e.getMessage(),"modify user information error ");
+
                     }
                     @Override
                     public void onNext(Integer integer) {

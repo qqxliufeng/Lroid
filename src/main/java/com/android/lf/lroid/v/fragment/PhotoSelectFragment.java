@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.TypedValue;
@@ -25,6 +26,7 @@ import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.PhotoBean;
 import com.android.lf.lroid.m.bean.PhotoFolderBean;
+import com.android.lf.lroid.m.bean.UserBean;
 import com.android.lf.lroid.p.LoadPhotoPresenter;
 import com.android.lf.lroid.utils.ImageUtils;
 import com.android.lf.lroid.utils.SDCardUtils;
@@ -91,6 +93,7 @@ public class PhotoSelectFragment extends LroidBaseFragment implements AdapterVie
 
     private File mCameraTempFile;
     private String resultPath = null;
+    private String tempFilePath = null;
 
     @Override
     protected int getLayoutId() {
@@ -198,7 +201,8 @@ public class PhotoSelectFragment extends LroidBaseFragment implements AdapterVie
         }else if (requestID == 0x1){
             if (mCameraTempFile!=null && mCameraTempFile.exists())
                 mCameraTempFile.delete();
-            openCrop((String) result);
+            tempFilePath = (String) result;
+            openCrop(tempFilePath);
         }
     }
 
@@ -277,9 +281,17 @@ public class PhotoSelectFragment extends LroidBaseFragment implements AdapterVie
             }
         }else if (requestCode  == UCrop.REQUEST_CROP){
             if (resultPath!=null) {
+                if (tempFilePath!=null){
+                    File tempFile = new File(tempFilePath);
+                    if (tempFile.exists())
+                        tempFile.delete();
+                }
                 Intent intent = new Intent();
                 intent.putExtra("data", resultPath);
                 ((Activity) mContext).setResult(Activity.RESULT_OK, intent);
+                UserBean.getInstance().setFace(resultPath);
+                PersonalInfoFragment.IS_CHANGE_FACE = true;
+                HomeMineFragment.IS_CHANGE_FACE = true;
                 finishActivity();
             }
         }
@@ -289,6 +301,7 @@ public class PhotoSelectFragment extends LroidBaseFragment implements AdapterVie
         UCrop.Options options = new UCrop.Options();
         options.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+        options.setCompressionFormat(Bitmap.CompressFormat.PNG);
         resultPath = SDCardUtils.getSDCardPath() + "/Lroid/image/" + System.currentTimeMillis() + ".png";
         UCrop.of(Uri.fromFile(new File(path)), Uri.fromFile(new File(resultPath)))
                 .withAspectRatio(16, 16)
