@@ -24,6 +24,7 @@ import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.utils.PreferenceUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 import com.android.lf.lroid.v.views.RoundedImageView;
+import com.orhanobut.logger.Logger;
 
 import java.io.File;
 
@@ -112,6 +113,11 @@ public class HomeMineFragment extends LroidBaseFragment {
         } else {
             MethodUtils.startFragmentsActivity(mContext, "个人信息", FragmentContainerActivity.PERSONAL_INFO_FRAGMENT_FLAG);
         }
+    }
+
+    @OnClick(R.id.id_rl_fragment_mine_reset_password)
+    public void onRestPasswordClick(){
+        MethodUtils.startFragmentsActivity(mContext,"修改密码",FragmentContainerActivity.RESET_PASSWORD_FLAG);
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.android.lf.lroid.v.fragment.LoginFastFragment;
 import com.android.lf.lroid.v.fragment.LoginNormalFragment;
 import com.android.lf.lroid.v.fragment.PersonalInfoFragment;
 import com.android.lf.lroid.v.fragment.PhotoSelectFragment;
+import com.android.lf.lroid.v.fragment.ResetPasswordFragment;
 import com.android.lf.lroid.v.fragment.SetPersonalInfoFragment;
 import com.android.lf.lroid.v.fragment.SplashFragment;
 
@@ -48,4 +49,5 @@ public interface InjectPresentComponent {
 
     void inject(SetPersonalInfoFragment setPersonalInfoFragment);
 
+    void inject(ResetPasswordFragment resetPasswordFragment);
 }

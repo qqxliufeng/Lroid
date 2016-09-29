@@ -10,6 +10,7 @@ import com.android.lf.lroid.R;
 import com.android.lf.lroid.v.fragment.LoginFragment;
 import com.android.lf.lroid.v.fragment.PersonalInfoFragment;
 import com.android.lf.lroid.v.fragment.PhotoSelectFragment;
+import com.android.lf.lroid.v.fragment.ResetPasswordFragment;
 import com.android.lf.lroid.v.fragment.SetPersonalInfoFragment;
 import com.android.lf.lroid.v.fragment.WebContentFragment;
 
@@ -30,6 +31,7 @@ public class FragmentContainerActivity extends BaseActivity {
     public static final int PERSONAL_INFO_FRAGMENT_FLAG = 0x2;
     public static final int PHOTO_SELECT_FRAGMENT_FLAG = 0x3;
     public static final int SET_PERSONAL_INFO_FRAGMENT_FLAG = 0x4;
+    public static final int RESET_PASSWORD_FLAG = 0x5;
 
     @BindView(R.id.id_tl_app_top_bar)
     Toolbar mToolBar;
@@ -78,7 +80,9 @@ public class FragmentContainerActivity extends BaseActivity {
             case SET_PERSONAL_INFO_FRAGMENT_FLAG:
                 fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, SetPersonalInfoFragment.newInstance(getIntent().getBundleExtra(EXTRA_FLAG)));
                 break;
-
+            case RESET_PASSWORD_FLAG:
+                fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, ResetPasswordFragment.newInstance());
+                break;
         }
         fragmentTransaction.commitAllowingStateLoss();
     }
