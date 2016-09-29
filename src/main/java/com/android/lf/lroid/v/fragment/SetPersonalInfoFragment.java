@@ -111,7 +111,8 @@ public class SetPersonalInfoFragment extends LroidBaseFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == com.yalantis.ucrop.R.id.menu_crop) {
-            cropAndSaveImage();
+            mShowLoader = false;
+            ((FragmentContainerActivity) mContext).supportInvalidateOptionsMenu();
             saveUserInfo();
         }
         return super.onOptionsItemSelected(item);
@@ -121,16 +122,12 @@ public class SetPersonalInfoFragment extends LroidBaseFragment {
         if (!TextUtils.isEmpty(mTextContent.getText().toString())) {
             ContentValues contentValues = new ContentValues();
             contentValues.put(getArguments().getString(MODIFY_COLUMN_FLAG), mTextContent.getText().toString());
-            mUserHelperPresenter.modifyUserInfo(contentValues, UserTable.PHONE, UserBean.getInstance().getPhone());
+            mUserHelperPresenter.doSomethingWithRxJavaMap(UserHelperPresenter.REQUEST_CODE_MODIFY,contentValues, UserTable.PHONE, UserBean.getInstance().getPhone());
         } else {
             Toast.makeText(mContext, mTextContent.getHint().toString(), Toast.LENGTH_SHORT).show();
         }
     }
 
-    protected void cropAndSaveImage() {
-        mShowLoader = false;
-        ((FragmentContainerActivity) mContext).supportInvalidateOptionsMenu();
-    }
 
     @Override
     public <T> void onRequestSuccess(int requestID, T result) {

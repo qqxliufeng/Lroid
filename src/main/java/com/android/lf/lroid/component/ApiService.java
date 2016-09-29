@@ -13,7 +13,7 @@ import rx.Observable;
  * Created by feng on 2016/8/19.
  */
 
-public interface UserManagerService {
+public interface ApiService {
 
     @GET("top250")
     public Observable<String> getData(@Query("start") int start, @Query("count") int count);

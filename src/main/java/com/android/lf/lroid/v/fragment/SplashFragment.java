@@ -43,7 +43,7 @@ public class SplashFragment extends LroidBaseFragment {
             @Override
             public void run() {
                 if (!TextUtils.isEmpty(PreferenceUtils.getPrefString(mContext, Constants.USER_NAME_FLAG,""))) {
-                    mUserHelperPresenter.normalLogin(PreferenceUtils.getPrefString(mContext,Constants.USER_NAME_FLAG,""),PreferenceUtils.getPrefString(mContext,Constants.USER_PASSWORD_FLAG,""));
+                    mUserHelperPresenter.doSomethingWithRxJavaMap(UserHelperPresenter.REQUEST_CODE_NORMAL_LOGIN,PreferenceUtils.getPrefString(mContext,Constants.USER_NAME_FLAG,""),PreferenceUtils.getPrefString(mContext,Constants.USER_PASSWORD_FLAG,""));
                 }else {
                     startActivity(new Intent(mContext, HomeActivity.class));
                     finishActivity();
@@ -59,7 +59,6 @@ public class SplashFragment extends LroidBaseFragment {
 
     @Override
     public <T> void onRequestSuccess(int requestID, T result) {
-
         startActivity(new Intent(mContext, HomeActivity.class));
         finishActivity();
     }

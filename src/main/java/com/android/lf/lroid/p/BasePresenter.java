@@ -4,7 +4,7 @@ package com.android.lf.lroid.p;
 import android.content.Context;
 
 import com.android.lf.lroid.application.LroidApplication;
-import com.android.lf.lroid.component.UserManagerService;
+import com.android.lf.lroid.component.ApiService;
 import com.android.lf.lroid.interfaces.IPresentListener;
 import com.android.lf.lroid.v.fragment.LroidBaseFragment;
 
@@ -28,7 +28,7 @@ public class BasePresenter {
     protected LroidBaseFragment baseFragment;
 
     @Inject
-    UserManagerService userManagerService;
+    ApiService userManagerService;
 
     public BasePresenter() {
         LroidApplication.getInstance().getPresentComponent().inject(this);

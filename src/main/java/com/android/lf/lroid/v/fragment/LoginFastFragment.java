@@ -19,7 +19,6 @@ import com.android.lf.lroid.p.UserHelperPresenter;
 import com.android.lf.lroid.utils.Constants;
 import com.android.lf.lroid.utils.PreferenceUtils;
 import com.android.lf.lroid.utils.RegexMatches;
-import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
@@ -130,7 +129,7 @@ public class LoginFastFragment extends LroidBaseFragment {
                                 if(mProgressDialog!=null && mProgressDialog.isShowing()){
                                     mProgressDialog.dismiss();
                                 }
-                                mUserHelperPresenter.fastLogin(mPhone.getText().toString());
+                                mUserHelperPresenter.doSomethingWithRxJavaMap(UserHelperPresenter.REQUEST_CODE_FAST_LOGIN,mPhone.getText().toString());
                             }
                         });
                     } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
@@ -196,7 +195,7 @@ public class LoginFastFragment extends LroidBaseFragment {
 
     @Override
     public void onRequestStart(int requestID) {
-        if (requestID == UserHelperPresenter.REQUEST_CODE_LOGIN) {
+        if (requestID == UserHelperPresenter.REQUEST_CODE_FAST_LOGIN) {
             if (mProgressDialog == null) {
                 mProgressDialog = ProgressDialog.show(mContext, "", "正在登录，请稍后……");
             } else {
@@ -207,7 +206,7 @@ public class LoginFastFragment extends LroidBaseFragment {
 
     @Override
     public <T> void onRequestSuccess(int requestID, T result) {
-        if (result != null && requestID == UserHelperPresenter.REQUEST_CODE_LOGIN) {
+        if (result != null && requestID == UserHelperPresenter.REQUEST_CODE_FAST_LOGIN) {
             if (!TextUtils.isEmpty(((UserBean) result).getName())) {
                 Toast.makeText(mContext, "登录成功", Toast.LENGTH_SHORT).show();
                 PreferenceUtils.setPrefString(mContext, Constants.USER_NAME_FLAG,UserBean.getInstance().getPhone());

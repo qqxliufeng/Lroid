@@ -2,8 +2,6 @@ package com.android.lf.lroid.component;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
@@ -37,8 +35,8 @@ public class AppModule {
     }
 
     @Provides
-    public UserManagerService getUserService(Retrofit retrofit){
-        return retrofit.create(UserManagerService.class);
+    public ApiService getUserService(Retrofit retrofit){
+        return retrofit.create(ApiService.class);
     }
 
 }

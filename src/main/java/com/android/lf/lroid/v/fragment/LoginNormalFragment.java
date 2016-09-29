@@ -1,7 +1,6 @@
 package com.android.lf.lroid.v.fragment;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -114,7 +113,7 @@ public class LoginNormalFragment extends LroidBaseFragment {
 
     @Override
     public void onRequestStart(int requestID) {
-        if(requestID == UserHelperPresenter.REQUEST_CODE_LOGIN){
+        if(requestID == UserHelperPresenter.REQUEST_CODE_NORMAL_LOGIN){
             if (mProgressDialog == null) {
                 mProgressDialog = ProgressDialog.show(mContext, "", "正在登录，请稍后……");
             }else {
