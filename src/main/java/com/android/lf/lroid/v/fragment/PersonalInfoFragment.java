@@ -2,12 +2,15 @@ package com.android.lf.lroid.v.fragment;
 
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -22,7 +25,6 @@ import com.android.lf.lroid.p.UserHelperPresenter;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 import com.android.lf.lroid.v.views.RoundedImageView;
-import com.orhanobut.logger.Logger;
 
 import java.io.File;
 
@@ -52,6 +54,8 @@ public class PersonalInfoFragment extends LroidBaseFragment {
     @BindView(R.id.id_tv_fragment_personal_info_personal_signature)
     TextView mPersonalSignature;
 
+    private int sexWhich;
+
     @Inject
     UserHelperPresenter mUserHelperPresenter;
 
@@ -79,29 +83,70 @@ public class PersonalInfoFragment extends LroidBaseFragment {
         mSex.setText(UserBean.getInstance().getSex() == 0 ? "男" : "女");
         mPersonalSignature.setText(TextUtils.isEmpty(UserBean.getInstance().getPersonalizedSignature()) ? "未设置" : UserBean.getInstance().getPersonalizedSignature());
         mFace.setImageResource(R.drawable.img_home_mine_default_face_icon);
-        if (!TextUtils.isEmpty(UserBean.getInstance().getFace())){
+        if (!TextUtils.isEmpty(UserBean.getInstance().getFace())) {
             mFace.setImageURI(Uri.fromFile(new File(UserBean.getInstance().getFace())));
         }
-        if (IS_CHANGE_FACE){
+        if (IS_CHANGE_FACE) {
             IS_CHANGE_FACE = false;
             mFace.setImageURI(Uri.fromFile(new File(UserBean.getInstance().getFace())));
             ContentValues contentValues = new ContentValues();
-            contentValues.put(UserTable.FACE,UserBean.getInstance().getFace());
-            mUserHelperPresenter.modifyUserInfo(contentValues,UserTable.PHONE,UserBean.getInstance().getPhone());
+            contentValues.put(UserTable.FACE, UserBean.getInstance().getFace());
+            mUserHelperPresenter.modifyUserInfo(contentValues, UserTable.PHONE, UserBean.getInstance().getPhone());
         }
     }
 
-    @OnClick(R.id.id_rl_fragment_personal_info_face_container)
-    public void onFaceClick(View view) {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0x0);
-            } else {
-//                MethodUtils.startFragmentsActivity(mContext, "选取照片", FragmentContainerActivity.PHOTO_SELECT_FRAGMENT_FLAG);
-                openSelectImage();
-            }
-        } else {
-            MethodUtils.startFragmentsActivity(mContext, "选取照片", FragmentContainerActivity.PHOTO_SELECT_FRAGMENT_FLAG);
+    @OnClick({R.id.id_rl_fragment_personal_info_face_container, R.id.id_rl_fragment_personal_info_personal_signature_container, R.id.id_rl_fragment_personal_info_nick_name_container, R.id.id_rl_fragment_personal_info_sex_container})
+    public void onRelativeLayoutClick(View view) {
+        switch (view.getId()) {
+            case R.id.id_rl_fragment_personal_info_face_container:
+                if (Build.VERSION.SDK_INT >= 23) {
+                    if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0x0);
+                    } else {
+                        openSelectImage();
+                    }
+                } else {
+                    openSelectImage();
+                }
+                break;
+            case R.id.id_rl_fragment_personal_info_personal_signature_container:
+                Bundle personalSignatureBundle = new Bundle();
+                personalSignatureBundle.putString(SetPersonalInfoFragment.MODIFY_COLUMN_FLAG, UserTable.PERSONALIZED_SIGNATURE);
+                personalSignatureBundle.putString(SetPersonalInfoFragment.MODIFY_EDIT_TEXT_VIEW_HINT, "请输入个性签名");
+                personalSignatureBundle.putInt(SetPersonalInfoFragment.MODIFY_TYPE_FLAG, 1);
+                MethodUtils.startFragmentsActivity(mContext, "个性签名", FragmentContainerActivity.SET_PERSONAL_INFO_FRAGMENT_FLAG, personalSignatureBundle);
+                break;
+            case R.id.id_rl_fragment_personal_info_nick_name_container:
+                Bundle nickNameBundle = new Bundle();
+                nickNameBundle.putString(SetPersonalInfoFragment.MODIFY_COLUMN_FLAG, UserTable.NICK_NAME);
+                nickNameBundle.putString(SetPersonalInfoFragment.MODIFY_EDIT_TEXT_VIEW_HINT, "请输入昵称");
+                nickNameBundle.putInt(SetPersonalInfoFragment.MODIFY_TYPE_FLAG, 0);
+                MethodUtils.startFragmentsActivity(mContext, "昵称", FragmentContainerActivity.SET_PERSONAL_INFO_FRAGMENT_FLAG, nickNameBundle);
+                break;
+            case R.id.id_rl_fragment_personal_info_sex_container:
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                String[] items = new String[]{"男", "女"};
+                builder.setSingleChoiceItems(items, UserBean.getInstance().getSex(), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        sexWhich = which;
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(UserTable.SEX, which);
+                        mUserHelperPresenter.modifyUserInfo(contentValues, UserTable.PHONE, UserBean.getInstance().getPhone());
+                    }
+                });
+                builder.setTitle("请选择性别");
+                builder.create().show();
+                break;
+        }
+    }
+
+    @Override
+    public <T> void onRequestSuccess(int requestID, T result) {
+        if ((Integer) result != -1) {
+            UserBean.getInstance().setSex(sexWhich);
+            mSex.setText(sexWhich == 0 ? "男" : "女");
         }
     }
 
@@ -109,7 +154,7 @@ public class PersonalInfoFragment extends LroidBaseFragment {
         Intent intent = new Intent(mContext, FragmentContainerActivity.class);
         intent.putExtra(FragmentContainerActivity.FRAGMENT_FLAG, FragmentContainerActivity.PHOTO_SELECT_FRAGMENT_FLAG);
         intent.putExtra(FragmentContainerActivity.TITLE_FLAG, "选取照片");
-        startActivityForResult(intent, 0x0);
+        startActivity(intent);
     }
 
     @Override
@@ -123,18 +168,10 @@ public class PersonalInfoFragment extends LroidBaseFragment {
         }
     }
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data != null) {
-            String path = data.getStringExtra("data");
-            mFace.setImageURI(Uri.fromFile(new File(path)));
-        }
-    }
-
     @Override
     protected void setComponent() {
         DaggerInjectPresentComponent.builder().presentModule(new PresentModule()).build().inject(this);
     }
+
+
 }

@@ -19,7 +19,9 @@ import android.widget.Toast;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.m.bean.UserBean;
+import com.android.lf.lroid.utils.Constants;
 import com.android.lf.lroid.utils.MethodUtils;
+import com.android.lf.lroid.utils.PreferenceUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 import com.android.lf.lroid.v.views.RoundedImageView;
 
@@ -64,21 +66,25 @@ public class HomeMineFragment extends LroidBaseFragment {
     protected void initView(View view) {
         mFace.setOval(true);
         mFace.setImageResource(R.drawable.img_home_mine_default_face_icon);
-        if ( UserBean.getInstance()!=null && !TextUtils.isEmpty(UserBean.getInstance().getFace())) {
+        if (UserBean.getInstance() != null && !TextUtils.isEmpty(UserBean.getInstance().getPhone())) {
             setFace();
             mLogout.setEnabled(true);
-            mNickName.setText(UserBean.getInstance().getNickName());
         }
     }
 
     private void setFace() {
-        Bitmap bitmap = BitmapFactory.decodeFile(UserBean.getInstance().getFace());
-        mFace.setImageBitmap(bitmap);
+        if (!TextUtils.isEmpty(UserBean.getInstance().getFace())) {
+            Bitmap bitmap = BitmapFactory.decodeFile(UserBean.getInstance().getFace());
+            mFace.setImageBitmap(bitmap);
+        } else {
+            mFace.setImageResource(R.drawable.img_home_mine_default_face_icon);
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        mNickName.setText(TextUtils.isEmpty(UserBean.getInstance().getNickName()) ? "登录/注册" : UserBean.getInstance().getNickName());
         if (IS_CHANGE_FACE) {
             IS_CHANGE_FACE = false;
             setFace();
@@ -112,11 +118,7 @@ public class HomeMineFragment extends LroidBaseFragment {
     public void onUserLoginSuccess() {
         mLogout.setEnabled(true);
         mNickName.setText(UserBean.getInstance().getNickName());
-        if (!TextUtils.isEmpty(UserBean.getInstance().getFace())) {
-            setFace();
-        } else {
-            mFace.setImageResource(R.drawable.img_home_mine_default_face_icon);
-        }
+        setFace();
         switch (LOGIN_SUCCESS_FLAG) {
             case 1:
                 MethodUtils.startFragmentsActivity(mContext, "个人信息", FragmentContainerActivity.PERSONAL_INFO_FRAGMENT_FLAG);
@@ -125,15 +127,20 @@ public class HomeMineFragment extends LroidBaseFragment {
     }
 
     @OnClick(R.id.id_bt_fragment_mine_logout)
-    public void onLogout(View view){
+    public void onLogout(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setPositiveButton("退出", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                UserBean.getInstance().clearInfo();
+                setFace();
+                mLogout.setEnabled(false);
+                mNickName.setText("登录/注册");
+                PreferenceUtils.setPrefString(mContext, Constants.USER_NAME_FLAG,"");
+                PreferenceUtils.setPrefString(mContext,Constants.USER_PASSWORD_FLAG,"");
             }
         });
-        builder.setNegativeButton("取消",null);
+        builder.setNegativeButton("取消", null);
         builder.setMessage("是否要退出?");
         builder.create().show();
     }

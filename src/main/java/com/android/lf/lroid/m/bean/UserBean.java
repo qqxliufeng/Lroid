@@ -40,16 +40,16 @@ public class UserBean {
     private WeakReference<OnUserLoginSuccessListener> onUserLoginSuccessListener;
 
     public OnUserLoginSuccessListener getOnUserLoginSuccessListener() {
-        if (onUserLoginSuccessListener!=null) {
+        if (onUserLoginSuccessListener != null) {
             return onUserLoginSuccessListener.get();
         }
         return null;
     }
 
     public void setOnUserLoginSuccessListener(OnUserLoginSuccessListener onUserLoginSuccessListener) {
-        if (onUserLoginSuccessListener!=null) {
+        if (onUserLoginSuccessListener != null) {
             this.onUserLoginSuccessListener = new WeakReference<OnUserLoginSuccessListener>(onUserLoginSuccessListener);
-        }else{
+        } else {
             this.onUserLoginSuccessListener = null;
         }
 
@@ -110,4 +110,14 @@ public class UserBean {
     public void setSex(int sex) {
         this.sex = sex;
     }
+
+    public void clearInfo() {
+        name = null;
+        phone = null;
+        nickName = null;
+        face = null;
+        password = null;
+        personalizedSignature = null;
+    }
+
 }

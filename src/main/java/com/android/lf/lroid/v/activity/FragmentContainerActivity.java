@@ -10,6 +10,7 @@ import com.android.lf.lroid.R;
 import com.android.lf.lroid.v.fragment.LoginFragment;
 import com.android.lf.lroid.v.fragment.PersonalInfoFragment;
 import com.android.lf.lroid.v.fragment.PhotoSelectFragment;
+import com.android.lf.lroid.v.fragment.SetPersonalInfoFragment;
 import com.android.lf.lroid.v.fragment.WebContentFragment;
 
 import butterknife.BindView;
@@ -28,6 +29,7 @@ public class FragmentContainerActivity extends BaseActivity {
     public static final int LOGIN_FRAGMENT= 0x1;
     public static final int PERSONAL_INFO_FRAGMENT_FLAG = 0x2;
     public static final int PHOTO_SELECT_FRAGMENT_FLAG = 0x3;
+    public static final int SET_PERSONAL_INFO_FRAGMENT_FLAG = 0x4;
 
     @BindView(R.id.id_tl_app_top_bar)
     Toolbar mToolBar;
@@ -73,7 +75,15 @@ public class FragmentContainerActivity extends BaseActivity {
             case PHOTO_SELECT_FRAGMENT_FLAG:
                 fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, PhotoSelectFragment.newInstance());
                 break;
+            case SET_PERSONAL_INFO_FRAGMENT_FLAG:
+                fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, SetPersonalInfoFragment.newInstance(getIntent().getBundleExtra(EXTRA_FLAG)));
+                break;
+
         }
         fragmentTransaction.commitAllowingStateLoss();
+    }
+
+    public Toolbar getToolBar() {
+        return mToolBar;
     }
 }

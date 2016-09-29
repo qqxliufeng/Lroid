@@ -213,6 +213,7 @@ public class UserHelperPresenter extends BasePresenter {
         Observable.create(new Observable.OnSubscribe<Integer>() {
             @Override
             public void call(Subscriber<? super Integer> subscriber) {
+                SystemClock.sleep(1000);
                 int result = mContext.getContentResolver().update(DataProvider.USER_URI, contentValues, where + " = ? ", args);
                 subscriber.onNext(result);
                 subscriber.onCompleted();
@@ -234,7 +235,9 @@ public class UserHelperPresenter extends BasePresenter {
                     }
                     @Override
                     public void onNext(Integer integer) {
-                        Logger.e("update result --> " + integer);
+                        if (checkNullPresent()){
+                            iPresentListener.onRequestSuccess(0x0,integer);
+                        }
                     }
                 });
     }

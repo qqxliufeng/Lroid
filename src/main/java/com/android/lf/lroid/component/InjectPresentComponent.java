@@ -1,17 +1,16 @@
 package com.android.lf.lroid.component;
 
-import com.android.lf.lroid.v.activity.MainActivity;
 import com.android.lf.lroid.v.activity.HomeActivity;
-import com.android.lf.lroid.v.fragment.HomeIndexFragment;
+import com.android.lf.lroid.v.activity.MainActivity;
 import com.android.lf.lroid.v.fragment.HomeMoreFragment;
 import com.android.lf.lroid.v.fragment.IndexListFragment;
 import com.android.lf.lroid.v.fragment.IndexMoreListFragment;
 import com.android.lf.lroid.v.fragment.IndexTopFragment;
 import com.android.lf.lroid.v.fragment.LoginFastFragment;
-import com.android.lf.lroid.v.fragment.LoginFragment;
 import com.android.lf.lroid.v.fragment.LoginNormalFragment;
 import com.android.lf.lroid.v.fragment.PersonalInfoFragment;
 import com.android.lf.lroid.v.fragment.PhotoSelectFragment;
+import com.android.lf.lroid.v.fragment.SetPersonalInfoFragment;
 import com.android.lf.lroid.v.fragment.SplashFragment;
 
 import javax.inject.Singleton;
@@ -46,5 +45,7 @@ public interface InjectPresentComponent {
     void inject(PersonalInfoFragment personalInfoFragment);
 
     void inject(SplashFragment splashFragment);
+
+    void inject(SetPersonalInfoFragment setPersonalInfoFragment);
 
 }
