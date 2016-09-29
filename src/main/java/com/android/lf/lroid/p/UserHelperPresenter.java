@@ -49,7 +49,7 @@ public class UserHelperPresenter extends BasePresenter {
     }
 
     //user select
-    public <R> R normalLogin(final String userName, final String userPassword) {
+    private  <R> R normalLogin(final String userName, final String userPassword) {
         SystemClock.sleep(3000);
         Cursor cursor = mContext.getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, UserTable.PHONE + " = ? and " + UserTable.PASSWORD + " = ? ", new String[]{userName, userPassword}, null);
         if (cursor != null) {
@@ -67,7 +67,7 @@ public class UserHelperPresenter extends BasePresenter {
         return (R) UserBean.getInstance();
     }
 
-    public <R> R fastLogin(final String phone) {
+    private <R> R fastLogin(final String phone) {
         Cursor cursor = mContext.getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, UserTable.PHONE + " = ? ", new String[]{phone}, null);
         if (cursor != null) {
             SystemClock.sleep(2000);
@@ -137,7 +137,7 @@ public class UserHelperPresenter extends BasePresenter {
     }
 
     //user update
-    public <R> R modifyUserInfo(final ContentValues contentValues, final String where, final String args) {
+    private <R> R modifyUserInfo(final ContentValues contentValues, final String where, final String args) {
         SystemClock.sleep(1000);
         return (R) (Integer) mContext.getContentResolver().update(DataProvider.USER_URI, contentValues, where + " = ? ", new String[]{args});
     }

@@ -56,6 +56,8 @@ public class PersonalInfoFragment extends LroidBaseFragment {
 
     private int sexWhich;
 
+    private int requestType = 0;
+
     @Inject
     UserHelperPresenter mUserHelperPresenter;
 
@@ -91,7 +93,8 @@ public class PersonalInfoFragment extends LroidBaseFragment {
             mFace.setImageURI(Uri.fromFile(new File(UserBean.getInstance().getFace())));
             ContentValues contentValues = new ContentValues();
             contentValues.put(UserTable.FACE, UserBean.getInstance().getFace());
-            mUserHelperPresenter.modifyUserInfo(contentValues, UserTable.PHONE, UserBean.getInstance().getPhone());
+            requestType = 0;
+            mUserHelperPresenter.doSomethingWithRxJavaMap(UserHelperPresenter.REQUEST_CODE_MODIFY, contentValues, UserTable.PHONE, UserBean.getInstance().getPhone());
         }
     }
 
@@ -133,7 +136,8 @@ public class PersonalInfoFragment extends LroidBaseFragment {
                         sexWhich = which;
                         ContentValues contentValues = new ContentValues();
                         contentValues.put(UserTable.SEX, which);
-                        mUserHelperPresenter.modifyUserInfo(contentValues, UserTable.PHONE, UserBean.getInstance().getPhone());
+                        requestType = 1;
+                        mUserHelperPresenter.doSomethingWithRxJavaMap(UserHelperPresenter.REQUEST_CODE_MODIFY, contentValues, UserTable.PHONE, UserBean.getInstance().getPhone());
                     }
                 });
                 builder.setTitle("请选择性别");
@@ -145,8 +149,10 @@ public class PersonalInfoFragment extends LroidBaseFragment {
     @Override
     public <T> void onRequestSuccess(int requestID, T result) {
         if ((Integer) result != -1) {
-            UserBean.getInstance().setSex(sexWhich);
-            mSex.setText(sexWhich == 0 ? "男" : "女");
+            if (requestType == 1) {
+                UserBean.getInstance().setSex(sexWhich);
+                mSex.setText(sexWhich == 0 ? "男" : "女");
+            }
         }
     }
 

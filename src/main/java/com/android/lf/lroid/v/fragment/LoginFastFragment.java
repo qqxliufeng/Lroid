@@ -46,6 +46,8 @@ public class LoginFastFragment extends LroidBaseFragment {
 
     private CountDownTimer mCountDownTimer;
 
+    private boolean isCountDown = false;
+
     @Inject
     UserHelperPresenter mUserHelperPresenter;
 
@@ -77,7 +79,7 @@ public class LoginFastFragment extends LroidBaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(mPhone.getText().toString()) && mPhone.getText().toString().length() == 11) {
+                if (!TextUtils.isEmpty(mPhone.getText().toString()) && mPhone.getText().toString().length() == 11 && !isCountDown) {
                     mCode.setEnabled(true);
                 } else {
                     mCode.setEnabled(false);
@@ -109,6 +111,7 @@ public class LoginFastFragment extends LroidBaseFragment {
 
             @Override
             public void onFinish() {
+                isCountDown = false;
                 mCode.setText("重新发送？");
                 mCode.setEnabled(true);
             }
@@ -176,6 +179,7 @@ public class LoginFastFragment extends LroidBaseFragment {
     public void onClick(View view) {
         if (view.getId() == R.id.id_bt_fragment_login_fast_get_code) {
             if (!TextUtils.isEmpty(mPhone.getText().toString()) && RegexMatches.matchesPhone(mPhone.getText().toString())) {
+                isCountDown = true;
                 mCountDownTimer.start();
                 mCode.setEnabled(false);
                 SMSSDK.getVerificationCode("+86", mPhone.getText().toString());
@@ -235,6 +239,7 @@ public class LoginFastFragment extends LroidBaseFragment {
     @Override
     public void onDestroy() {
         if (mCountDownTimer != null) {
+            isCountDown = false;
             mCountDownTimer.cancel();
         }
         super.onDestroy();
