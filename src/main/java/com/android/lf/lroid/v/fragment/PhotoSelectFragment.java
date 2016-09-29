@@ -6,7 +6,6 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.TypedValue;
@@ -201,8 +200,7 @@ public class PhotoSelectFragment extends LroidBaseFragment implements AdapterVie
         }else if (requestID == 0x1){
             if (mCameraTempFile!=null && mCameraTempFile.exists())
                 mCameraTempFile.delete();
-            tempFilePath = (String) result;
-            openCrop(tempFilePath);
+            openCrop((String) result);
         }
     }
 
@@ -301,7 +299,6 @@ public class PhotoSelectFragment extends LroidBaseFragment implements AdapterVie
         UCrop.Options options = new UCrop.Options();
         options.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
-        options.setCompressionFormat(Bitmap.CompressFormat.PNG);
         resultPath = SDCardUtils.getSDCardPath() + "/Lroid/image/" + System.currentTimeMillis() + ".png";
         UCrop.of(Uri.fromFile(new File(path)), Uri.fromFile(new File(resultPath)))
                 .withAspectRatio(16, 16)
