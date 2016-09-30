@@ -20,7 +20,8 @@ public class SplashActivity extends BaseActivity {
     public static final String IS_NAVIGATION_FLAG = "is_navigation_flag";
 
     private boolean isNavigation = true;
-    private boolean NAVIGATION_FLAG = false;
+    private boolean NAVIGATION_FLAG = true;
+    private boolean CONTROLLER_FLAG = true;
 
     @Override
     public int getLayoutId() {
@@ -35,7 +36,7 @@ public class SplashActivity extends BaseActivity {
         setSwipeBackEnable(false);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        isNavigation = (PreferenceUtils.getPrefBoolean(this, IS_NAVIGATION_FLAG, true) || MethodUtils.isCurrentVersion(this)) || NAVIGATION_FLAG;
+        isNavigation = (PreferenceUtils.getPrefBoolean(this, IS_NAVIGATION_FLAG, true) || (MethodUtils.isCurrentVersion(this) && NAVIGATION_FLAG)) && CONTROLLER_FLAG;
         if (isNavigation) {
             fragmentTransaction.replace(R.id.id_fl_activity_splash_fragment_container, NavigationFragment.newInstance());
         } else {
