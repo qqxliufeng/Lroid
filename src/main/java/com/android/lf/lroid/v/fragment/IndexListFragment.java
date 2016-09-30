@@ -115,11 +115,9 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
             Intent i = new Intent();
             ComponentName cn = null;
             if (Integer.parseInt(Build.VERSION.SDK) >= 8) {
-                cn = new ComponentName("com.android.calendar",
-                        "com.android.calendar.LaunchActivity");
+                cn = new ComponentName("com.android.calendar", "com.android.calendar.LaunchActivity");
             } else {
-                cn = new ComponentName("com.google.android.calendar",
-                        "com.android.calendar.LaunchActivity");
+                cn = new ComponentName("com.google.android.calendar", "com.android.calendar.LaunchActivity");
             }
             i.setComponent(cn);
             startActivity(i);
