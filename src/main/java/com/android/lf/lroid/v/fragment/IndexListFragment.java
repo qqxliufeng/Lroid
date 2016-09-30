@@ -4,6 +4,10 @@ import static com.mob.tools.utils.R.forceCast;
 
 import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
@@ -102,6 +107,25 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
         dataProvidePresenter.getDataFromDB(DataProvider.JIE_QI_URI);
         mobApiPresenter.setFragment(this);
         mobApiPresenter.getData(MobAPI.getAPI(com.mob.mobapi.apis.Calendar.NAME), MethodUtils.getCurrentTime(null));
+    }
+
+    @OnClick(R.id.id_ll_fragment_index_content_date_container)
+    public void onDataContainerClick() {
+        try {
+            Intent i = new Intent();
+            ComponentName cn = null;
+            if (Integer.parseInt(Build.VERSION.SDK) >= 8) {
+                cn = new ComponentName("com.android.calendar",
+                        "com.android.calendar.LaunchActivity");
+            } else {
+                cn = new ComponentName("com.google.android.calendar",
+                        "com.android.calendar.LaunchActivity");
+            }
+            i.setComponent(cn);
+            startActivity(i);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(mContext, "未能找到系统日历", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -226,13 +250,13 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     @Override
     public void onUserLoginSuccess() {
-        if (jieQiBean!=null) {
+        if (jieQiBean != null) {
             startDetail();
         }
     }
 
     @OnClick(R.id.id_ll_fragment_index_content_date_container)
-    public void interDataDetail(View view){
+    public void interDataDetail(View view) {
     }
 
 }

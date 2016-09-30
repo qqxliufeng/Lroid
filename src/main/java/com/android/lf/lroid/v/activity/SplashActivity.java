@@ -20,8 +20,8 @@ public class SplashActivity extends BaseActivity {
     public static final String IS_NAVIGATION_FLAG = "is_navigation_flag";
 
     private boolean isNavigation = true;
-    private boolean NAVIGATION_FLAG = true;
-    private boolean CONTROLLER_FLAG = true;
+    private static boolean NAVIGATION_FLAG = true;
+    private static boolean CONTROLLER_FLAG = true;
 
     @Override
     public int getLayoutId() {
