@@ -148,7 +148,7 @@ public class PersonalInfoFragment extends LroidBaseFragment {
 
     @Override
     public <T> void onRequestSuccess(int requestID, T result) {
-        if ((Integer) result != -1) {
+        if ((Integer) result > 0 ) {
             if (requestType == 1) {
                 UserBean.getInstance().setSex(sexWhich);
                 mSex.setText(sexWhich == 0 ? "男" : "女");

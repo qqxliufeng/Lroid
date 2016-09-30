@@ -48,7 +48,7 @@ public class JieRiDataProvidePresenter extends BasePresenter {
         protected void onPreExecute() {
             super.onPreExecute();
             if (iPresentListener != null) {
-                iPresentListener.onRequestStart(0x0);
+                getPresentListener().onRequestStart(0x0);
             }
         }
 
@@ -56,7 +56,7 @@ public class JieRiDataProvidePresenter extends BasePresenter {
         protected ArrayList<JieRiBean> doInBackground(Uri... params) {
             try {
                 if (checkNullContext() || checkNullFragment()) {
-                    cursor = mContext.getContentResolver().query(params[0], JieRiTable.PROJECTION, JieRiTable.TYPE + " = ? ", selectArgs, null);
+                    cursor = getContext().getContentResolver().query(params[0], JieRiTable.PROJECTION, JieRiTable.TYPE + " = ? ", selectArgs, null);
                     if (cursor != null) {
                         ArrayList<JieRiBean> results = new ArrayList<>();
                         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -83,9 +83,9 @@ public class JieRiDataProvidePresenter extends BasePresenter {
 
         @Override
         protected void onPostExecute(ArrayList<JieRiBean> jieRiBeen) {
-            iPresentListener.onRequestEnd(0x0);
-            if (iPresentListener != null) {
-                iPresentListener.onRequestSuccess(0x0, jieRiBeen);
+            if (getPresentListener() != null) {
+                getPresentListener().onRequestEnd(0x0);
+                getPresentListener().onRequestSuccess(0x0, jieRiBeen);
             }
         }
     }
@@ -98,15 +98,15 @@ public class JieRiDataProvidePresenter extends BasePresenter {
 
         @Override
         protected void onPreExecute() {
-            if (iPresentListener!=null){
-                iPresentListener.onRequestStart(0x0);
+            if (getPresentListener() != null) {
+                getPresentListener().onRequestStart(0x0);
             }
         }
 
         @Override
         protected Integer doInBackground(Uri... params) {
-            cursor = mContext.getContentResolver().query(params[0], JieRiTable.PROJECTION, null, null, null);
-            if (cursor!=null && cursor.getCount() == 0) {
+            cursor = getContext().getContentResolver().query(params[0], JieRiTable.PROJECTION, null, null, null);
+            if (cursor != null && cursor.getCount() == 0) {
                 int size = JieRiData.getInstance().getArrayList().size();
                 ContentValues[] valuesArrayList = new ContentValues[size];
                 for (int i = 0; i < size; i++) {
@@ -122,7 +122,7 @@ public class JieRiDataProvidePresenter extends BasePresenter {
                         e.printStackTrace();
                     }
                 }
-                result = mContext.getContentResolver().bulkInsert(params[0], valuesArrayList);
+                result = getContext().getContentResolver().bulkInsert(params[0], valuesArrayList);
                 cursor.close();
             }
             return result;
@@ -130,8 +130,8 @@ public class JieRiDataProvidePresenter extends BasePresenter {
 
         @Override
         protected void onPostExecute(Integer integer) {
-            iPresentListener.onRequestEnd(0x0);
-            iPresentListener.onRequestSuccess(0x0,integer);
+            getPresentListener().onRequestEnd(0x0);
+            getPresentListener().onRequestSuccess(0x0, integer);
         }
     }
 

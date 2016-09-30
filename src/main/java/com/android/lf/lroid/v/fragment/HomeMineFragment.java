@@ -116,8 +116,14 @@ public class HomeMineFragment extends LroidBaseFragment {
     }
 
     @OnClick(R.id.id_rl_fragment_mine_reset_password)
-    public void onRestPasswordClick(){
-        MethodUtils.startFragmentsActivity(mContext,"修改密码",FragmentContainerActivity.RESET_PASSWORD_FLAG);
+    public void onRestPasswordClick() {
+        if (!TextUtils.isEmpty(UserBean.getInstance().getPhone())) {
+            MethodUtils.startFragmentsActivity(mContext, "修改密码", FragmentContainerActivity.RESET_PASSWORD_FLAG);
+        }else {
+            LOGIN_SUCCESS_FLAG = 2;
+            UserBean.getInstance().setOnUserLoginSuccessListener(this);
+            MethodUtils.startFragmentsActivity(mContext, "登录", FragmentContainerActivity.LOGIN_FRAGMENT);
+        }
     }
 
     @Override
@@ -128,6 +134,9 @@ public class HomeMineFragment extends LroidBaseFragment {
         switch (LOGIN_SUCCESS_FLAG) {
             case 1:
                 MethodUtils.startFragmentsActivity(mContext, "个人信息", FragmentContainerActivity.PERSONAL_INFO_FRAGMENT_FLAG);
+                break;
+            case 2:
+                MethodUtils.startFragmentsActivity(mContext, "修改密码", FragmentContainerActivity.RESET_PASSWORD_FLAG);
                 break;
         }
     }
@@ -142,8 +151,8 @@ public class HomeMineFragment extends LroidBaseFragment {
                 setFace();
                 mLogout.setEnabled(false);
                 mNickName.setText("登录/注册");
-                PreferenceUtils.setPrefString(mContext, Constants.USER_NAME_FLAG,"");
-                PreferenceUtils.setPrefString(mContext,Constants.USER_PASSWORD_FLAG,"");
+                PreferenceUtils.setPrefString(mContext, Constants.USER_NAME_FLAG, "");
+                PreferenceUtils.setPrefString(mContext, Constants.USER_PASSWORD_FLAG, "");
             }
         });
         builder.setNegativeButton("取消", null);

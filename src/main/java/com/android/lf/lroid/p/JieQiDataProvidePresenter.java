@@ -49,7 +49,7 @@ public class JieQiDataProvidePresenter extends BasePresenter {
                 e.printStackTrace();
             }
         }
-        mContext.getContentResolver().bulkInsert(uri, valuesArrayList);
+        getContext().getContentResolver().bulkInsert(uri, valuesArrayList);
     }
 
     private void initData() {
@@ -62,14 +62,14 @@ public class JieQiDataProvidePresenter extends BasePresenter {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            iPresentListener.onRequestStart(0x0);
+            getPresentListener().onRequestStart(0x0);
         }
 
         @Override
         protected ArrayList<JieQiBean> doInBackground(Uri... params) {
             try {
                 if (checkNullContext() || checkNullFragment()) {
-                    cursor = mContext.getContentResolver().query(params[0], JieQiTable.PROJECTION, null, null, null);
+                    cursor = getContext().getContentResolver().query(params[0], JieQiTable.PROJECTION, null, null, null);
                     if (cursor != null) {
                         //如果查询的结果集是空的，那么就去网络请求数据
                         if (cursor.getCount() == 0) {
@@ -103,13 +103,13 @@ public class JieQiDataProvidePresenter extends BasePresenter {
 
         @Override
         protected void onPostExecute(ArrayList<JieQiBean> strings) {
-            iPresentListener.onRequestEnd(0x0);
+            getPresentListener().onRequestEnd(0x0);
             if (strings == null) {
                 DataProvideLoadAsyncTask dataProvideLoadAsyncTask = new DataProvideLoadAsyncTask();
                 dataProvideLoadAsyncTask.execute(mUri);
             } else {
                 //更新完成
-                iPresentListener.onRequestSuccess(0x0, strings);
+                getPresentListener().onRequestSuccess(0x0, strings);
             }
         }
     }

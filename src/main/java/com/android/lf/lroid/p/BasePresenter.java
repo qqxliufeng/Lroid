@@ -8,6 +8,8 @@ import com.android.lf.lroid.component.ApiService;
 import com.android.lf.lroid.interfaces.IPresentListener;
 import com.android.lf.lroid.v.fragment.LroidBaseFragment;
 
+import java.lang.ref.WeakReference;
+
 import javax.inject.Inject;
 
 import rx.Observable;
@@ -23,9 +25,9 @@ import rx.schedulers.Schedulers;
 
 public class BasePresenter {
 
-    protected IPresentListener iPresentListener;
-    protected Context mContext;
-    protected LroidBaseFragment baseFragment;
+    protected WeakReference<IPresentListener> iPresentListener;
+    protected WeakReference<Context> mContext;
+    protected WeakReference<LroidBaseFragment> baseFragment;
 
     @Inject
     ApiService userManagerService;
@@ -47,17 +49,29 @@ public class BasePresenter {
     }
 
     public void setPresentListener(IPresentListener iPresentListener) {
-        this.iPresentListener = iPresentListener;
+        this.iPresentListener = new WeakReference<IPresentListener>(iPresentListener);
     }
 
     public void setContext(Context mContext) {
-        this.mContext = mContext;
+        this.mContext = new WeakReference<Context>(mContext);
     }
 
     public void setFragment(LroidBaseFragment baseFragment) {
-        this.baseFragment = baseFragment;
-        iPresentListener = baseFragment;
-        mContext = baseFragment.getContext();
+        this.baseFragment = new WeakReference<LroidBaseFragment>(baseFragment);
+        iPresentListener = new WeakReference<IPresentListener>(baseFragment);
+        mContext = new WeakReference<Context>(baseFragment.getContext());
+    }
+
+    public Context getContext() {
+        return mContext!=null ? mContext.get() : null;
+    }
+
+    public LroidBaseFragment getBaseFragment() {
+        return baseFragment!=null ? baseFragment.get() : null;
+    }
+
+    public IPresentListener getPresentListener() {
+        return iPresentListener!=null ? iPresentListener.get() : null;
     }
 
     @SafeVarargs
@@ -65,14 +79,14 @@ public class BasePresenter {
         Observable.just(t).map(new Func1<T[], R>() {
             @Override
             public R call(T[] ts) {
-                return doSomething(requestId,ts);
+                return doSomething(requestId, ts);
             }
         }).subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
                         if (checkNullPresent()) {
-                            iPresentListener.onRequestStart(requestId);
+                            iPresentListener.get().onRequestStart(requestId);
                         }
                     }
                 }).subscribeOn(AndroidSchedulers.mainThread())
@@ -81,53 +95,30 @@ public class BasePresenter {
                     @Override
                     public void onCompleted() {
                         if (checkNullPresent()) {
-                            iPresentListener.onRequestEnd(requestId);
+                            iPresentListener.get().onRequestEnd(requestId);
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         if (checkNullPresent()) {
-                            iPresentListener.onRequestEnd(requestId);
-                            iPresentListener.onRequestFail(requestId, e);
+                            iPresentListener.get().onRequestEnd(requestId);
+                            iPresentListener.get().onRequestFail(requestId, e);
                         }
                     }
 
                     @Override
                     public void onNext(R r) {
                         if (checkNullPresent()) {
-                            iPresentListener.onRequestSuccess(requestId, r);
+                            iPresentListener.get().onRequestSuccess(requestId, r);
                         }
                     }
                 });
     }
 
 
-    protected <T,R> R doSomething(int requestID,T[] ts){
+    protected <T, R> R doSomething(int requestID, T[] ts) {
         return null;
     }
 
-
-//    private Reference<T> mReferences;
-//
-//    public void onAttachView(T view){
-//        mReferences = new WeakReference<T>(view);
-//    }
-//
-//    public boolean isAttachView(){
-//        return mReferences !=null && mReferences.get()!=null;
-//    }
-//
-//    public T getView(){
-//        return mReferences.get();
-//    }
-//
-//    public void onDetachView(){
-//        if (mReferences !=null){
-//            mReferences.clear();
-//            mReferences = null;
-//        }
-//    }
-//
-//    protected abstract IBaseModelInterface createInterface();
 }

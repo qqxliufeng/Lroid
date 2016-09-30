@@ -51,7 +51,7 @@ public class UserHelperPresenter extends BasePresenter {
     //user select
     private  <R> R normalLogin(final String userName, final String userPassword) {
         SystemClock.sleep(3000);
-        Cursor cursor = mContext.getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, UserTable.PHONE + " = ? and " + UserTable.PASSWORD + " = ? ", new String[]{userName, userPassword}, null);
+        Cursor cursor = getContext().getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, UserTable.PHONE + " = ? and " + UserTable.PASSWORD + " = ? ", new String[]{userName, userPassword}, null);
         if (cursor != null) {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 UserBean.getInstance().setFace(cursor.getString(cursor.getColumnIndex(UserTable.FACE)));
@@ -68,7 +68,7 @@ public class UserHelperPresenter extends BasePresenter {
     }
 
     private <R> R fastLogin(final String phone) {
-        Cursor cursor = mContext.getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, UserTable.PHONE + " = ? ", new String[]{phone}, null);
+        Cursor cursor = getContext().getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, UserTable.PHONE + " = ? ", new String[]{phone}, null);
         if (cursor != null) {
             SystemClock.sleep(2000);
             int result = cursor.getCount();
@@ -81,7 +81,7 @@ public class UserHelperPresenter extends BasePresenter {
                 contentValues.put(UserTable.PHONE, phone);
                 contentValues.put(UserTable.PERSONALIZED_SIGNATURE, "");
                 contentValues.put(UserTable.SEX, 0);
-                if (mContext.getContentResolver().insert(DataProvider.USER_URI, contentValues) != null) {
+                if (getContext().getContentResolver().insert(DataProvider.USER_URI, contentValues) != null) {
                     UserBean.getInstance().setNickName("lroid");
                     UserBean.getInstance().setPersonalizedSignature("");
                     UserBean.getInstance().setFace("");
@@ -116,7 +116,7 @@ public class UserHelperPresenter extends BasePresenter {
         Observable.just(where).map(new Func1<String, Integer>() {
             @Override
             public Integer call(String s) {
-                return mContext.getContentResolver().delete(DataProvider.USER_URI, where + " = ? ", args);
+                return getContext().getContentResolver().delete(DataProvider.USER_URI, where + " = ? ", args);
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Integer>() {
             @Override
@@ -137,9 +137,9 @@ public class UserHelperPresenter extends BasePresenter {
     }
 
     //user update
-    private <R> R modifyUserInfo(final ContentValues contentValues, final String where, final String args) {
+    private <R> R modifyUserInfo(ContentValues contentValues, String where, String args) {
         SystemClock.sleep(1000);
-        return (R) (Integer) mContext.getContentResolver().update(DataProvider.USER_URI, contentValues, where + " = ? ", new String[]{args});
+        return (R) (Integer) getContext().getContentResolver().update(DataProvider.USER_URI, contentValues, where + " = ? ", new String[]{args});
     }
 
     //user insert
@@ -156,7 +156,7 @@ public class UserHelperPresenter extends BasePresenter {
                 contentValues.put(UserTable.PHONE, userBean.getPhone());
                 contentValues.put(UserTable.PERSONALIZED_SIGNATURE, userBean.getPersonalizedSignature());
                 contentValues.put(UserTable.SEX, userBean.getSex());
-                Uri result = mContext.getContentResolver().insert(DataProvider.USER_URI, contentValues);
+                Uri result = getContext().getContentResolver().insert(DataProvider.USER_URI, contentValues);
                 subscriber.onNext(result);
                 subscriber.onCompleted();
             }
@@ -165,7 +165,7 @@ public class UserHelperPresenter extends BasePresenter {
                     @Override
                     public void call() {
                         if (checkNullPresent()) {
-                            iPresentListener.onRequestStart(REQUEST_CODE_REGISTER);
+                            getPresentListener().onRequestStart(REQUEST_CODE_REGISTER);
                         }
                     }
                 })
@@ -175,7 +175,7 @@ public class UserHelperPresenter extends BasePresenter {
                     @Override
                     public void onCompleted() {
                         if (checkNullPresent()) {
-                            iPresentListener.onRequestEnd(REQUEST_CODE_REGISTER);
+                            getPresentListener().onRequestEnd(REQUEST_CODE_REGISTER);
                         }
                     }
 
@@ -183,8 +183,8 @@ public class UserHelperPresenter extends BasePresenter {
                     public void onError(Throwable e) {
                         Logger.e(e, "error");
                         if (checkNullPresent()) {
-                            iPresentListener.onRequestFail(REQUEST_CODE_REGISTER, e);
-                            iPresentListener.onRequestEnd(REQUEST_CODE_REGISTER);
+                            getPresentListener().onRequestFail(REQUEST_CODE_REGISTER, e);
+                            getPresentListener().onRequestEnd(REQUEST_CODE_REGISTER);
                         }
                     }
 
@@ -192,7 +192,7 @@ public class UserHelperPresenter extends BasePresenter {
                     public void onNext(Uri uri) {
                         Logger.e(uri.getPath());
                         if (checkNullPresent()) {
-                            iPresentListener.onRequestSuccess(REQUEST_CODE_REGISTER, uri);
+                            getPresentListener().onRequestSuccess(REQUEST_CODE_REGISTER, uri);
                         }
                     }
                 });

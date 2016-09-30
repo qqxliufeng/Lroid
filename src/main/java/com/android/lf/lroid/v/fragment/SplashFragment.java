@@ -58,7 +58,7 @@ public class SplashFragment extends LroidBaseFragment {
     }
 
     @Override
-    public <T> void onRequestSuccess(int requestID, T result) {
+    public void onRequestEnd(int requestID) {
         startActivity(new Intent(mContext, HomeActivity.class));
         finishActivity();
     }

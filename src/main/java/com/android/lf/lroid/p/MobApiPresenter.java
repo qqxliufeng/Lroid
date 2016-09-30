@@ -17,8 +17,8 @@ public class MobApiPresenter extends BasePresenter implements APICallback {
 
 
     public void getData(API api, String... args) {
-        if (iPresentListener != null) {
-            iPresentListener.onRequestStart(0x1);
+        if (getPresentListener() != null) {
+            getPresentListener().onRequestStart(0x1);
             if (api instanceof Weather) {
                 ((Weather) api).queryByCityName("济南", this);
             }else if (api instanceof Calendar){
@@ -30,13 +30,13 @@ public class MobApiPresenter extends BasePresenter implements APICallback {
 
     @Override
     public void onSuccess(API api, int i, Map<String, Object> map) {
-        iPresentListener.onRequestEnd(0x1);
-        iPresentListener.onRequestSuccess(0x1, map);
+        getPresentListener().onRequestEnd(0x1);
+        getPresentListener().onRequestSuccess(0x1, map);
     }
 
     @Override
     public void onError(API api, int i, Throwable throwable) {
-        iPresentListener.onRequestEnd(0x1);
-        iPresentListener.onRequestFail(0x1, throwable);
+        getPresentListener().onRequestEnd(0x1);
+        getPresentListener().onRequestFail(0x1, throwable);
     }
 }

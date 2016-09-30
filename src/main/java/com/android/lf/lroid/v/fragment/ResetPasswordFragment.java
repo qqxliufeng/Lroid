@@ -14,6 +14,9 @@ import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.UserBean;
 import com.android.lf.lroid.m.tables.UserTable;
 import com.android.lf.lroid.p.UserHelperPresenter;
+import com.android.lf.lroid.utils.Constants;
+import com.android.lf.lroid.utils.PreferenceUtils;
+import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
@@ -83,8 +86,8 @@ public class ResetPasswordFragment extends LroidBaseFragment {
             return;
         }
         ContentValues contentValues = new ContentValues();
-        contentValues.put(UserTable.PASSWORD,mNewPassword.getText().toString());
-        mUserHelperPresenter.doSomethingWithRxJavaMap(UserHelperPresenter.REQUEST_CODE_MODIFY,contentValues,UserTable.PASSWORD,UserBean.getInstance().getPhone());
+        contentValues.put(UserTable.PASSWORD, mNewPassword.getText().toString());
+        mUserHelperPresenter.doSomethingWithRxJavaMap(UserHelperPresenter.REQUEST_CODE_MODIFY, contentValues, UserTable.PHONE, UserBean.getInstance().getPhone());
     }
 
     @Override
@@ -99,12 +102,18 @@ public class ResetPasswordFragment extends LroidBaseFragment {
 
     @Override
     public <T> void onRequestSuccess(int requestID, T result) {
-        if ((Integer)result != -1){
+        if ((Integer) result > 0) {
             Toast.makeText(mContext, "修改成功,请牢记", Toast.LENGTH_SHORT).show();
             UserBean.getInstance().setPassword(mNewPassword.getText().toString());
+            PreferenceUtils.setPrefString(mContext, Constants.USER_PASSWORD_FLAG,mNewPassword.getText().toString());
             finishActivity();
-        }else {
+        } else {
             Toast.makeText(mContext, "修改失败", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onRequestFail(int requestID, Throwable e) {
+        Toast.makeText(mContext, "修改失败", Toast.LENGTH_SHORT).show();
     }
 }

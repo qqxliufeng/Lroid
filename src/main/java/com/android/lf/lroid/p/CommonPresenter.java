@@ -31,7 +31,7 @@ public class CommonPresenter extends BasePresenter {
             @Override
             public void onStart() {
                 if (checkNullPresent()){
-                    iPresentListener.onRequestStart(requestID);
+                    getPresentListener().onRequestStart(requestID);
                 }else {
                     Log.e("TAG","is null");
                 }
@@ -40,21 +40,21 @@ public class CommonPresenter extends BasePresenter {
             @Override
             public void onCompleted() {
                 if (checkNullPresent()){
-                    iPresentListener.onRequestEnd(requestID);
+                    getPresentListener().onRequestEnd(requestID);
                 }
             }
 
             @Override
             public void onError(Throwable e) {
                 if (checkNullPresent()){
-                    iPresentListener.onRequestFail(requestID,e);
+                    getPresentListener().onRequestFail(requestID,e);
                 }
             }
 
             @Override
             public void onNext(String s) {
                 if (checkNullPresent()){
-                    iPresentListener.onRequestSuccess(requestID,s);
+                    getPresentListener().onRequestSuccess(requestID,s);
                 }
             }
         });
@@ -66,7 +66,7 @@ public class CommonPresenter extends BasePresenter {
             @Override
             public void onStart() {
                 if (checkNullPresent()){
-                    iPresentListener.onRequestStart(requestID);
+                    getPresentListener().onRequestStart(requestID);
                 }else {
                     Log.e("TAG","is null");
                 }
@@ -75,21 +75,21 @@ public class CommonPresenter extends BasePresenter {
             @Override
             public void onCompleted() {
                 if (checkNullPresent()){
-                    iPresentListener.onRequestEnd(requestID);
+                    getPresentListener().onRequestEnd(requestID);
                 }
             }
 
             @Override
             public void onError(Throwable e) {
                 if (checkNullPresent()){
-                    iPresentListener.onRequestFail(requestID,e);
+                    getPresentListener().onRequestFail(requestID,e);
                 }
             }
 
             @Override
             public void onNext(String s) {
                 if (checkNullPresent()){
-                    iPresentListener.onRequestSuccess(requestID,s);
+                    getPresentListener().onRequestSuccess(requestID,s);
                 }
             }
         });
