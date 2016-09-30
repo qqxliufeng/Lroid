@@ -79,7 +79,6 @@ public class SetPersonalInfoFragment extends LroidBaseFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(com.yalantis.ucrop.R.menu.ucrop_menu_activity, menu);
-        // Change crop & loader menu icons color to match the rest of the UI colors
         MenuItem menuItemLoader = menu.findItem(com.yalantis.ucrop.R.id.menu_loader);
         Drawable menuItemLoaderIcon = menuItemLoader.getIcon();
         if (menuItemLoaderIcon != null) {
@@ -107,7 +106,6 @@ public class SetPersonalInfoFragment extends LroidBaseFragment {
         super.onPrepareOptionsMenu(menu);
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == com.yalantis.ucrop.R.id.menu_crop) {
@@ -128,10 +126,9 @@ public class SetPersonalInfoFragment extends LroidBaseFragment {
         }
     }
 
-
     @Override
     public <T> void onRequestSuccess(int requestID, T result) {
-        if ((Integer) result != -1) {
+        if ((Integer) result > 0) {
             Toast.makeText(mContext, "修改成功！", Toast.LENGTH_SHORT).show();
             switch (modifyType) {
                 case 0: // 0 代表修改昵称
@@ -142,6 +139,8 @@ public class SetPersonalInfoFragment extends LroidBaseFragment {
                     break;
             }
             finishActivity();
+        }else {
+            Toast.makeText(mContext, "修改失败！", Toast.LENGTH_SHORT).show();
         }
     }
 }

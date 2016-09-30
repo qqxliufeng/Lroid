@@ -92,7 +92,7 @@ public class LoginNormalFragment extends LroidBaseFragment {
     @OnClick(R.id.id_bt_login_normal_login)
     public void onLogin(View view) {
         if (!TextUtils.isEmpty(mUserName.getText().toString()) && !TextUtils.isEmpty(mPassword.getText().toString())) {
-            mUserHelperPresenter.doSomethingWithRxJavaMap(UserHelperPresenter.REQUEST_CODE_NORMAL_LOGIN,mUserName.getText().toString(), mPassword.getText().toString());
+            mUserHelperPresenter.doSomethingWithRxJavaMap(UserHelperPresenter.REQUEST_CODE_NORMAL_LOGIN,mUserName.getText().toString(), mPassword.getText().toString(),true);
         }else {
             Toast.makeText(mContext, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
         }

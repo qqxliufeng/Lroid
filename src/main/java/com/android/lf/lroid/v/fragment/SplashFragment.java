@@ -1,22 +1,29 @@
 package com.android.lf.lroid.v.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.os.Bundle;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
+import android.widget.TextView;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
-import com.android.lf.lroid.m.bean.UserBean;
 import com.android.lf.lroid.p.UserHelperPresenter;
 import com.android.lf.lroid.utils.Constants;
 import com.android.lf.lroid.utils.PreferenceUtils;
+import com.android.lf.lroid.utils.ScreenUtils;
 import com.android.lf.lroid.v.activity.HomeActivity;
 import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
+
+import butterknife.BindView;
 
 /**
  * Created by feng on 2016/9/14.
@@ -30,6 +37,9 @@ public class SplashFragment extends LroidBaseFragment {
     @Inject
     UserHelperPresenter mUserHelperPresenter;
 
+    @BindView(R.id.id_tv_fragment_splash_lroid)
+    TextView mLroidText;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_splash_layout;
@@ -38,18 +48,41 @@ public class SplashFragment extends LroidBaseFragment {
     @Override
     protected void initView(View view) {
         mUserHelperPresenter.setFragment(this);
-        new Handler().postDelayed(new Runnable() {
+        Typeface typeFace = Typeface.createFromAsset(mContext.getAssets(), "heather.ttf");
+        mLroidText.setTypeface(typeFace);
+        AnimatorSet animatorSet = new AnimatorSet();
+        ObjectAnimator translationY = ObjectAnimator.ofFloat(mLroidText,"translationY",0,ScreenUtils.getScreenHeight(mContext)/3);
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(mLroidText,"alpha",0.3f,1.0f);
+        animatorSet.setDuration(2500);
+        animatorSet.setInterpolator(new LinearInterpolator());
+        animatorSet.play(alpha).with(translationY);
+        animatorSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
 
             @Override
-            public void run() {
+            public void onAnimationEnd(Animator animation) {
                 if (!TextUtils.isEmpty(PreferenceUtils.getPrefString(mContext, Constants.USER_NAME_FLAG,""))) {
-                    mUserHelperPresenter.doSomethingWithRxJavaMap(UserHelperPresenter.REQUEST_CODE_NORMAL_LOGIN,PreferenceUtils.getPrefString(mContext,Constants.USER_NAME_FLAG,""),PreferenceUtils.getPrefString(mContext,Constants.USER_PASSWORD_FLAG,""));
+                    mUserHelperPresenter.doSomethingWithRxJavaMap(UserHelperPresenter.REQUEST_CODE_NORMAL_LOGIN,PreferenceUtils.getPrefString(mContext,Constants.USER_NAME_FLAG,""),PreferenceUtils.getPrefString(mContext,Constants.USER_PASSWORD_FLAG,""),false);
                 }else {
                     startActivity(new Intent(mContext, HomeActivity.class));
                     finishActivity();
                 }
             }
-        },1500);
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        animatorSet.start();
     }
 
     @Override

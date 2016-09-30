@@ -35,7 +35,7 @@ public class UserHelperPresenter extends BasePresenter {
     protected <T, R> R doSomething(int requestID, T[] ts) {
         switch (requestID) {
             case REQUEST_CODE_NORMAL_LOGIN:
-                return normalLogin((String) ts[0], (String) ts[1]);
+                return normalLogin((String) ts[0], (String) ts[1],(Boolean) ts[2]);
             case REQUEST_CODE_REGISTER:
                 break;
             case REQUEST_CODE_MODIFY:
@@ -49,8 +49,10 @@ public class UserHelperPresenter extends BasePresenter {
     }
 
     //user select
-    private  <R> R normalLogin(final String userName, final String userPassword) {
-        SystemClock.sleep(3000);
+    private  <R> R normalLogin(final String userName, final String userPassword,boolean isDelayed) {
+        if (isDelayed) {
+            SystemClock.sleep(3000);
+        }
         Cursor cursor = getContext().getContentResolver().query(DataProvider.USER_URI, UserTable.PROJECTION, UserTable.PHONE + " = ? and " + UserTable.PASSWORD + " = ? ", new String[]{userName, userPassword}, null);
         if (cursor != null) {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
