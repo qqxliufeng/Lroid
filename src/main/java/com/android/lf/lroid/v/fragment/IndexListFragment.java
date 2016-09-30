@@ -106,7 +106,7 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
         dataProvidePresenter.setFragment(this);
         dataProvidePresenter.getDataFromDB(DataProvider.JIE_QI_URI);
         mobApiPresenter.setFragment(this);
-        mobApiPresenter.getData(MobAPI.getAPI(com.mob.mobapi.apis.Calendar.NAME), MethodUtils.getCurrentTime(null));
+        mobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_CALENDAR, MethodUtils.getCurrentTime(null));
     }
 
     @OnClick(R.id.id_ll_fragment_index_content_date_container)

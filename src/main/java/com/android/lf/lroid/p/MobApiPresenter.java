@@ -4,6 +4,7 @@ import com.mob.mobapi.API;
 import com.mob.mobapi.APICallback;
 import com.mob.mobapi.MobAPI;
 import com.mob.mobapi.apis.Calendar;
+import com.mob.mobapi.apis.History;
 import com.mob.mobapi.apis.Weather;
 import com.orhanobut.logger.Logger;
 
@@ -15,14 +16,27 @@ import java.util.Map;
 
 public class MobApiPresenter extends BasePresenter implements APICallback {
 
+    public static final int REQUEST_CODE_WEATHER = 0x0;
+    public static final int REQUEST_CODE_CALENDAR = 0x1;
+    public static final int REQUEST_CODE_HISTORY_TODAY = 0x2;
 
-    public void getData(API api, String... args) {
-        if (getPresentListener() != null) {
+
+    public void getData(int requestApiCode,String... args) {
+        if (getPresentListener()!=null) {
             getPresentListener().onRequestStart(0x1);
-            if (api instanceof Weather) {
-                ((Weather) api).queryByCityName("济南", this);
-            }else if (api instanceof Calendar){
-                ((Calendar)api).queryCalendar(args[0],this);
+            switch (requestApiCode) {
+                case REQUEST_CODE_WEATHER:
+                    Weather weather = (Weather) MobAPI.getAPI(Weather.NAME);
+                    weather.queryByCityName(args[0], this);
+                    break;
+                case REQUEST_CODE_CALENDAR:
+                    Calendar calendar = (Calendar) MobAPI.getAPI(Calendar.NAME);
+                    calendar.queryCalendar(args[0],this);
+                    break;
+                case REQUEST_CODE_HISTORY_TODAY:
+                    History history = (History) MobAPI.getAPI(History.NAME);
+                    history.queryHistory(args[0],this);
+                    break;
             }
         }
     }
