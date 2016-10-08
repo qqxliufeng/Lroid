@@ -11,21 +11,18 @@ import java.util.List;
  * Created by feng on 2016/9/14.
  */
 
-public class LroidBaseRecycleViewAdapter extends BaseQuickAdapter {
+public abstract class LroidBaseRecycleViewAdapter<T> extends BaseQuickAdapter<T> {
 
-    public LroidBaseRecycleViewAdapter(int layoutResId, List data) {
+    public LroidBaseRecycleViewAdapter(int layoutResId, List<T> data) {
         super(layoutResId, data);
     }
 
-    public LroidBaseRecycleViewAdapter(List data) {
+    public LroidBaseRecycleViewAdapter(List<T> data) {
         super(data);
     }
 
-    public LroidBaseRecycleViewAdapter(View contentView, List data) {
+    public LroidBaseRecycleViewAdapter(View contentView, List<T> data) {
         super(contentView, data);
     }
 
-    @Override
-    protected void convert(BaseViewHolder baseViewHolder, Object o) {
-    }
 }

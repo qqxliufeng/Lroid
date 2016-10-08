@@ -111,19 +111,7 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     @OnClick(R.id.id_ll_fragment_index_content_date_container)
     public void onDataContainerClick() {
-        try {
-            Intent i = new Intent();
-            ComponentName cn = null;
-            if (Integer.parseInt(Build.VERSION.SDK) >= 8) {
-                cn = new ComponentName("com.android.calendar", "com.android.calendar.LaunchActivity");
-            } else {
-                cn = new ComponentName("com.google.android.calendar", "com.android.calendar.LaunchActivity");
-            }
-            i.setComponent(cn);
-            startActivity(i);
-        } catch (ActivityNotFoundException e) {
-            Toast.makeText(mContext, "未能找到系统日历", Toast.LENGTH_SHORT).show();
-        }
+        MethodUtils.startFragmentsActivity(mContext,"历史上的今天",FragmentContainerActivity.HISTORY_TODAY_FLAG);
     }
 
     @Override
@@ -252,9 +240,4 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
             startDetail();
         }
     }
-
-    @OnClick(R.id.id_ll_fragment_index_content_date_container)
-    public void interDataDetail(View view) {
-    }
-
 }

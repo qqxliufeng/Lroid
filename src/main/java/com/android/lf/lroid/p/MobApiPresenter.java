@@ -41,7 +41,6 @@ public class MobApiPresenter extends BasePresenter implements APICallback {
         }
     }
 
-
     @Override
     public void onSuccess(API api, int i, Map<String, Object> map) {
         getPresentListener().onRequestEnd(0x1);
