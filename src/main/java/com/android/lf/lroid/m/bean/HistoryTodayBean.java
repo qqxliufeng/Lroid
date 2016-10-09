@@ -9,6 +9,7 @@ public class HistoryTodayBean {
     private String title;
     private String content;
     private String time;
+    private boolean isAll;
 
     public String getTitle() {
         return title;
@@ -33,4 +34,13 @@ public class HistoryTodayBean {
     public void setTime(String time) {
         this.time = time;
     }
+
+    public boolean isAll() {
+        return isAll;
+    }
+
+    public void setAll(boolean all) {
+        isAll = all;
+    }
 }
+

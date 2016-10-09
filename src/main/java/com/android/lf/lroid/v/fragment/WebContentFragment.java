@@ -66,12 +66,12 @@ public class WebContentFragment extends LroidBaseFragment {
         String url = getArguments().getString(WEB_LOAD_URL);
         if(url!=null && (url.startsWith("http://")|| url.startsWith("https://"))) {
             mWebView.loadUrl(url);
+        }else {
+            mWebView.loadData(url,"text/html; charset=UTF-8",null);
         }
     }
 
     @Override
     protected void setComponent() {
     }
-
-
 }

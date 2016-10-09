@@ -2,7 +2,6 @@ package com.android.lf.lroid.v.fragment;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +12,7 @@ import android.widget.ProgressBar;
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.v.views.DividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 
 import java.util.ArrayList;
 
@@ -54,6 +54,17 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mContext,DividerItemDecoration.VERTICAL_LIST));
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(mContext,android.R.color.holo_blue_dark),ContextCompat.getColor(mContext,android.R.color.holo_green_dark),ContextCompat.getColor(mContext,android.R.color.holo_orange_dark));
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                onSimpleItemClick(baseQuickAdapter,view,i);
+            }
+
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                onMyItemChildClick(adapter,view,position);
+            }
+        });
     }
 
     protected abstract BaseQuickAdapter<T> createAdapter();
@@ -61,7 +72,6 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
     protected RecyclerView.LayoutManager createLayoutManager(){
         return new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
     }
-
 
     @Override
     public void onRequestStart(int requestID) {
@@ -91,4 +101,12 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
     @Override
     public void onRefresh() {
     }
+
+    public void onSimpleItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i){
+    }
+
+    public void onMyItemChildClick(BaseQuickAdapter adapter, View view, int position){
+
+    }
+
 }

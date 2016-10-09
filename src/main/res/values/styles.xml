@@ -10,6 +10,8 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <style name="My.ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
     <style name="launcherTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowNoTitle">true</item>
