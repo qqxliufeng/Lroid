@@ -19,10 +19,10 @@ import butterknife.BindView;
 
 public class NavigationItemFragment extends LroidBaseFragment {
 
-    public static NavigationItemFragment newInstance(int resId,boolean isShowButton) {
+    public static NavigationItemFragment newInstance(int resId, boolean isShowButton) {
         Bundle args = new Bundle();
-        args.putInt("img_res",resId);
-        args.putBoolean("is_show_button",isShowButton);
+        args.putInt("img_res", resId);
+        args.putBoolean("is_show_button", isShowButton);
         NavigationItemFragment fragment = new NavigationItemFragment();
         fragment.setArguments(args);
         return fragment;
@@ -41,10 +41,10 @@ public class NavigationItemFragment extends LroidBaseFragment {
     @Override
     protected void initView(View view) {
         mImageView.setImageResource(getArguments().getInt("img_res"));
-        if (getArguments().getBoolean("is_show_button")){
+        if (getArguments().getBoolean("is_show_button")) {
             mButton.setVisibility(View.VISIBLE);
             mButton.setOnClickListener(this);
-        }else {
+        } else {
             mButton.setVisibility(View.GONE);
         }
     }
@@ -55,8 +55,8 @@ public class NavigationItemFragment extends LroidBaseFragment {
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.id_bt_fragment_navigation_item_enter){
-            PreferenceUtils.setPrefBoolean(mContext, SplashActivity.IS_NAVIGATION_FLAG,false);
+        if (view.getId() == R.id.id_bt_fragment_navigation_item_enter) {
+            PreferenceUtils.setPrefBoolean(mContext, SplashActivity.IS_NAVIGATION_FLAG, false);
             startActivity(new Intent(mContext, HomeActivity.class));
             finishActivity();
         }

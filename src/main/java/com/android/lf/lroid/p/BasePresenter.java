@@ -70,7 +70,7 @@ public class BasePresenter {
         return baseFragment!=null ? baseFragment.get() : null;
     }
 
-    public IPresentListener getPresentListener() {
+    protected IPresentListener getPresentListener() {
         return iPresentListener!=null ? iPresentListener.get() : null;
     }
 

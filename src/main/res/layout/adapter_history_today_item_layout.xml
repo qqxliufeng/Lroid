@@ -23,33 +23,43 @@
             android:id="@+id/id_tv_adapter_history_today_item_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="#333"
             android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/id_tv_adapter_history_today_item_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:maxLines="2"
-                android:text="asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf"
-                android:textSize="16sp" />
-
         <TextView
-            android:id="@+id/id_tv_adapter_history_today_item_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:text="全文"
-            android:textColor="@android:color/holo_orange_light" />
-        <TextView
-            android:id="@+id/id_tv_adapter_history_today_item_time"
-            android:layout_width="wrap_content"
+            android:id="@+id/id_tv_adapter_history_today_item_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textSize="14sp" />
+            android:maxLines="2"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/id_tv_adapter_history_today_item_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/id_tv_adapter_history_today_item_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/selector_rl_bg"
+                android:padding="5dp"
+                android:text="全文"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

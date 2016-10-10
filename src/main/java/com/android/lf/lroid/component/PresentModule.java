@@ -30,7 +30,7 @@ public class PresentModule {
     }
 
     @Provides
-    JieRiDataProvidePresenter getJieRiDatatProvidePresenter(){
+    JieRiDataProvidePresenter getJieRiDataProvidePresenter(){
         return new JieRiDataProvidePresenter();
     }
 

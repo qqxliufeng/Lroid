@@ -13,6 +13,7 @@ import com.android.lf.lroid.R;
 import com.android.lf.lroid.v.views.DividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ import butterknife.BindView;
  * Created by feng on 2016/9/14.
  */
 
-public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.id_bt_fragment_base_recycle_view_empty)
     Button mEmptyView;
@@ -37,6 +38,10 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
 
     protected ArrayList<T> mArrayList = new ArrayList<>();
 
+    protected static int MAX_PAGE_COUNT = 2;
+    protected int PAGE_SIZE = 10;
+    protected int current_page = 1;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_base_recycle_view_layout;
@@ -48,8 +53,11 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
         if (mBaseQuickAdapter == null){
             throw new NullPointerException("adapter must be not null");
         }
-        mRecyclerView.setLayoutManager(createLayoutManager());
+        mBaseQuickAdapter.openLoadAnimation();
+        mBaseQuickAdapter.openLoadMore(PAGE_SIZE);
+        mBaseQuickAdapter.setOnLoadMoreListener(this);
         mRecyclerView.setAdapter(mBaseQuickAdapter);
+        mRecyclerView.setLayoutManager(createLayoutManager());
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mContext,DividerItemDecoration.VERTICAL_LIST));
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(mContext,android.R.color.holo_blue_dark),ContextCompat.getColor(mContext,android.R.color.holo_green_dark),ContextCompat.getColor(mContext,android.R.color.holo_orange_dark));
@@ -76,11 +84,11 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
     @Override
     public void onRequestStart(int requestID) {
         mEmptyView.setVisibility(View.GONE);
-        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onRequestFail(int requestID, Throwable e) {
+        Logger.e(e.getMessage(),"error");
         mProgressBar.setVisibility(View.GONE);
         mEmptyView.setVisibility(View.VISIBLE);
     }
@@ -107,6 +115,24 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
 
     public void onMyItemChildClick(BaseQuickAdapter adapter, View view, int position){
 
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        if (current_page >= MAX_PAGE_COUNT){
+            mRecyclerView.post(new Runnable() {
+                @Override
+                public void run() {
+                    mBaseQuickAdapter.loadComplete();
+                }
+            });
+        }else {
+            current_page++;
+            onLoadMore();
+        }
+    }
+
+    protected void onLoadMore(){
     }
 
 }

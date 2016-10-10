@@ -83,7 +83,6 @@ public class HistoryTodayFragment extends BaseRecycleViewFragment<HistoryTodayBe
     @Override
     protected void initView(View view) {
         super.initView(view);
-        mSwipeRefreshLayout.setEnabled(false);
         mMobApiPresenter.setFragment(this);
         mMobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_HISTORY_TODAY, MethodUtils.getCurrentTime("MMdd"));
     }
@@ -100,16 +99,17 @@ public class HistoryTodayFragment extends BaseRecycleViewFragment<HistoryTodayBe
             String code = (String) ((Map) result).get("retCode");
             if ("200".equals(code)) {
                 ArrayList<Map<String, String>> results = (ArrayList<Map<String, String>>) ((Map) result).get("result");
+                ArrayList<HistoryTodayBean> tempList = new ArrayList<>();
                 for (Map<String, String> mapBean : results) {
                     HistoryTodayBean historyTodayBean = new HistoryTodayBean();
                     historyTodayBean.setTime(mapBean.get("date"));
                     historyTodayBean.setContent(mapBean.get("event"));
                     historyTodayBean.setTitle(mapBean.get("title"));
                     historyTodayBean.setAll(false);
-                    mArrayList.add(historyTodayBean);
+                    tempList.add(historyTodayBean);
                 }
-                Collections.sort(mArrayList, new HistorySort(true));
-                mBaseQuickAdapter.notifyDataSetChanged();
+                Collections.sort(tempList, new HistorySort(true));
+                mBaseQuickAdapter.addData(tempList);
             }
         }
     }
@@ -138,6 +138,16 @@ public class HistoryTodayFragment extends BaseRecycleViewFragment<HistoryTodayBe
             }
             mBaseQuickAdapter.notifyItemChanged(position);
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        mMobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_HISTORY_TODAY, MethodUtils.getCurrentTime("MMdd"));
+    }
+
+    @Override
+    protected void onLoadMore() {
+        mMobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_HISTORY_TODAY, MethodUtils.getCurrentTime("MMdd"));
     }
 
     class HistorySort implements Comparator<HistoryTodayBean> {
