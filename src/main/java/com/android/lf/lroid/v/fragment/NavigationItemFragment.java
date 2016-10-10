@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.utils.PreferenceUtils;
@@ -31,7 +32,7 @@ public class NavigationItemFragment extends LroidBaseFragment {
     @BindView(R.id.id_iv_fragment_navigation_item_image)
     ImageView mImageView;
     @BindView(R.id.id_bt_fragment_navigation_item_enter)
-    Button mButton;
+    TextView mButton;
 
     @Override
     protected int getLayoutId() {

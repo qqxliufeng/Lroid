@@ -35,7 +35,6 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     protected BaseQuickAdapter<T> mBaseQuickAdapter;
-
     protected ArrayList<T> mArrayList = new ArrayList<>();
 
     protected static int MAX_PAGE_COUNT = 2;
@@ -50,7 +49,7 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
     @Override
     protected void initView(View view) {
         mBaseQuickAdapter = createAdapter();
-        if (mBaseQuickAdapter == null){
+        if (mBaseQuickAdapter == null) {
             throw new NullPointerException("adapter must be not null");
         }
         mBaseQuickAdapter.openLoadAnimation();
@@ -59,26 +58,26 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
         mRecyclerView.setAdapter(mBaseQuickAdapter);
         mRecyclerView.setLayoutManager(createLayoutManager());
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(mContext,DividerItemDecoration.VERTICAL_LIST));
-        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(mContext,android.R.color.holo_blue_dark),ContextCompat.getColor(mContext,android.R.color.holo_green_dark),ContextCompat.getColor(mContext,android.R.color.holo_orange_dark));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
+        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(mContext, android.R.color.holo_blue_dark), ContextCompat.getColor(mContext, android.R.color.holo_green_dark), ContextCompat.getColor(mContext, android.R.color.holo_orange_dark));
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                onSimpleItemClick(baseQuickAdapter,view,i);
+                onSimpleItemClick(baseQuickAdapter, view, i);
             }
 
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                onMyItemChildClick(adapter,view,position);
+                onMyItemChildClick(adapter, view, position);
             }
         });
     }
 
     protected abstract BaseQuickAdapter<T> createAdapter();
 
-    protected RecyclerView.LayoutManager createLayoutManager(){
-        return new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
+    protected RecyclerView.LayoutManager createLayoutManager() {
+        return new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
     }
 
     @Override
@@ -88,7 +87,7 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
 
     @Override
     public void onRequestFail(int requestID, Throwable e) {
-        Logger.e(e.getMessage(),"error");
+        Logger.e(e.getMessage(), "error");
         mProgressBar.setVisibility(View.GONE);
         mEmptyView.setVisibility(View.VISIBLE);
     }
@@ -101,38 +100,46 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
 
     @Override
     public void onRequestEnd(int requestID) {
-        if (mSwipeRefreshLayout.isRefreshing()){
+        if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
     }
 
-    @Override
-    public void onRefresh() {
+
+    public void onSimpleItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
     }
 
-    public void onSimpleItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i){
-    }
-
-    public void onMyItemChildClick(BaseQuickAdapter adapter, View view, int position){
-
+    public void onMyItemChildClick(BaseQuickAdapter adapter, View view, int position) {
     }
 
     @Override
     public void onLoadMoreRequested() {
-        if (current_page >= MAX_PAGE_COUNT){
+        if (current_page >= MAX_PAGE_COUNT) {
             mRecyclerView.post(new Runnable() {
                 @Override
                 public void run() {
                     mBaseQuickAdapter.loadComplete();
                 }
             });
-        }else {
+        } else {
             current_page++;
             onLoadMore();
         }
     }
 
-    protected void onLoadMore(){
+    /**
+     * 子类若需下拉刷新功能，则直接重写方法
+     * 下拉刷新
+     */
+    @Override
+    public void onRefresh() {
+    }
+
+    /**
+     * 子类若需上拉加载功能，则直接重写方法
+     * 上拉加载
+     */
+    protected void onLoadMore() {
     }
 
 }

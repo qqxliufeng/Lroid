@@ -40,6 +40,9 @@ import butterknife.BindView;
 
 public class HistoryTodayFragment extends BaseRecycleViewFragment<HistoryTodayBean> {
 
+    /**
+     *通过Dagger2 DI 注入 presenter，用来请求数据
+     */
     @Inject
     MobApiPresenter mMobApiPresenter;
 
@@ -47,6 +50,10 @@ public class HistoryTodayFragment extends BaseRecycleViewFragment<HistoryTodayBe
         return new HistoryTodayFragment();
     }
 
+    /**
+     * 返回一个 继承自BaseAdapter 的适配器
+     * @return
+     */
     @Override
     protected BaseQuickAdapter<HistoryTodayBean> createAdapter() {
         return new HistoryTodayAdapter(R.layout.adapter_history_today_item_layout, mArrayList);
