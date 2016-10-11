@@ -51,8 +51,7 @@ public class HistoryTodayFragment extends BaseRecycleViewFragment<HistoryTodayBe
     }
 
     /**
-     * 返回一个 继承自BaseAdapter 的适配器
-     * @return
+     * @return 返回一个 继承自BaseAdapter 的适配器
      */
     @Override
     protected BaseQuickAdapter<HistoryTodayBean> createAdapter() {

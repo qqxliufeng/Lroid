@@ -4,13 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 
 import com.android.lf.lroid.interfaces.OnAdapterCommunityListViewListener;
 
 import java.util.List;
 
-public abstract class LroidBaseListViewAdapter<T> extends android.widget.BaseAdapter
-{
+public abstract class LroidBaseListViewAdapter<T> extends BaseAdapter {
 
 	protected OnAdapterCommunityListViewListener<T> onAdapterCommunityListViewListener;
 
@@ -55,7 +55,6 @@ public abstract class LroidBaseListViewAdapter<T> extends android.widget.BaseAda
 		final ViewHolder viewHolder = getViewHolder(position, convertView,parent);
 		convert(viewHolder, getItem(position),position);
 		return viewHolder.getConvertView();
-
 	}
 
 	public abstract void convert(ViewHolder helper, T item,int position);

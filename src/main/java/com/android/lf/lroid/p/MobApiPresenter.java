@@ -6,6 +6,7 @@ import com.mob.mobapi.MobAPI;
 import com.mob.mobapi.apis.Calendar;
 import com.mob.mobapi.apis.History;
 import com.mob.mobapi.apis.Weather;
+import com.mob.mobapi.apis.WxArticle;
 import com.orhanobut.logger.Logger;
 
 import java.util.Map;
@@ -19,6 +20,7 @@ public class MobApiPresenter extends BasePresenter implements APICallback {
     public static final int REQUEST_CODE_WEATHER = 0x0;
     public static final int REQUEST_CODE_CALENDAR = 0x1;
     public static final int REQUEST_CODE_HISTORY_TODAY = 0x2;
+    public static final int REQUEST_CODE_WEIXIN_FOR_ENTERTAINMENT = 0x3;
 
 
     public void getData(int requestApiCode,String... args) {
@@ -36,6 +38,10 @@ public class MobApiPresenter extends BasePresenter implements APICallback {
                 case REQUEST_CODE_HISTORY_TODAY:
                     History history = (History) MobAPI.getAPI(History.NAME);
                     history.queryHistory(args[0],this);
+                    break;
+                case REQUEST_CODE_WEIXIN_FOR_ENTERTAINMENT:
+                    WxArticle wxArticle = (WxArticle) MobAPI.getAPI(WxArticle.NAME);
+                    wxArticle.searchArticleList(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]),this);
                     break;
             }
         }

@@ -4,6 +4,8 @@ import com.android.lf.lroid.v.activity.HomeActivity;
 import com.android.lf.lroid.v.activity.MainActivity;
 import com.android.lf.lroid.v.fragment.HistoryTodayFragment;
 import com.android.lf.lroid.v.fragment.HomeMoreFragment;
+import com.android.lf.lroid.v.fragment.MoreContentTwoFragment;
+import com.android.lf.lroid.v.fragment.OldHomeMoreFragment;
 import com.android.lf.lroid.v.fragment.IndexListFragment;
 import com.android.lf.lroid.v.fragment.IndexMoreListFragment;
 import com.android.lf.lroid.v.fragment.IndexTopFragment;
@@ -53,4 +55,6 @@ public interface InjectPresentComponent {
     void inject(ResetPasswordFragment resetPasswordFragment);
 
     void inject(HistoryTodayFragment historyTodayFragment);
+
+    void inject(MoreContentTwoFragment moreContentTwoFragment);
 }

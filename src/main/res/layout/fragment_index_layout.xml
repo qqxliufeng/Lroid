@@ -21,7 +21,7 @@
             <FrameLayout
                 android:id="@+id/id_fl_fragment_index_content_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

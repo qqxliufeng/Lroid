@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_10">
+
+    <TextView
+        style="@style/style_tv_more_content_one"
+        android:drawableTop="@drawable/img_more_content_health_icon"
+        android:text="健康" />
+
+    <TextView
+        style="@style/style_tv_more_content_one"
+        android:drawableTop="@drawable/img_more_content_food_icon"
+        android:text="美食" />
+
+    <TextView
+        style="@style/style_tv_more_content_one"
+        android:drawableTop="@drawable/img_more_content_search_icon"
+        android:text="查询" />
+
+    <TextView
+        style="@style/style_tv_more_content_one"
+        android:drawableTop="@drawable/img_more_content_more_icon"
+        android:text="更多" />
+
+</LinearLayout>
