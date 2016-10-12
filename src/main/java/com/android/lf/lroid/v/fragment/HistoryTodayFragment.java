@@ -89,6 +89,12 @@ public class HistoryTodayFragment extends BaseRecycleViewFragment<HistoryTodayBe
     @Override
     protected void initView(View view) {
         super.initView(view);
+        mSwipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(true);
+            }
+        });
         mMobApiPresenter.setFragment(this);
         mMobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_HISTORY_TODAY, MethodUtils.getCurrentTime("MMdd"));
     }

@@ -101,7 +101,12 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
     @Override
     public void onRequestEnd(int requestID) {
         if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
+            mSwipeRefreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+            });
         }
     }
 

@@ -1,6 +1,7 @@
 package com.android.lf.lroid.v.fragment;
 
 import android.app.ProgressDialog;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
@@ -9,6 +10,8 @@ import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.EntertainmentBean;
 import com.android.lf.lroid.p.MobApiPresenter;
+import com.android.lf.lroid.utils.MethodUtils;
+import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 import com.android.lf.lroid.v.adapter.MoreContentTwoAdapter;
 import com.android.lf.lroid.v.views.LroidListView;
 
@@ -51,6 +54,7 @@ public class MoreContentTwoFragment extends LroidBaseFragment {
         mLroidListView.addFooterView(footView);
         adapter = new MoreContentTwoAdapter(mContext, mArrayList, R.layout.adapter_more_content_two_item_layout);
         mLroidListView.setAdapter(adapter);
+        mLroidListView.setVisibility(View.INVISIBLE);
         mobApiPresenter.setFragment(this);
         mobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_WEIXIN_FOR_ENTERTAINMENT, "11", "1", "20");
     }
@@ -72,6 +76,7 @@ public class MoreContentTwoFragment extends LroidBaseFragment {
 
     @Override
     public <T> void onRequestSuccess(int requestID, T result) {
+        mLroidListView.setVisibility(View.VISIBLE);
         if (result!=null) {
             HashMap<String, Object> res = (HashMap<String, Object>) ((Map<String, Object>) result).get("result");
             if (null != res && res.size() > 0) {
@@ -91,7 +96,9 @@ public class MoreContentTwoFragment extends LroidBaseFragment {
 
     @OnItemClick(R.id.id_llv_fragment_more_content_two)
     public void onItemClick(int position){
-        Toast.makeText(mContext, Integer.toString(position), Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putString(WebContentFragment.WEB_LOAD_URL,mArrayList.get(position).getSourceUrl());
+        MethodUtils.startFragmentsActivity(mContext,mArrayList.get(position).getTitle(), FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG,bundle);
     }
 
 }
