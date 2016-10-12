@@ -4,19 +4,25 @@ import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.m.database.DataProvider;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by feng on 2016/10/11.
  */
 
-public class HomeMoreFragment extends LroidBaseFragment {
+public class HomeMoreFragment extends LroidBaseFragment{
 
     public static HomeMoreFragment newInstance() {
         return new HomeMoreFragment();
@@ -27,6 +33,8 @@ public class HomeMoreFragment extends LroidBaseFragment {
 
     @BindView(R.id.id_ctl_tool_bar)
     CollapsingToolbarLayout mCollapsingToolbarLayout;
+    @BindView(R.id.id_nsv_fragment_more_content)
+    NestedScrollView mNestedScrollView;
 
     private boolean isFirstLoad = true;
 
@@ -49,13 +57,17 @@ public class HomeMoreFragment extends LroidBaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (!hidden && isFirstLoad){
+        if (!hidden && isFirstLoad) {
             isFirstLoad = false;
             FragmentManager fragmentManager = getChildFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.id_fl_fragment_home_more_content_one,MoreContentOneFragment.newInstance());
-            fragmentTransaction.replace(R.id.id_fl_fragment_home_more_content_two,MoreContentTwoFragment.newInstance());
+            fragmentTransaction.replace(R.id.id_fl_fragment_home_more_content_one, MoreContentOneFragment.newInstance());
+            fragmentTransaction.replace(R.id.id_fl_fragment_home_more_content_two, MoreContentTwoFragment.newInstance());
             fragmentTransaction.commitAllowingStateLoss();
         }
+    }
+
+    @OnClick(R.id.id_iv_fragment_more_top_pic)
+    public void onTopPicClick(){
     }
 }

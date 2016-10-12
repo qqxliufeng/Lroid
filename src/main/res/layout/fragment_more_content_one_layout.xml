@@ -2,29 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:orientation="horizontal"
-    android:paddingBottom="@dimen/dp_10"
-    android:paddingTop="@dimen/dp_10">
+    android:orientation="horizontal">
 
     <TextView
+        android:id="@+id/id_tv_fragment_more_content_one_health"
         style="@style/style_tv_more_content_one"
         android:drawableTop="@drawable/img_more_content_health_icon"
         android:text="健康" />
 
     <TextView
+        android:id="@+id/id_tv_fragment_more_content_one_food"
         style="@style/style_tv_more_content_one"
         android:drawableTop="@drawable/img_more_content_food_icon"
         android:text="美食" />
 
     <TextView
+        android:id="@+id/id_tv_fragment_more_content_one_search"
         style="@style/style_tv_more_content_one"
         android:drawableTop="@drawable/img_more_content_search_icon"
         android:text="查询" />
 
     <TextView
+        android:id="@+id/id_tv_fragment_more_content_one_more"
         style="@style/style_tv_more_content_one"
         android:drawableTop="@drawable/img_more_content_more_icon"
         android:text="更多" />
-
 </LinearLayout>

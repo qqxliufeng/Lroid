@@ -34,6 +34,9 @@
         <item name="android:layout_weight">1</item>
         <item name="android:drawablePadding">@dimen/dp_10</item>
         <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/selector_rl_bg</item>
+        <item name="android:paddingBottom">@dimen/dp_10</item>
+        <item name="android:paddingTop">@dimen/dp_10</item>
     </style>
 
 </resources>

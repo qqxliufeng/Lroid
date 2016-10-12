@@ -2,6 +2,7 @@ package com.android.lf.lroid.v.fragment;
 
 import android.app.ProgressDialog;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
@@ -18,6 +19,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnItemClick;
 
 /**
  * Created by feng on 2016/10/11.
@@ -45,6 +47,8 @@ public class MoreContentTwoFragment extends LroidBaseFragment {
 
     @Override
     protected void initView(View view) {
+        View footView  = View.inflate(mContext,R.layout.foot_more_content_two_layout,null);
+        mLroidListView.addFooterView(footView);
         adapter = new MoreContentTwoAdapter(mContext, mArrayList, R.layout.adapter_more_content_two_item_layout);
         mLroidListView.setAdapter(adapter);
         mobApiPresenter.setFragment(this);
@@ -84,4 +88,10 @@ public class MoreContentTwoFragment extends LroidBaseFragment {
             }
         }
     }
+
+    @OnItemClick(R.id.id_llv_fragment_more_content_two)
+    public void onItemClick(int position){
+        Toast.makeText(mContext, Integer.toString(position), Toast.LENGTH_SHORT).show();
+    }
+
 }
