@@ -10,6 +10,15 @@ public class EntertainmentBean {
     private String sourceUrl;
     private String id;
     private String time;
+    private String picUrl;
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
 
     public String getTitle() {
         return title;

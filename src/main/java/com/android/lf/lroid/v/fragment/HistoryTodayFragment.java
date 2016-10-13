@@ -88,15 +88,8 @@ public class HistoryTodayFragment extends BaseRecycleViewFragment<HistoryTodayBe
 
     @Override
     protected void initView(View view) {
-        super.initView(view);
-        mSwipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeRefreshLayout.setRefreshing(true);
-            }
-        });
         mMobApiPresenter.setFragment(this);
-        mMobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_HISTORY_TODAY, MethodUtils.getCurrentTime("MMdd"));
+        super.initView(view);
     }
 
     @Override
@@ -140,7 +133,7 @@ public class HistoryTodayFragment extends BaseRecycleViewFragment<HistoryTodayBe
     }
 
     @Override
-    public void onMyItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+    public void onItemViewChildClick(BaseQuickAdapter adapter, View view, int position) {
         if (view.getId() == R.id.id_tv_adapter_history_today_item_all) {
             HistoryTodayBean historyTodayBean = mArrayList.get(position);
             if (historyTodayBean.isAll()) {

@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/selector_rl_bg"
         android:gravity="center"
         android:padding="@dimen/dp_10"
-        android:background="#dfdfdf"
-        android:text="点击查看更多"/>
+        android:text="查看全部"
+        android:textColor="@color/colorAccent" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="#eee" />
 </LinearLayout>

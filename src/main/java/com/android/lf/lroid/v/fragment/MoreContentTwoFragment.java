@@ -50,9 +50,9 @@ public class MoreContentTwoFragment extends LroidBaseFragment {
 
     @Override
     protected void initView(View view) {
-        View footView  = View.inflate(mContext,R.layout.foot_more_content_two_layout,null);
+        View footView = View.inflate(mContext, R.layout.foot_more_content_two_layout, null);
         mLroidListView.addFooterView(footView);
-        adapter = new MoreContentTwoAdapter(mContext, mArrayList, R.layout.adapter_more_content_two_item_layout);
+        adapter = new MoreContentTwoAdapter(mContext, mArrayList, R.layout.adapter_entertainment_more_item_layout);
         mLroidListView.setAdapter(adapter);
         mLroidListView.setVisibility(View.INVISIBLE);
         mobApiPresenter.setFragment(this);
@@ -66,7 +66,7 @@ public class MoreContentTwoFragment extends LroidBaseFragment {
 
     @Override
     public void onRequestStart(int requestID) {
-        mProgressDialog = ProgressDialog.show(mContext,null,"正在加载……");
+        mProgressDialog = ProgressDialog.show(mContext, null, "正在加载……");
     }
 
     @Override
@@ -77,11 +77,11 @@ public class MoreContentTwoFragment extends LroidBaseFragment {
     @Override
     public <T> void onRequestSuccess(int requestID, T result) {
         mLroidListView.setVisibility(View.VISIBLE);
-        if (result!=null) {
+        if (result != null) {
             HashMap<String, Object> res = (HashMap<String, Object>) ((Map<String, Object>) result).get("result");
             if (null != res && res.size() > 0) {
-                ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String, Object>>) res.get("list");
-                for (HashMap<String,Object> map :list) {
+                ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) res.get("list");
+                for (HashMap<String, Object> map : list) {
                     EntertainmentBean entertainmentBean = new EntertainmentBean();
                     entertainmentBean.setId((String) map.get("id"));
                     entertainmentBean.setSourceUrl((String) map.get("sourceUrl"));
@@ -95,10 +95,14 @@ public class MoreContentTwoFragment extends LroidBaseFragment {
     }
 
     @OnItemClick(R.id.id_llv_fragment_more_content_two)
-    public void onItemClick(int position){
-        Bundle bundle = new Bundle();
-        bundle.putString(WebContentFragment.WEB_LOAD_URL,mArrayList.get(position).getSourceUrl());
-        MethodUtils.startFragmentsActivity(mContext,mArrayList.get(position).getTitle(), FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG,bundle);
+    public void onItemClick(int position) {
+        if (position == mArrayList.size()) {
+            MethodUtils.startFragmentsActivity(mContext, "娱乐", FragmentContainerActivity.ENTERTAINMENT_FLAG);
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putString(WebContentFragment.WEB_LOAD_URL, mArrayList.get(position).getSourceUrl());
+            MethodUtils.startFragmentsActivity(mContext, mArrayList.get(position).getTitle(), FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG, bundle);
+        }
     }
 
 }

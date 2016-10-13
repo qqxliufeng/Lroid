@@ -5,9 +5,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.v.views.DividerItemDecoration;
@@ -27,8 +27,6 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
 
     @BindView(R.id.id_bt_fragment_base_recycle_view_empty)
     Button mEmptyView;
-    @BindView(R.id.id_pb_fragment_base_recycle_view_progress)
-    ProgressBar mProgressBar;
     @BindView(R.id.id_rv_fragment_base_recycle_view_content)
     RecyclerView mRecyclerView;
     @BindView(R.id.id_srl_fragment_base_recycle_view_content)
@@ -37,7 +35,7 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
     protected BaseQuickAdapter<T> mBaseQuickAdapter;
     protected ArrayList<T> mArrayList = new ArrayList<>();
 
-    protected static int MAX_PAGE_COUNT = 2;
+    protected static int MAX_PAGE_COUNT = 5;
     protected int PAGE_SIZE = 10;
     protected int current_page = 1;
 
@@ -69,9 +67,16 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
 
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                onMyItemChildClick(adapter, view, position);
+                onItemViewChildClick(adapter, view, position);
             }
         });
+        mSwipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(true);
+            }
+        });
+        onRefresh();
     }
 
     protected abstract BaseQuickAdapter<T> createAdapter();
@@ -88,13 +93,11 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
     @Override
     public void onRequestFail(int requestID, Throwable e) {
         Logger.e(e.getMessage(), "error");
-        mProgressBar.setVisibility(View.GONE);
         mEmptyView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public <T> void onRequestSuccess(int requestID, T result) {
-        mProgressBar.setVisibility(View.GONE);
         mEmptyView.setVisibility(View.GONE);
     }
 
@@ -110,11 +113,10 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
         }
     }
 
-
     public void onSimpleItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
     }
 
-    public void onMyItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+    public void onItemViewChildClick(BaseQuickAdapter adapter, View view, int position) {
     }
 
     @Override
