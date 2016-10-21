@@ -5,7 +5,7 @@ package com.android.lf.lroid;
 //import android.support.test.filters.MediumTest;
 //import android.support.test.runner.AndroidJUnit4;
 //
-//import org.junit.Test;
+//import org.junit.TestPresenter;
 //import org.junit.runner.RunWith;
 //
 //
@@ -19,7 +19,7 @@ package com.android.lf.lroid;
 //@MediumTest
 //@RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentationTest {
-//    @Test
+//    @TestPresenter
 //    public void useAppContext() throws Exception {
 //        // Context of the app under test.
 //        Context appContext = InstrumentationRegistry.getTargetContext();

@@ -3,7 +3,6 @@ package com.android.lf.lroid.v.fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
@@ -56,7 +55,7 @@ public class MoreContentTwoFragment extends LroidBaseFragment {
         mLroidListView.setAdapter(adapter);
         mLroidListView.setVisibility(View.INVISIBLE);
         mobApiPresenter.setFragment(this);
-        mobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_WEIXIN_FOR_ENTERTAINMENT, "11", "1", "20");
+        mobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_WEIXIN, "11", "1", "20");
     }
 
     @Override

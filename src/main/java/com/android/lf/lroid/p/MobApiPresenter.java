@@ -1,5 +1,6 @@
 package com.android.lf.lroid.p;
 
+import com.android.lf.lroid.m.bean.HealthBean;
 import com.mob.mobapi.API;
 import com.mob.mobapi.APICallback;
 import com.mob.mobapi.MobAPI;
@@ -7,8 +8,9 @@ import com.mob.mobapi.apis.Calendar;
 import com.mob.mobapi.apis.History;
 import com.mob.mobapi.apis.Weather;
 import com.mob.mobapi.apis.WxArticle;
-import com.orhanobut.logger.Logger;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -20,7 +22,7 @@ public class MobApiPresenter extends BasePresenter implements APICallback {
     public static final int REQUEST_CODE_WEATHER = 0x0;
     public static final int REQUEST_CODE_CALENDAR = 0x1;
     public static final int REQUEST_CODE_HISTORY_TODAY = 0x2;
-    public static final int REQUEST_CODE_WEIXIN_FOR_ENTERTAINMENT = 0x3;
+    public static final int REQUEST_CODE_WEIXIN = 0x3;
 
 
     public void getData(int requestApiCode,String... args) {
@@ -39,7 +41,7 @@ public class MobApiPresenter extends BasePresenter implements APICallback {
                     History history = (History) MobAPI.getAPI(History.NAME);
                     history.queryHistory(args[0],this);
                     break;
-                case REQUEST_CODE_WEIXIN_FOR_ENTERTAINMENT:
+                case REQUEST_CODE_WEIXIN:
                     WxArticle wxArticle = (WxArticle) MobAPI.getAPI(WxArticle.NAME);
                     wxArticle.searchArticleList(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]),this);
                     break;
@@ -57,5 +59,23 @@ public class MobApiPresenter extends BasePresenter implements APICallback {
     public void onError(API api, int i, Throwable throwable) {
         getPresentListener().onRequestEnd(0x1);
         getPresentListener().onRequestFail(0x1, throwable);
+    }
+
+    public <T> ArrayList<T> parseResult(Map<String, Object> result){
+        HashMap<String, Object> res = (HashMap<String, Object>) result.get("result");
+        if (null != res && res.size() > 0) {
+            ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) res.get("list");
+            ArrayList<HealthBean> tempList = new ArrayList<>();
+            for (HashMap<String, Object> map : list) {
+                HealthBean healthBean = new HealthBean();
+                healthBean.setArticleId((String) map.get("id"));
+                healthBean.setSourceUrl((String) map.get("sourceUrl"));
+                healthBean.setArticleTitle((String) map.get("title"));
+                healthBean.setTime((String) map.get("pubTime"));
+                tempList.add(healthBean);
+            }
+            return (ArrayList<T>) tempList;
+        }
+        return null;
     }
 }

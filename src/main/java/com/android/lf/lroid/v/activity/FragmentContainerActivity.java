@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.v.fragment.EntertainmentMoreListFragment;
+import com.android.lf.lroid.v.fragment.HealthFragment;
 import com.android.lf.lroid.v.fragment.HistoryTodayFragment;
 import com.android.lf.lroid.v.fragment.LoginFragment;
 import com.android.lf.lroid.v.fragment.PersonalInfoFragment;
@@ -36,6 +37,7 @@ public class FragmentContainerActivity extends BaseActivity {
     public static final int RESET_PASSWORD_FLAG = 0x5;
     public static final int HISTORY_TODAY_FLAG = 0x6;
     public static final int ENTERTAINMENT_FLAG = 0x7;
+    public static final int HEALTH_FLAG = 0x8;
 
     @BindView(R.id.id_tl_app_top_bar)
     Toolbar mToolBar;
@@ -92,6 +94,9 @@ public class FragmentContainerActivity extends BaseActivity {
                 break;
             case ENTERTAINMENT_FLAG:
                 fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, EntertainmentMoreListFragment.newInstance());
+                break;
+            case HEALTH_FLAG:
+                fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, HealthFragment.newInstance());
                 break;
         }
         fragmentTransaction.commitAllowingStateLoss();

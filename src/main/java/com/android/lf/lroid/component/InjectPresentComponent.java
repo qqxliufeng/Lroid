@@ -3,6 +3,7 @@ package com.android.lf.lroid.component;
 import com.android.lf.lroid.v.activity.HomeActivity;
 import com.android.lf.lroid.v.activity.MainActivity;
 import com.android.lf.lroid.v.fragment.EntertainmentMoreListFragment;
+import com.android.lf.lroid.v.fragment.HealthFragment;
 import com.android.lf.lroid.v.fragment.HistoryTodayFragment;
 import com.android.lf.lroid.v.fragment.HomeMoreFragment;
 import com.android.lf.lroid.v.fragment.MoreContentTwoFragment;
@@ -60,4 +61,6 @@ public interface InjectPresentComponent {
     void inject(MoreContentTwoFragment moreContentTwoFragment);
 
     void inject(EntertainmentMoreListFragment entertainmentMoreListFragment);
+
+    void inject(HealthFragment healthFragment);
 }
