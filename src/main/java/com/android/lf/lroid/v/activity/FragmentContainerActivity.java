@@ -10,6 +10,7 @@ import com.android.lf.lroid.R;
 import com.android.lf.lroid.v.fragment.EntertainmentMoreListFragment;
 import com.android.lf.lroid.v.fragment.HealthFragment;
 import com.android.lf.lroid.v.fragment.HealthSearchFragment;
+import com.android.lf.lroid.v.fragment.HealthSearchResultFragment;
 import com.android.lf.lroid.v.fragment.HistoryTodayFragment;
 import com.android.lf.lroid.v.fragment.LoginFragment;
 import com.android.lf.lroid.v.fragment.PersonalInfoFragment;
@@ -40,6 +41,7 @@ public class FragmentContainerActivity extends BaseActivity {
     public static final int ENTERTAINMENT_FLAG = 0x7;
     public static final int HEALTH_FLAG = 0x8;
     public static final int HEALTH_SEARCH_FLAG = 0x9;
+    public static final int HEALTH_SEARCH_RESTULT_FLAG = 0x10;
 
     @BindView(R.id.id_tl_app_top_bar)
     Toolbar mToolBar;
@@ -102,6 +104,9 @@ public class FragmentContainerActivity extends BaseActivity {
                 break;
             case HEALTH_SEARCH_FLAG:
                 fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, HealthSearchFragment.newInstance());
+                break;
+            case HEALTH_SEARCH_RESTULT_FLAG:
+                fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, HealthSearchResultFragment.newInstance(getIntent().getBundleExtra(EXTRA_FLAG)));
                 break;
         }
         fragmentTransaction.commitAllowingStateLoss();

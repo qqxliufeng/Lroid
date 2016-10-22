@@ -1,13 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#EDEDED"
+    android:id="@+id/id_ll_fragment_health_search_root_view">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="#FFD6D4D4"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10">
+
+    <EditText
+        android:id="@+id/id_et_fragment_health_search_content"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:background="@drawable/shape_ll_inner_health_top_bg"
+        android:hint="请输入要查询的食品种类"
+        android:textColorHint="#999"
+        android:drawablePadding="@dimen/dp_10"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:textSize="14sp"
+        android:drawableLeft="@drawable/img_search_icon"/>
+
+        <Button
+            android:id="@+id/id_bt_fragment_health_search_on_search"
+            android:background="@drawable/shape_bt_search_bg"
+            android:layout_gravity="center"
+            android:text="搜索"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="#fff"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:padding="@dimen/dp_10"
+        android:text="热门推荐"/>
 
     <com.zhy.view.flowlayout.TagFlowLayout
         android:id="@+id/id_fl_fragment_health_search_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:background="#EDEDED"/>
+        android:layout_height="match_parent"
+        android:padding="20dp"/>
 
 </LinearLayout>

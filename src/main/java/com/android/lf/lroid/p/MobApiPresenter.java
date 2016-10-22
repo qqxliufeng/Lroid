@@ -5,6 +5,7 @@ import com.mob.mobapi.API;
 import com.mob.mobapi.APICallback;
 import com.mob.mobapi.MobAPI;
 import com.mob.mobapi.apis.Calendar;
+import com.mob.mobapi.apis.Health;
 import com.mob.mobapi.apis.History;
 import com.mob.mobapi.apis.Weather;
 import com.mob.mobapi.apis.WxArticle;
@@ -23,6 +24,7 @@ public class MobApiPresenter extends BasePresenter implements APICallback {
     public static final int REQUEST_CODE_CALENDAR = 0x1;
     public static final int REQUEST_CODE_HISTORY_TODAY = 0x2;
     public static final int REQUEST_CODE_WEIXIN = 0x3;
+    public static final int REQUEST_CODE_HEALTH = 0x4;
 
 
     public void getData(int requestApiCode,String... args) {
@@ -44,6 +46,10 @@ public class MobApiPresenter extends BasePresenter implements APICallback {
                 case REQUEST_CODE_WEIXIN:
                     WxArticle wxArticle = (WxArticle) MobAPI.getAPI(WxArticle.NAME);
                     wxArticle.searchArticleList(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]),this);
+                    break;
+                case REQUEST_CODE_HEALTH:
+                    Health health = (Health) MobAPI.getAPI(Health.NAME);
+                    health.queryHealth(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]),this);
                     break;
             }
         }

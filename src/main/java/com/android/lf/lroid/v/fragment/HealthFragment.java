@@ -6,7 +6,6 @@ import android.view.View;
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
-import com.android.lf.lroid.m.bean.EntertainmentBean;
 import com.android.lf.lroid.m.bean.HealthBean;
 import com.android.lf.lroid.p.MobApiPresenter;
 import com.android.lf.lroid.utils.MethodUtils;
@@ -14,13 +13,11 @@ import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 import com.android.lf.lroid.v.adapter.HealthAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
 
-import butterknife.OnClick;
 
 /**
  * Created by feng on 2016/10/21.
@@ -78,4 +75,11 @@ public class HealthFragment extends BaseRecycleViewFragment<HealthBean>{
         mMobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_WEIXIN, "3", Integer.toString(current_page), Integer.toString(PAGE_SIZE));
     }
 
+    @Override
+    public void onSimpleItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+        Bundle bundle = new Bundle();
+        HealthBean healthBean = mArrayList.get(i);
+        bundle.putString(WebContentFragment.WEB_LOAD_URL, healthBean.getSourceUrl());
+        MethodUtils.startFragmentsActivity(mContext, healthBean.getArticleTitle(),FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG,bundle);
+    }
 }

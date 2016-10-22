@@ -25,7 +25,7 @@
             android:theme="@style/HomeActivityTheme"/>
         <activity android:name=".v.activity.TestActivity" />
 
-        <activity android:name=".v.activity.FragmentContainerActivity" />
+        <activity android:name=".v.activity.FragmentContainerActivity" android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".v.activity.SplashActivity"
             android:screenOrientation="portrait"
