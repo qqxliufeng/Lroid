@@ -168,6 +168,8 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
             JieQiBean jieQiBean = arrayList.get(i);
             viewHolderTypeTwo = (ViewHolderTypeTwo) view.getTag();
             viewHolderTypeTwo.tv_title.setText(jieQiBean.getName());
+            viewHolderTypeTwo.iv_pic.setDefaultImageResId(R.drawable.drawable_image_request_default);
+            viewHolderTypeTwo.iv_pic.setErrorImageResId(R.drawable.drawable_image_request_default);
             viewHolderTypeTwo.iv_pic.setImageUrl(jieQiBean.getImage_url(), RequestManager.getImageLoader());
             viewHolderTypeTwo.tv_content.setText(jieQiBean.getContent());
             viewHolderTypeTwo.tv_time.setText(jieQiBean.getTime());

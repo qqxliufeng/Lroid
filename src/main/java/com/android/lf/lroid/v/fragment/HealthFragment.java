@@ -58,19 +58,19 @@ public class HealthFragment extends BaseRecycleViewFragment<HealthBean>{
     public <T> void onRequestSuccess(int requestID, T result) {
         if (result != null) {
             HashMap<String, Object> res = (HashMap<String, Object>) ((Map<String, Object>) result).get("result");
-            if (null != res && res.size() > 0) {
-                ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) res.get("list");
-                ArrayList<HealthBean> tempList = new ArrayList<>();
-                for (HashMap<String, Object> map : list) {
-                    HealthBean healthBean = new HealthBean();
-                    healthBean.setArticleId((String) map.get("id"));
-                    healthBean.setSourceUrl((String) map.get("sourceUrl"));
-                    healthBean.setArticleTitle((String) map.get("title"));
-                    healthBean.setTime((String) map.get("pubTime"));
-                    tempList.add(healthBean);
-                }
-                mBaseQuickAdapter.addData(tempList);
-            }
+//            if (null != res && res.size() > 0) {
+//                ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) res.get("list");
+//                ArrayList<HealthBean> tempList = new ArrayList<>();
+//                for (HashMap<String, Object> map : list) {
+//                    HealthBean healthBean = new HealthBean();
+//                    healthBean.setArticleId((String) map.get("id"));
+//                    healthBean.setSourceUrl((String) map.get("sourceUrl"));
+//                    healthBean.setArticleTitle((String) map.get("title"));
+//                    healthBean.setTime((String) map.get("pubTime"));
+//                    tempList.add(healthBean);
+//                }
+                mBaseQuickAdapter.addData(mMobApiPresenter.<HealthBean> parseResult((Map<String, Object>) result));
+//            }
         }
     }
 
