@@ -4,6 +4,7 @@ import com.android.lf.lroid.m.bean.HealthSearchResultBean;
 import com.android.lf.lroid.v.activity.HomeActivity;
 import com.android.lf.lroid.v.activity.MainActivity;
 import com.android.lf.lroid.v.fragment.EntertainmentMoreListFragment;
+import com.android.lf.lroid.v.fragment.FoodFragment;
 import com.android.lf.lroid.v.fragment.HealthFragment;
 import com.android.lf.lroid.v.fragment.HealthSearchResultFragment;
 import com.android.lf.lroid.v.fragment.HistoryTodayFragment;
@@ -67,5 +68,7 @@ public interface InjectPresentComponent {
     void inject(HealthFragment healthFragment);
 
     void inject(HealthSearchResultFragment healthSearchResultFragment);
+
+    void inject(FoodFragment foodFragment);
 
 }

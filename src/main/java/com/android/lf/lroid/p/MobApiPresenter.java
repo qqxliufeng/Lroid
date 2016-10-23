@@ -5,6 +5,7 @@ import com.mob.mobapi.API;
 import com.mob.mobapi.APICallback;
 import com.mob.mobapi.MobAPI;
 import com.mob.mobapi.apis.Calendar;
+import com.mob.mobapi.apis.Cook;
 import com.mob.mobapi.apis.Health;
 import com.mob.mobapi.apis.History;
 import com.mob.mobapi.apis.Weather;
@@ -25,6 +26,8 @@ public class MobApiPresenter extends BasePresenter implements APICallback {
     public static final int REQUEST_CODE_HISTORY_TODAY = 0x2;
     public static final int REQUEST_CODE_WEIXIN = 0x3;
     public static final int REQUEST_CODE_HEALTH = 0x4;
+    public static final int REQUEST_CODE_FOOD_FOR_MENU = 0x5;
+    public static final int REQUEST_CODE_FOOD_FOR_INFO = 0x6;
 
 
     public void getData(int requestApiCode,String... args) {
@@ -50,6 +53,14 @@ public class MobApiPresenter extends BasePresenter implements APICallback {
                 case REQUEST_CODE_HEALTH:
                     Health health = (Health) MobAPI.getAPI(Health.NAME);
                     health.queryHealth(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]),this);
+                    break;
+                case REQUEST_CODE_FOOD_FOR_MENU:
+                    Cook cook = (Cook) MobAPI.getAPI(Cook.NAME);
+                    cook.queryCategory(this);
+                    break;
+                case REQUEST_CODE_FOOD_FOR_INFO:
+                    Cook cookInfo = (Cook) MobAPI.getAPI(Cook.NAME);
+                    cookInfo.searchMenu(args[0],args[1],Integer.parseInt(args[2]),Integer.parseInt(args[3]),this);
                     break;
             }
         }
