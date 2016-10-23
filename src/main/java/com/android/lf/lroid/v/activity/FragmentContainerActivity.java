@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.v.fragment.EntertainmentMoreListFragment;
+import com.android.lf.lroid.v.fragment.FoodFragment;
 import com.android.lf.lroid.v.fragment.HealthFragment;
 import com.android.lf.lroid.v.fragment.HealthSearchFragment;
 import com.android.lf.lroid.v.fragment.HealthSearchResultFragment;
@@ -41,7 +42,10 @@ public class FragmentContainerActivity extends BaseActivity {
     public static final int ENTERTAINMENT_FLAG = 0x7;
     public static final int HEALTH_FLAG = 0x8;
     public static final int HEALTH_SEARCH_FLAG = 0x9;
-    public static final int HEALTH_SEARCH_RESTULT_FLAG = 0x10;
+    public static final int HEALTH_SEARCH_RESULT_FLAG = 0x10;
+    public static final int FOOD_FLAG = 0x11;
+
+
 
     @BindView(R.id.id_tl_app_top_bar)
     Toolbar mToolBar;
@@ -105,8 +109,11 @@ public class FragmentContainerActivity extends BaseActivity {
             case HEALTH_SEARCH_FLAG:
                 fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, HealthSearchFragment.newInstance());
                 break;
-            case HEALTH_SEARCH_RESTULT_FLAG:
+            case HEALTH_SEARCH_RESULT_FLAG:
                 fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, HealthSearchResultFragment.newInstance(getIntent().getBundleExtra(EXTRA_FLAG)));
+                break;
+            case FOOD_FLAG:
+                fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, FoodFragment.newInstance());
                 break;
         }
         fragmentTransaction.commitAllowingStateLoss();

@@ -17,8 +17,6 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -58,7 +56,6 @@ public class HealthSearchFragment extends LroidBaseFragment {
             add("牛奶");
         }
     };
-
 
     @Override
     protected int getLayoutId() {
@@ -104,7 +101,7 @@ public class HealthSearchFragment extends LroidBaseFragment {
     private void openStartResult(String value) {
         Bundle bundle = new Bundle();
         bundle.putString(HealthSearchResultFragment.KEYWORD, value);
-        MethodUtils.startFragmentsActivity(mContext, value, FragmentContainerActivity.HEALTH_SEARCH_RESTULT_FLAG,bundle);
+        MethodUtils.startFragmentsActivity(mContext, value, FragmentContainerActivity.HEALTH_SEARCH_RESULT_FLAG,bundle);
     }
 
 }

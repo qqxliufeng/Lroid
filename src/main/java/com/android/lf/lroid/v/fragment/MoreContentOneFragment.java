@@ -41,6 +41,7 @@ public class MoreContentOneFragment extends LroidBaseFragment {
 
     @OnClick(R.id.id_tv_fragment_more_content_one_food)
     public void onFood() {
+        MethodUtils.startFragmentsActivity(mContext,"美食", FragmentContainerActivity.FOOD_FLAG);
     }
 
     @OnClick(R.id.id_tv_fragment_more_content_one_search)
