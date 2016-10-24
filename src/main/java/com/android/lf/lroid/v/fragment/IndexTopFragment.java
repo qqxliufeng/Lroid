@@ -89,6 +89,12 @@ public class IndexTopFragment extends LroidBaseFragment implements ViewPager.OnP
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        vp_banner.stopAutoScroll();
+    }
+
+    @Override
     protected void setComponent() {
         DaggerInjectPresentComponent.builder().presentModule(new PresentModule()).build().inject(this);
     }
