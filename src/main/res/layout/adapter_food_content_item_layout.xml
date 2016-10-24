@@ -27,16 +27,18 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="center_vertical"
             android:maxLines="1"
-            android:text="summary" />
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:textSize="18sp"/>
 
         <TextView
             android:id="@+id/id_tv_adapter_food_content_item_step"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="center_vertical"
+            android:gravity="bottom"
+            android:textSize="18sp"
             android:text="步骤" />
     </LinearLayout>
 

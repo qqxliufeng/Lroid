@@ -13,11 +13,9 @@ import com.android.lf.lroid.p.MobApiPresenter;
 import com.android.lf.lroid.v.adapter.FoodContentAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -106,7 +104,7 @@ public class FoodContentFragment extends BaseRecycleViewFragment<FoodInfoBean> {
                         }
                         mBaseQuickAdapter.addData(tempList);
                         current_page = (int) resultMap.get("curPage");
-                        MAX_PAGE_COUNT = (int) resultMap.get("total");
+                        MAX_PAGE_COUNT = (int) resultMap.get("total")/PAGE_SIZE;
                         if (current_page >= MAX_PAGE_COUNT) {
                             mBaseQuickAdapter.loadComplete();
                         } else {
@@ -116,7 +114,13 @@ public class FoodContentFragment extends BaseRecycleViewFragment<FoodInfoBean> {
                 }
             }
         } catch (Exception e) {
-            Logger.e(e.getMessage(),"error");
+            e.printStackTrace();
+            mBaseQuickAdapter.loadComplete();
         }
+    }
+
+    @Override
+    protected void onLoadMore() {
+        mobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_FOOD_FOR_INFO, getArguments().getString(CID), null, Integer.toString(current_page), Integer.toString(PAGE_SIZE));
     }
 }

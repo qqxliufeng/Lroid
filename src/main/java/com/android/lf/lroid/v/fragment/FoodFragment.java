@@ -90,12 +90,11 @@ public class FoodFragment extends LroidBaseFragment {
         }
         menuIndex = tempIndex;
         if (myViewPagerAdapter!=null && !titles.isEmpty()) {
-            myViewPagerAdapter.notifyDataSetChanged();
             mTabTitle.post(new Runnable() {
                 @Override
                 public void run() {
-                    mContentContainer.setCurrentItem(0);
                     mTabTitle.setScrollPosition(0,0.0f,false);
+                    setAdapter();
                 }
             });
         }
@@ -158,11 +157,15 @@ public class FoodFragment extends LroidBaseFragment {
                     foodMenuBean.setChilds(childMenuTempList);
                     titles.add(foodMenuBean);
                 }
-                myViewPagerAdapter = new MyViewPagerAdapter(getChildFragmentManager());
-                mContentContainer.setAdapter(myViewPagerAdapter);
-                mTabTitle.setupWithViewPager(mContentContainer);
+                setAdapter();
             }
         }
+    }
+
+    private void setAdapter() {
+        myViewPagerAdapter = new MyViewPagerAdapter(getChildFragmentManager());
+        mContentContainer.setAdapter(myViewPagerAdapter);
+        mTabTitle.setupWithViewPager(mContentContainer);
     }
 
     class MyViewPagerAdapter extends FragmentStatePagerAdapter {

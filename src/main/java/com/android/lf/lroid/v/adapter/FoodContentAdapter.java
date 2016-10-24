@@ -22,16 +22,16 @@ public class FoodContentAdapter extends LroidBaseRecycleViewAdapter<FoodInfoBean
     @Override
     protected void convert(BaseViewHolder baseViewHolder, FoodInfoBean o) {
         baseViewHolder.setText(R.id.id_tv_adapter_food_content_item_title,o.getName());
-        baseViewHolder.setText(R.id.id_tv_adapter_food_content_item_summary,o.getRecipe().getSumary());
-        String step = "共分为 <p style=color:red>"+ o.getRecipe().getMethod().size() +"</p> 步";
-        baseViewHolder.setText(R.id.id_tv_adapter_food_content_item_step,Html.fromHtml(step));
+        baseViewHolder.setText(R.id.id_tv_adapter_food_content_item_summary,o.getRecipe().getSumary().trim());
+        String step = "共分为 "+ o.getRecipe().getMethod().size() +" 步";
+        baseViewHolder.setText(R.id.id_tv_adapter_food_content_item_step,step);
         NetworkImageView pic = baseViewHolder.getView(R.id.id_iv_adapter_food_content_item_pic);
         pic.setDefaultImageResId(R.drawable.drawable_image_request_default);
         pic.setErrorImageResId(R.drawable.drawable_image_request_default);
         if (o.getThumbnail()!=null){
             pic.setImageUrl(o.getThumbnail(), RequestManager.getImageLoader());
         }else {
-            pic.setImageUrl("", RequestManager.getImageLoader());
+            pic.setImageUrl("http://lroid/temp/temp.jpg", RequestManager.getImageLoader());
         }
     }
 }
