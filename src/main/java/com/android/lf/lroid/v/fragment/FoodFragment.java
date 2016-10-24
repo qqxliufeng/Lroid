@@ -1,12 +1,18 @@
 package com.android.lf.lroid.v.fragment;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.android.lf.lroid.R;
@@ -45,6 +51,57 @@ public class FoodFragment extends LroidBaseFragment {
 
     private MyViewPagerAdapter myViewPagerAdapter;
 
+    private int menuIndex = 0;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.fragment_food_menu,menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int tempIndex=0;
+        switch (item.getItemId()){
+            case R.id.id_menu_food_one:
+                tempIndex = 0;
+                break;
+            case R.id.id_menu_food_two:
+                tempIndex = 1;
+                break;
+            case R.id.id_menu_food_three:
+                tempIndex = 2;
+                break;
+            case R.id.id_menu_food_four:
+                tempIndex = 3;
+                break;
+            case R.id.id_menu_food_five:
+                tempIndex = 4;
+                break;
+        }
+        if (tempIndex == menuIndex){
+            return super.onOptionsItemSelected(item);
+        }
+        menuIndex = tempIndex;
+        if (myViewPagerAdapter!=null && !titles.isEmpty()) {
+            myViewPagerAdapter.notifyDataSetChanged();
+            mTabTitle.post(new Runnable() {
+                @Override
+                public void run() {
+                    mContentContainer.setCurrentItem(0);
+                    mTabTitle.setScrollPosition(0,0.0f,false);
+                }
+            });
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_food_layout;
@@ -65,18 +122,17 @@ public class FoodFragment extends LroidBaseFragment {
     }
 
     @Override
-    public <T> void onRequestSuccess(int requestID, T result) {
-//        {result=
-//                {categoryInfo=
-//                        {name=全部菜谱, ctgId=0010001001},
-//                        childs=[
-//                        {categoryInfo=
-//                                {parentId=0010001001, name=按菜品选择菜谱, ctgId=0010001002},
-//                                childs=[
-//                                {categoryInfo=
-//                                        {parentId=0010001002, name=荤菜, ctgId=0010001007}}, {categoryInfo={parentId=0010001002, name=素菜, ctgId=0010001008}}, {categoryInfo={parentId=0010001002, name=汤粥, ctgId=0010001009}}, {categoryInfo={parentId=0010001002, name=西点, ctgId=0010001010}}, {categoryInfo={parentId=0010001002, name=主食, ctgId=0010001011}}, {categoryInfo={parentId=0010001002, name=饮品, ctgId=0010001012}}, {categoryInfo={parentId=0010001002, name=便当, ctgId=0010001013}}, {categoryInfo={parentId=0010001002, name=小吃, ctgId=0010001014}}]}, {categoryInfo={parentId=0010001001, name=按工艺选择菜谱, ctgId=0010001003}, childs=[{categoryInfo={parentId=0010001003, name=红烧, ctgId=0010001015}}, {categoryInfo={parentId=0010001003, name=炒, ctgId=0010001016}}, {categoryInfo={parentId=0010001003, name=煎, ctgId=0010001017}}, {categoryInfo={parentId=0010001003, name=炸, ctgId=0010001018}}, {categoryInfo={parentId=0010001003, name=焖, ctgId=0010001019}}, {categoryInfo={parentId=0010001003, name=炖, ctgId=0010001020}}, {categoryInfo={parentId=0010001003, name=蒸, ctgId=0010001021}}, {categoryInfo={parentId=0010001003, name=烩, ctgId=0010001022}}, {categoryInfo={parentId=0010001003, name=熏, ctgId=0010001023}}, {categoryInfo={parentId=0010001003, name=腌, ctgId=0010001024}}, {categoryInfo={parentId=0010001003, name=煮, ctgId=0010001025}}, {categoryInfo={parentId=0010001003, name=炝, ctgId=0010001026}}, {categoryInfo={parentId=0010001003, name=卤, ctgId=0010001027}}, {categoryInfo={parentId=0010001003, name=拌, ctgId=0010001028}}, {categoryInfo={parentId=0010001003, name=烤, ctgId=0010001029}}]}, {categoryInfo={parentId=0010001001, name=按菜系选择菜谱, ctgId=0010001004}, childs=[{categoryInfo={parentId=0010001004, name=鲁菜, ctgId=0010001030}}, {categoryInfo={parentId=0010001004, name=川菜, ctgId=0010001031}}, {categoryInfo={parentId=0010001004, name=粤菜, ctgId=0010001032}}, {categoryInfo={parentId=0010001004, name=闽菜, ctgId=0010001033}}, {categoryInfo={parentId=0010001004, name=浙菜, ctgId=0010001034}}, {categoryInfo={parentId=0010001004, name=湘菜, ctgId=0010001035}}, {categoryInfo={parentId=0010001004, name=上海菜, ctgId=0010001036}}, {categoryInfo={parentId=0010001004, name=徽菜, ctgId=0010001037}}, {categoryInfo={parentId=0010001004, name=京菜, ctgId=0010001038}}, {categoryInfo={parentId=0010001004, name=东北菜, ctgId=0010001039}}, {categoryInfo={parentId=0010001004, name=西北菜, ctgId=0010001040}}, {categoryInfo={parentId=0010001004, name=客家菜, ctgId=0010001041}}, {categoryInfo={parentId=0010001004, name=台湾美食, ctgId=0010001042}}, {categoryInfo={parentId=0010001004, name=泰国菜, ctgId=0010001043}}, {categoryInfo={parentId=0010001004, name=日本料理, ctgId=0010001044}}, {categoryInfo={parentId=0010001004, name=韩国料理, ctgId=0010001045}}, {categoryInfo={parentId=0010001004, name=西餐, ctgId=0010001046}}]}, {categoryInfo={parentId=0010001001, name=按人群选择菜谱, ctgId=0010001005}, childs=[{categoryInfo={parentId=0010001005, name=孕妇食谱, ctgId=0010001047}}, {categoryInfo={parentId=0010001005, name=婴幼食谱, ctgId=0010001048}}, {categoryInfo={parentId=0010001005, name=儿童食谱, ctgId=0010001049}}, {categoryInfo={parentId=0010001005, name=懒人食谱, ctgId=0010001050}}, {categoryInfo={parentId=0010001005, name=宵夜, ctgId=0010001051}}, {categoryInfo={parentId=0010001005, name=素食, ctgId=0010001052}}, {categoryInfo={parentId=0010001005, name=产妇食谱, ctgId=0010001053}}, {categoryInfo={parentId=0010001005, name=二人世界, ctgId=0010001054}}, {categoryInfo={parentId=0010001005, name=下午茶, ctgId=0010001055}}]}, {categoryInfo={parentId=0010001001, name=按功能选择菜谱, ctgId=0010001006}, childs=[{categoryInfo={parentId=0010001
-//                006, name=减肥, ctgId=0010001056}}, {categoryInfo={parentId=0010001006, name=便秘, ctgId=0010001057}}, {categoryInfo={parentId=0010001006, name=养胃, ctgId=0010001058}}, {categoryInfo={parentId=0010001006, name=滋阴, ctgId=0010001059}}, {categoryInfo={parentId=0010001006, name=补阳, ctgId=0010001060}}, {categoryInfo={parentId=0010001006, name=月经不调, ctgId=0010001061}}, {categoryInfo={parentId=0010001006, name=美容, ctgId=0010001062}}, {categoryInfo={parentId=0010001006, name=养生, ctgId=0010001063}}, {categoryInfo={parentId=0010001006, name=贫血, ctgId=0010001064}}, {categoryInfo={parentId=0010001006, name=润肺, ctgId=0010001065}}]}]}}
+    public void onRequestStart(int requestID) {
+        mProgressDialog = ProgressDialog.show(mContext,null,"正在加载菜单……");
+    }
 
+    @Override
+    public void onRequestEnd(int requestID) {
+        mProgressDialog.dismiss();
+    }
+
+    @Override
+    public <T> void onRequestSuccess(int requestID, T result) {
         if (result!=null) {
             HashMap<String,Object> resultMap = (HashMap<String, Object>) ((HashMap<String,Object>)result).get("result");
             ArrayList<HashMap<String,Object>> childs = (ArrayList<HashMap<String, Object>>) resultMap.get("childs");
@@ -117,19 +173,17 @@ public class FoodFragment extends LroidBaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-            return FoodContentFragment.newInstance();
+            return FoodContentFragment.newInstance(titles.get(menuIndex).getChilds().get(position).getCtgId());
         }
 
         @Override
         public int getCount() {
-            return titles.get(0).getChilds().size();
+            return titles.get(menuIndex).getChilds().size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return titles.get(0).getChilds().get(position).getName();
+            return titles.get(menuIndex).getChilds().get(position).getName();
         }
-
     }
-
 }
