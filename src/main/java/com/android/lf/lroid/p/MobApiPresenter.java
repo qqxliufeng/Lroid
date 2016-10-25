@@ -1,5 +1,6 @@
 package com.android.lf.lroid.p;
 
+import com.android.lf.lroid.m.bean.FoodMenuBean;
 import com.android.lf.lroid.m.bean.HealthBean;
 import com.mob.mobapi.API;
 import com.mob.mobapi.APICallback;
@@ -76,6 +77,38 @@ public class MobApiPresenter extends BasePresenter implements APICallback {
     public void onError(API api, int i, Throwable throwable) {
         getPresentListener().onRequestEnd(0x1);
         getPresentListener().onRequestFail(0x1, throwable);
+    }
+
+    @Override
+    protected <T, R> R doSomething(int requestID, T[] ts) {
+        HashMap<String,Object> resultMap = (HashMap<String, Object>) ((HashMap<String,Object>)ts[0]).get("result");
+        ArrayList<HashMap<String,Object>> childs = (ArrayList<HashMap<String, Object>>) resultMap.get("childs");
+        if ((childs!=null && !childs.isEmpty())) {
+            ArrayList<FoodMenuBean> tempList = new ArrayList<>();
+            for (HashMap<String, Object> map : childs) {
+                HashMap<String, Object> childMap = (HashMap<String, Object>) map.get("categoryInfo");
+                FoodMenuBean foodMenuBean = new FoodMenuBean();
+                foodMenuBean.setParentId((String) childMap.get("parentId"));
+                foodMenuBean.setCtgId((String) childMap.get("ctgId"));
+                foodMenuBean.setName((String) childMap.get("name"));
+                ArrayList<FoodMenuBean> childMenuTempList = new ArrayList<>();
+                ArrayList<HashMap<String, Object>> childMenuList = (ArrayList<HashMap<String, Object>>) map.get("childs");
+                if (childMenuList != null && !childMenuList.isEmpty()) {
+                    for (HashMap<String, Object> childMenuMap : childMenuList) {
+                        HashMap<String, Object> categoryInfo = (HashMap<String, Object>) childMenuMap.get("categoryInfo");
+                        FoodMenuBean childFoodMenuBean = new FoodMenuBean();
+                        childFoodMenuBean.setName((String) categoryInfo.get("name"));
+                        childFoodMenuBean.setCtgId((String) categoryInfo.get("ctgId"));
+                        childFoodMenuBean.setParentId((String) categoryInfo.get("parentId"));
+                        childMenuTempList.add(childFoodMenuBean);
+                    }
+                }
+                foodMenuBean.setChilds(childMenuTempList);
+                tempList.add(foodMenuBean);
+            }
+            return (R) tempList;
+        }
+        return null;
     }
 
     public <T> ArrayList<T> parseResult(Map<String, Object> result){

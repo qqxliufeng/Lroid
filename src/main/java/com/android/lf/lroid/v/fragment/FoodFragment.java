@@ -10,10 +10,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
@@ -27,6 +29,7 @@ import java.util.HashMap;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
 /**
@@ -47,11 +50,21 @@ public class FoodFragment extends LroidBaseFragment {
     @BindView(R.id.id_vp_fragment_food_container)
     ViewPager mContentContainer;
 
+
     private ArrayList<FoodMenuBean> titles = new ArrayList<>();
 
     private MyViewPagerAdapter myViewPagerAdapter;
 
     private int menuIndex = 0;
+
+    private ArrayList<String> testTitle = new ArrayList<String>() {
+        {
+            for (int i = 0; i < 5; i++) {
+                add(i + "");
+            }
+
+        }
+    };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,47 +72,48 @@ public class FoodFragment extends LroidBaseFragment {
         setHasOptionsMenu(true);
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.fragment_food_menu,menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.fragment_food_menu, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int tempIndex=0;
-        switch (item.getItemId()){
-            case R.id.id_menu_food_one:
-                tempIndex = 0;
-                break;
-            case R.id.id_menu_food_two:
-                tempIndex = 1;
-                break;
-            case R.id.id_menu_food_three:
-                tempIndex = 2;
-                break;
-            case R.id.id_menu_food_four:
-                tempIndex = 3;
-                break;
-            case R.id.id_menu_food_five:
-                tempIndex = 4;
-                break;
-        }
-        if (tempIndex == menuIndex){
-            return super.onOptionsItemSelected(item);
-        }
-        menuIndex = tempIndex;
-        if (myViewPagerAdapter!=null && !titles.isEmpty()) {
-            mTabTitle.post(new Runnable() {
-                @Override
-                public void run() {
-                    mTabTitle.setScrollPosition(0,0.0f,false);
-                    setAdapter();
-                }
-            });
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int tempIndex = 0;
+//        switch (item.getItemId()) {
+//            case R.id.id_menu_food_one:
+//                tempIndex = 0;
+//                break;
+//            case R.id.id_menu_food_two:
+//                tempIndex = 1;
+//                break;
+//            case R.id.id_menu_food_three:
+//                tempIndex = 2;
+//                break;
+//            case R.id.id_menu_food_four:
+//                tempIndex = 3;
+//                break;
+//            case R.id.id_menu_food_five:
+//                tempIndex = 4;
+//                break;
+//        }
+//        if (tempIndex == menuIndex) {
+//            return super.onOptionsItemSelected(item);
+//        }
+//        menuIndex = tempIndex;
+//        if (myViewPagerAdapter!=null && !titles.isEmpty()) {
+//            mTabTitle.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    mTabTitle.setScrollPosition(0,0.0f,false);
+//                    setAdapter();
+//                    myViewPagerAdapter.notifyDataSetChanged();
+//                }
+//            });
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     protected int getLayoutId() {
@@ -122,7 +136,7 @@ public class FoodFragment extends LroidBaseFragment {
 
     @Override
     public void onRequestStart(int requestID) {
-        mProgressDialog = ProgressDialog.show(mContext,null,"正在加载菜单……");
+        mProgressDialog = ProgressDialog.show(mContext, null, "正在加载菜单……");
     }
 
     @Override
@@ -132,32 +146,15 @@ public class FoodFragment extends LroidBaseFragment {
 
     @Override
     public <T> void onRequestSuccess(int requestID, T result) {
-        if (result!=null) {
-            HashMap<String,Object> resultMap = (HashMap<String, Object>) ((HashMap<String,Object>)result).get("result");
-            ArrayList<HashMap<String,Object>> childs = (ArrayList<HashMap<String, Object>>) resultMap.get("childs");
-            if ((childs!=null && !childs.isEmpty())) {
-                for (HashMap<String,Object> map :childs) {
-                    HashMap<String,Object> childMap = (HashMap<String, Object>) map.get("categoryInfo");
-                    FoodMenuBean foodMenuBean = new FoodMenuBean();
-                    foodMenuBean.setParentId((String) childMap.get("parentId"));
-                    foodMenuBean.setCtgId((String) childMap.get("ctgId"));
-                    foodMenuBean.setName((String) childMap.get("name"));
-                    ArrayList<FoodMenuBean> childMenuTempList = new ArrayList<>();
-                    ArrayList<HashMap<String,Object>> childMenuList = (ArrayList<HashMap<String, Object>>) map.get("childs");
-                    if (childMenuList!=null && !childMenuList.isEmpty()){
-                        for (HashMap<String,Object> childMenuMap : childMenuList){
-                            HashMap<String,Object> categoryInfo = (HashMap<String, Object>) childMenuMap.get("categoryInfo");
-                            FoodMenuBean childFoodMenuBean = new FoodMenuBean();
-                            childFoodMenuBean.setName((String) categoryInfo.get("name"));
-                            childFoodMenuBean.setCtgId((String) categoryInfo.get("ctgId"));
-                            childFoodMenuBean.setParentId((String) categoryInfo.get("parentId"));
-                            childMenuTempList.add(childFoodMenuBean);
-                        }
-                    }
-                    foodMenuBean.setChilds(childMenuTempList);
-                    titles.add(foodMenuBean);
-                }
-                setAdapter();
+        if (result != null) {
+            switch (requestID) {
+                case 0x1:
+                    mMobApiPresenter.doSomethingWithRxJavaMap(0x0, result);
+                    break;
+                case 0x0:
+                    titles.addAll((ArrayList<FoodMenuBean>) result);
+                    setAdapter();
+                    break;
             }
         }
     }
@@ -165,6 +162,7 @@ public class FoodFragment extends LroidBaseFragment {
     private void setAdapter() {
         myViewPagerAdapter = new MyViewPagerAdapter(getChildFragmentManager());
         mContentContainer.setAdapter(myViewPagerAdapter);
+        mContentContainer.setOffscreenPageLimit(testTitle.size());
         mTabTitle.setupWithViewPager(mContentContainer);
     }
 
@@ -188,5 +186,6 @@ public class FoodFragment extends LroidBaseFragment {
         public CharSequence getPageTitle(int position) {
             return titles.get(menuIndex).getChilds().get(position).getName();
         }
+
     }
 }

@@ -35,7 +35,7 @@ public abstract class BaseRecycleViewFragment<T> extends LroidBaseFragment imple
     protected BaseQuickAdapter<T> mBaseQuickAdapter;
     protected ArrayList<T> mArrayList = new ArrayList<>();
 
-    protected static int MAX_PAGE_COUNT = 5;
+    protected int MAX_PAGE_COUNT = 5;
     protected int PAGE_SIZE = 10;
     protected int current_page = 1;
 

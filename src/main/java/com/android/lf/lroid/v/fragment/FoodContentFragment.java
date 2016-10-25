@@ -51,8 +51,9 @@ public class FoodContentFragment extends BaseRecycleViewFragment<FoodInfoBean> {
     protected void initView(View view) {
         mobApiPresenter.setFragment(this);
         super.initView(view);
-        mobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_FOOD_FOR_INFO, getArguments().getString(CID), null, Integer.toString(current_page), Integer.toString(PAGE_SIZE));
+//        mobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_FOOD_FOR_INFO, getArguments().getString(CID), null, Integer.toString(current_page), Integer.toString(PAGE_SIZE));
     }
+
 
     @Override
     protected void setComponent() {
@@ -85,17 +86,18 @@ public class FoodContentFragment extends BaseRecycleViewFragment<FoodInfoBean> {
                             recipeBean.setTitle((String) recipeMap.get("title"));
 
                             String methodList = (String) recipeMap.get("method");
-                            JSONArray jsonArray = new JSONArray(methodList);
-                            ArrayList<FoodStepBean> foodStepList = new ArrayList<>();
-                            if (jsonArray.length() > 0) {
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject object = jsonArray.optJSONObject(i);
-                                    FoodStepBean foodStep = new Gson().fromJson(object.toString(), FoodStepBean.class);
-                                    foodStepList.add(foodStep);
+                            if (methodList != null) {
+                                JSONArray jsonArray = new JSONArray(methodList);
+                                ArrayList<FoodStepBean> foodStepList = new ArrayList<>();
+                                if (jsonArray.length() > 0) {
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject object = jsonArray.optJSONObject(i);
+                                        FoodStepBean foodStep = new Gson().fromJson(object.toString(), FoodStepBean.class);
+                                        foodStepList.add(foodStep);
+                                    }
+                                    recipeBean.setMethod(foodStepList);
                                 }
-                                recipeBean.setMethod(foodStepList);
                             }
-
                             String ingredients = (String) recipeMap.get("ingredients");
                             recipeBean.setIngredients(ingredients);
 
@@ -104,7 +106,7 @@ public class FoodContentFragment extends BaseRecycleViewFragment<FoodInfoBean> {
                         }
                         mBaseQuickAdapter.addData(tempList);
                         current_page = (int) resultMap.get("curPage");
-                        MAX_PAGE_COUNT = (int) resultMap.get("total")/PAGE_SIZE;
+                        MAX_PAGE_COUNT = (int) resultMap.get("total") / PAGE_SIZE;
                         if (current_page >= MAX_PAGE_COUNT) {
                             mBaseQuickAdapter.loadComplete();
                         } else {
