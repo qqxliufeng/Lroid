@@ -38,6 +38,9 @@ import butterknife.OnClick;
 
 public class FoodFragment extends LroidBaseFragment {
 
+
+
+
     public static FoodFragment newInstance() {
         return new FoodFragment();
     }
@@ -149,9 +152,9 @@ public class FoodFragment extends LroidBaseFragment {
         if (result != null) {
             switch (requestID) {
                 case 0x1:
-                    mMobApiPresenter.doSomethingWithRxJavaMap(0x0, result);
+                    mMobApiPresenter.doSomethingWithRxJavaMap(MobApiPresenter.PARSE_FOOD_MENU_FLAG, result);
                     break;
-                case 0x0:
+                case MobApiPresenter.PARSE_FOOD_MENU_FLAG:
                     titles.addAll((ArrayList<FoodMenuBean>) result);
                     setAdapter();
                     break;
@@ -162,7 +165,7 @@ public class FoodFragment extends LroidBaseFragment {
     private void setAdapter() {
         myViewPagerAdapter = new MyViewPagerAdapter(getChildFragmentManager());
         mContentContainer.setAdapter(myViewPagerAdapter);
-        mContentContainer.setOffscreenPageLimit(testTitle.size());
+        mContentContainer.setOffscreenPageLimit(myViewPagerAdapter.getCount());
         mTabTitle.setupWithViewPager(mContentContainer);
     }
 

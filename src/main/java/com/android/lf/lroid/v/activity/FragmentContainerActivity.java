@@ -61,6 +61,7 @@ public class FragmentContainerActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        getSwipeBackLayout().setEdgeSize(100);
         initFragment();
     }
 

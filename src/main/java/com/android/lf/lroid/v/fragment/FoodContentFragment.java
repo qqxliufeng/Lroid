@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -51,7 +52,8 @@ public class FoodContentFragment extends BaseRecycleViewFragment<FoodInfoBean> {
     protected void initView(View view) {
         mobApiPresenter.setFragment(this);
         super.initView(view);
-//        mobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_FOOD_FOR_INFO, getArguments().getString(CID), null, Integer.toString(current_page), Integer.toString(PAGE_SIZE));
+        mSwipeRefreshLayout.setEnabled(false);
+        mobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_FOOD_FOR_INFO, getArguments().getString(CID), null, Integer.toString(current_page), Integer.toString(PAGE_SIZE));
     }
 
 
@@ -62,62 +64,23 @@ public class FoodContentFragment extends BaseRecycleViewFragment<FoodInfoBean> {
 
     @Override
     public <T> void onRequestSuccess(int requestID, T result) {
-        try {
-            if (result != null) {
-                HashMap<String, Object> resultMap = (HashMap<String, Object>) ((HashMap<String, Object>) result).get("result");
-                if (resultMap != null && !resultMap.isEmpty()) {
-                    ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) resultMap.get("list");
-                    ArrayList<FoodInfoBean> tempList = new ArrayList<>();
-                    if (list != null && !list.isEmpty()) {
-                        for (HashMap<String, Object> listMap : list) {
-                            FoodInfoBean foodInfoBean = new FoodInfoBean();
-
-                            foodInfoBean.setCtgTitles((String) listMap.get("ctgTitles"));
-                            foodInfoBean.setMenuId((String) listMap.get("menuId"));
-                            foodInfoBean.setThumbnail((String) listMap.get("thumbnail"));
-                            foodInfoBean.setName((String) listMap.get("name"));
-                            ArrayList<String> ctgIdsList = (ArrayList<String>) listMap.get("ctgIds");
-                            foodInfoBean.setCtgIds(ctgIdsList);
-
-                            HashMap<String, Object> recipeMap = (HashMap<String, Object>) listMap.get("recipe");
-                            FoodRecipeBean recipeBean = new FoodRecipeBean();
-                            recipeBean.setImg((String) recipeMap.get("img"));
-                            recipeBean.setSumary((String) recipeMap.get("sumary"));
-                            recipeBean.setTitle((String) recipeMap.get("title"));
-
-                            String methodList = (String) recipeMap.get("method");
-                            if (methodList != null) {
-                                JSONArray jsonArray = new JSONArray(methodList);
-                                ArrayList<FoodStepBean> foodStepList = new ArrayList<>();
-                                if (jsonArray.length() > 0) {
-                                    for (int i = 0; i < jsonArray.length(); i++) {
-                                        JSONObject object = jsonArray.optJSONObject(i);
-                                        FoodStepBean foodStep = new Gson().fromJson(object.toString(), FoodStepBean.class);
-                                        foodStepList.add(foodStep);
-                                    }
-                                    recipeBean.setMethod(foodStepList);
-                                }
-                            }
-                            String ingredients = (String) recipeMap.get("ingredients");
-                            recipeBean.setIngredients(ingredients);
-
-                            foodInfoBean.setRecipe(recipeBean);
-                            tempList.add(foodInfoBean);
-                        }
-                        mBaseQuickAdapter.addData(tempList);
-                        current_page = (int) resultMap.get("curPage");
-                        MAX_PAGE_COUNT = (int) resultMap.get("total") / PAGE_SIZE;
-                        if (current_page >= MAX_PAGE_COUNT) {
-                            mBaseQuickAdapter.loadComplete();
-                        } else {
-                            current_page++;
-                        }
+        if (result!=null) {
+            switch (requestID) {
+                case 0x1:
+                    HashMap<String, Object> resultMap = (HashMap<String, Object>) ((HashMap<String, Object>) result).get("result");
+                    current_page = (int) resultMap.get("curPage");
+                    MAX_PAGE_COUNT = (int) resultMap.get("total") / PAGE_SIZE;
+                    if (current_page >= MAX_PAGE_COUNT) {
+                        mBaseQuickAdapter.loadComplete();
+                    } else {
+                        current_page++;
                     }
-                }
+                    mobApiPresenter.doSomethingWithRxJavaMap(MobApiPresenter.PARSE_FOOD_LIST_FLAG, result);
+                    break;
+                case MobApiPresenter.PARSE_FOOD_LIST_FLAG:
+                    mBaseQuickAdapter.addData((ArrayList<FoodInfoBean>) result);
+                    break;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            mBaseQuickAdapter.loadComplete();
         }
     }
 
