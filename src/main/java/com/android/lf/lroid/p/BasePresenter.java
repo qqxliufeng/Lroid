@@ -37,15 +37,15 @@ public class BasePresenter {
     }
 
     protected boolean checkNullPresent() {
-        return iPresentListener != null;
+        return iPresentListener != null && iPresentListener.get()!=null;
     }
 
     protected boolean checkNullContext() {
-        return mContext != null;
+        return mContext != null && mContext.get()!=null;
     }
 
     protected boolean checkNullFragment() {
-        return baseFragment != null;
+        return baseFragment != null && baseFragment.get()!=null ;
     }
 
     public void setPresentListener(IPresentListener iPresentListener) {
@@ -53,6 +53,8 @@ public class BasePresenter {
     }
 
     public void setContext(Context mContext) {
+
+
         this.mContext = new WeakReference<Context>(mContext);
     }
 
@@ -71,7 +73,7 @@ public class BasePresenter {
     }
 
     protected IPresentListener getPresentListener() {
-        return iPresentListener!=null ? iPresentListener.get() : null;
+        return iPresentListener.get();
     }
 
     @SafeVarargs
@@ -86,7 +88,7 @@ public class BasePresenter {
                     @Override
                     public void call() {
                         if (checkNullPresent()) {
-                            iPresentListener.get().onRequestStart(requestId);
+                            getPresentListener().onRequestStart(requestId);
                         }
                     }
                 }).subscribeOn(AndroidSchedulers.mainThread())
@@ -110,7 +112,7 @@ public class BasePresenter {
                     @Override
                     public void onNext(R r) {
                         if (checkNullPresent()) {
-                            iPresentListener.get().onRequestSuccess(requestId, r);
+                            getPresentListener().onRequestSuccess(requestId, r);
                         }
                     }
                 });

@@ -1,14 +1,11 @@
 package com.android.lf.lroid.v.fragment;
 
-import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -51,6 +48,4 @@ public class MoreContentOneFragment extends LroidBaseFragment {
     @OnClick(R.id.id_tv_fragment_more_content_one_more)
     public void onMore() {
     }
-
-
 }

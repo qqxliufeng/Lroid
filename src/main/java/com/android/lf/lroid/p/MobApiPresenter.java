@@ -80,14 +80,18 @@ public class MobApiPresenter extends BasePresenter implements APICallback {
 
     @Override
     public void onSuccess(API api, int i, Map<String, Object> map) {
-        getPresentListener().onRequestEnd(0x1);
-        getPresentListener().onRequestSuccess(0x1, map);
+        if (checkNullPresent()) {
+            getPresentListener().onRequestEnd(0x1);
+            getPresentListener().onRequestSuccess(0x1, map);
+        }
     }
 
     @Override
     public void onError(API api, int i, Throwable throwable) {
-        getPresentListener().onRequestEnd(0x1);
-        getPresentListener().onRequestFail(0x1, throwable);
+        if(checkNullPresent()){
+            getPresentListener().onRequestEnd(0x1);
+            getPresentListener().onRequestFail(0x1, throwable);
+        }
     }
 
     @Override

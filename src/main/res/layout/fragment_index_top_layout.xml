@@ -7,8 +7,7 @@
     <com.android.lf.lroid.v.views.AutoScrollViewPager
         android:id="@+id/id_vp_fragment_index_banner"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:fitsSystemWindows="false"/>
+        android:layout_height="180dp"/>
 
     <LinearLayout
         android:id="@+id/id_ll_fragment_index_indicator"
