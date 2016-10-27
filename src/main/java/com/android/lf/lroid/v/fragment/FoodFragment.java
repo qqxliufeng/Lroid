@@ -10,12 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
@@ -24,12 +19,10 @@ import com.android.lf.lroid.m.bean.FoodMenuBean;
 import com.android.lf.lroid.p.MobApiPresenter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 
 /**
@@ -177,7 +170,7 @@ public class FoodFragment extends LroidBaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-            return FoodContentFragment.newInstance(titles.get(menuIndex).getChilds().get(position).getCtgId());
+            return FoodListFragment.newInstance(titles.get(menuIndex).getChilds().get(position).getCtgId());
         }
 
         @Override

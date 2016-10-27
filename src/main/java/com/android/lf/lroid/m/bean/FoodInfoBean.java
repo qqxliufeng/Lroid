@@ -1,12 +1,15 @@
 package com.android.lf.lroid.m.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
  * Created by feng on 2016/10/24.
  */
 
-public class FoodInfoBean {
+public class FoodInfoBean implements Parcelable {
 
     private FoodRecipeBean recipe;
     private String name;
@@ -63,4 +66,42 @@ public class FoodInfoBean {
         this.ctgIds = ctgIds;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.recipe, flags);
+        dest.writeString(this.name);
+        dest.writeString(this.ctgTitles);
+        dest.writeString(this.menuId);
+        dest.writeString(this.thumbnail);
+        dest.writeStringList(this.ctgIds);
+    }
+
+    public FoodInfoBean() {
+    }
+
+    protected FoodInfoBean(Parcel in) {
+        this.recipe = in.readParcelable(FoodRecipeBean.class.getClassLoader());
+        this.name = in.readString();
+        this.ctgTitles = in.readString();
+        this.menuId = in.readString();
+        this.thumbnail = in.readString();
+        this.ctgIds = in.createStringArrayList();
+    }
+
+    public static final Parcelable.Creator<FoodInfoBean> CREATOR = new Parcelable.Creator<FoodInfoBean>() {
+        @Override
+        public FoodInfoBean createFromParcel(Parcel source) {
+            return new FoodInfoBean(source);
+        }
+
+        @Override
+        public FoodInfoBean[] newArray(int size) {
+            return new FoodInfoBean[size];
+        }
+    };
 }

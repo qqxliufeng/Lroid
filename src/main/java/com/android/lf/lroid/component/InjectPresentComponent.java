@@ -1,17 +1,15 @@
 package com.android.lf.lroid.component;
 
-import com.android.lf.lroid.m.bean.HealthSearchResultBean;
 import com.android.lf.lroid.v.activity.HomeActivity;
 import com.android.lf.lroid.v.activity.MainActivity;
 import com.android.lf.lroid.v.fragment.EntertainmentMoreListFragment;
-import com.android.lf.lroid.v.fragment.FoodContentFragment;
+import com.android.lf.lroid.v.fragment.FoodListFragment;
 import com.android.lf.lroid.v.fragment.FoodFragment;
 import com.android.lf.lroid.v.fragment.HealthFragment;
 import com.android.lf.lroid.v.fragment.HealthSearchResultFragment;
 import com.android.lf.lroid.v.fragment.HistoryTodayFragment;
 import com.android.lf.lroid.v.fragment.HomeMoreFragment;
 import com.android.lf.lroid.v.fragment.MoreContentTwoFragment;
-import com.android.lf.lroid.v.fragment.OldHomeMoreFragment;
 import com.android.lf.lroid.v.fragment.IndexListFragment;
 import com.android.lf.lroid.v.fragment.IndexMoreListFragment;
 import com.android.lf.lroid.v.fragment.IndexTopFragment;
@@ -72,6 +70,6 @@ public interface InjectPresentComponent {
 
     void inject(FoodFragment foodFragment);
 
-    void inject(FoodContentFragment foodContentFragment);
+    void inject(FoodListFragment foodListFragment);
 
 }

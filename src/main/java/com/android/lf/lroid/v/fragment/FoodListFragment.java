@@ -1,5 +1,6 @@
 package com.android.lf.lroid.v.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -7,20 +8,13 @@ import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.FoodInfoBean;
-import com.android.lf.lroid.m.bean.FoodRecipeBean;
-import com.android.lf.lroid.m.bean.FoodStepBean;
 import com.android.lf.lroid.p.MobApiPresenter;
+import com.android.lf.lroid.v.activity.FoodContentActivity;
 import com.android.lf.lroid.v.adapter.FoodContentAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.google.gson.Gson;
-import com.orhanobut.logger.Logger;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,14 +22,14 @@ import javax.inject.Inject;
  * Created by liufeng on 16/10/23.
  */
 
-public class FoodContentFragment extends BaseRecycleViewFragment<FoodInfoBean> {
+public class FoodListFragment extends BaseRecycleViewFragment<FoodInfoBean> {
 
     public static final String CID = "cid";
 
-    public static FoodContentFragment newInstance(String cid) {
+    public static FoodListFragment newInstance(String cid) {
         Bundle args = new Bundle();
         args.putString(CID, cid);
-        FoodContentFragment fragment = new FoodContentFragment();
+        FoodListFragment fragment = new FoodListFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -64,7 +58,7 @@ public class FoodContentFragment extends BaseRecycleViewFragment<FoodInfoBean> {
 
     @Override
     public <T> void onRequestSuccess(int requestID, T result) {
-        if (result!=null) {
+        if (result != null) {
             switch (requestID) {
                 case 0x1:
                     HashMap<String, Object> resultMap = (HashMap<String, Object>) ((HashMap<String, Object>) result).get("result");
@@ -87,5 +81,12 @@ public class FoodContentFragment extends BaseRecycleViewFragment<FoodInfoBean> {
     @Override
     protected void onLoadMore() {
         mobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_FOOD_FOR_INFO, getArguments().getString(CID), null, Integer.toString(current_page), Integer.toString(PAGE_SIZE));
+    }
+
+    @Override
+    public void onSimpleItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+        Intent intent = new Intent(mContext, FoodContentActivity.class);
+        intent.putExtra(FoodContentActivity.FOOD_INFO_FLAG,mArrayList.get(i));
+        startActivity(intent);
     }
 }
