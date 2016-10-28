@@ -242,4 +242,10 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
             startDetail();
         }
     }
+
+    @Override
+    public void onDestroy() {
+        mobApiPresenter.detach();
+        super.onDestroy();
+    }
 }

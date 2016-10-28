@@ -37,15 +37,15 @@ public class BasePresenter {
     }
 
     protected boolean checkNullPresent() {
-        return iPresentListener != null && iPresentListener.get()!=null;
+        return iPresentListener != null && iPresentListener.get() != null;
     }
 
     protected boolean checkNullContext() {
-        return mContext != null && mContext.get()!=null;
+        return mContext != null && mContext.get() != null;
     }
 
     protected boolean checkNullFragment() {
-        return baseFragment != null && baseFragment.get()!=null ;
+        return baseFragment != null && baseFragment.get() != null;
     }
 
     public void setPresentListener(IPresentListener iPresentListener) {
@@ -53,8 +53,6 @@ public class BasePresenter {
     }
 
     public void setContext(Context mContext) {
-
-
         this.mContext = new WeakReference<Context>(mContext);
     }
 
@@ -65,11 +63,11 @@ public class BasePresenter {
     }
 
     public Context getContext() {
-        return mContext!=null ? mContext.get() : null;
+        return mContext != null ? mContext.get() : null;
     }
 
     public LroidBaseFragment getBaseFragment() {
-        return baseFragment!=null ? baseFragment.get() : null;
+        return baseFragment != null ? baseFragment.get() : null;
     }
 
     protected IPresentListener getPresentListener() {
@@ -123,4 +121,18 @@ public class BasePresenter {
         return null;
     }
 
+    public void detach() {
+        if (iPresentListener != null) {
+            iPresentListener.clear();
+            iPresentListener = null;
+        }
+        if (baseFragment != null) {
+            baseFragment.clear();
+            baseFragment = null;
+        }
+        if (mContext != null) {
+            mContext.clear();
+            mContext = null;
+        }
+    }
 }

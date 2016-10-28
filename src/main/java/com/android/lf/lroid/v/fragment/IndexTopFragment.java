@@ -169,9 +169,14 @@ public class IndexTopFragment extends LroidBaseFragment implements ViewPager.OnP
         MethodUtils.startFragmentsActivity(mContext,jieQiBean.getName(), FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG,bundle);
     }
 
-
     @Override
     public void onUserLoginSuccess() {
         startDetail();
+    }
+
+    @Override
+    public void onDestroy() {
+        commonPresenter.detach();
+        super.onDestroy();
     }
 }

@@ -120,6 +120,4 @@ public abstract class LroidBaseFragment extends Fragment implements View.OnClick
 
     protected void onPermissionFail(int code){
     }
-
-
 }
