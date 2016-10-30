@@ -26,6 +26,7 @@ public class MoreContentOneFragment extends LroidBaseFragment {
 
     @Override
     protected void initView(View view) {
+
     }
 
     @Override
