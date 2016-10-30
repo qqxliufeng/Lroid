@@ -33,8 +33,6 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
-
         setSwipeBackEnable(false);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

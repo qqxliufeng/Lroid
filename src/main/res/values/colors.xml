@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="buttonUnEnable">#f59bba</color>
     <color name="red">#FF0000</color>
+    <color name="half_translate">#50000000</color>
 </resources>
