@@ -30,6 +30,7 @@ import com.android.lf.lroid.p.MobApiPresenter;
 import com.android.lf.lroid.utils.LunarUtils;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
+import com.android.lf.lroid.v.views.CustomDialogHelper;
 import com.android.lf.lroid.v.views.LroidListView;
 import com.android.lf.lroid.volley.RequestManager;
 import com.android.volley.toolbox.NetworkImageView;
@@ -121,13 +122,14 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        jieQiBean = arrayList.get(position);
-        if (TextUtils.isEmpty(UserBean.getInstance().getName())) {
-            UserBean.getInstance().setOnUserLoginSuccessListener(this);
-            MethodUtils.startFragmentsActivity(mContext, "登录", FragmentContainerActivity.LOGIN_FRAGMENT);
-        } else {
-            startDetail();
-        }
+        CustomDialogHelper.createEmptyDialog(mContext);
+//        jieQiBean = arrayList.get(position);
+//        if (TextUtils.isEmpty(UserBean.getInstance().getName())) {
+//            UserBean.getInstance().setOnUserLoginSuccessListener(this);
+//            MethodUtils.startFragmentsActivity(mContext, "登录", FragmentContainerActivity.LOGIN_FRAGMENT);
+//        } else {
+//            startDetail();
+//        }
     }
 
     private void startDetail() {
