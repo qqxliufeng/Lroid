@@ -44,12 +44,10 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
 
     private void initBottomNavigationBar() {
         BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.id_bnb_bottom_bar);
-        bottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.ic_jie_qi_white_24dp, "节气").setActiveColorResource(android.R.color.holo_orange_light))
-                .addItem(new BottomNavigationItem(R.drawable.ic_jie_ri_white_24dp, "节日").setActiveColorResource(android.R.color.holo_blue_light))
-                .addItem(new BottomNavigationItem(R.drawable.ic_mine_white_24dp, "我的").setActiveColorResource(android.R.color.holo_green_light))
-                .setFirstSelectedPosition(0)
-                .initialise();
+        BottomNavigationItem indexItem = new BottomNavigationItem(R.drawable.ic_home_index_icon, "首页").setActiveColorResource(android.R.color.holo_orange_light);
+        BottomNavigationItem moreItem = new BottomNavigationItem(R.drawable.ic_home_more_icon, "更多").setActiveColorResource(android.R.color.holo_blue_light);
+        BottomNavigationItem meItem = new BottomNavigationItem(R.drawable.ic_home_me_icon, "我的").setActiveColorResource(android.R.color.holo_green_light);
+        bottomNavigationBar.addItem(indexItem).addItem(moreItem).addItem(meItem).setFirstSelectedPosition(0).initialise();
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
         bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         bottomNavigationBar.setTabSelectedListener(this);

@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.m.database.DataProvider;
+import com.android.lf.lroid.utils.MethodUtils;
+import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -70,5 +72,6 @@ public class HomeMoreFragment extends LroidBaseFragment{
 
     @OnClick(R.id.id_iv_fragment_more_top_pic)
     public void onTopPicClick(){
+        MethodUtils.startFragmentsActivity(mContext,"传统节日", FragmentContainerActivity.JIE_RI_FLAG);
     }
 }

@@ -13,6 +13,7 @@ import com.android.lf.lroid.v.fragment.HealthFragment;
 import com.android.lf.lroid.v.fragment.HealthSearchFragment;
 import com.android.lf.lroid.v.fragment.HealthSearchResultFragment;
 import com.android.lf.lroid.v.fragment.HistoryTodayFragment;
+import com.android.lf.lroid.v.fragment.JieRiFragment;
 import com.android.lf.lroid.v.fragment.LoginFragment;
 import com.android.lf.lroid.v.fragment.PersonalInfoFragment;
 import com.android.lf.lroid.v.fragment.PhotoSelectFragment;
@@ -44,6 +45,7 @@ public class FragmentContainerActivity extends BaseActivity {
     public static final int HEALTH_SEARCH_FLAG = 0x9;
     public static final int HEALTH_SEARCH_RESULT_FLAG = 0x10;
     public static final int FOOD_FLAG = 0x11;
+    public static final int JIE_RI_FLAG = 0x12;
 
 
 
@@ -115,6 +117,9 @@ public class FragmentContainerActivity extends BaseActivity {
                 break;
             case FOOD_FLAG:
                 fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, FoodFragment.newInstance());
+                break;
+            case JIE_RI_FLAG:
+                fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, JieRiFragment.newInstance());
                 break;
         }
         fragmentTransaction.commitAllowingStateLoss();

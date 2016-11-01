@@ -8,16 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.JieRiBean;
-import com.android.lf.lroid.m.data.JieRiData;
 import com.android.lf.lroid.m.database.DataProvider;
 import com.android.lf.lroid.p.JieRiDataProvidePresenter;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
@@ -29,7 +26,7 @@ import butterknife.BindView;
  * Created by feng on 2016/9/7.
  */
 
-public class IndexMoreListFragment extends LroidBaseFragment {
+public class JieRiListFragment extends LroidBaseFragment {
 
     @Inject
     JieRiDataProvidePresenter jieRiDataProvidePresenter;
@@ -37,12 +34,12 @@ public class IndexMoreListFragment extends LroidBaseFragment {
     private ProgressDialog progressDialog;
 
 
-    public static IndexMoreListFragment newInstance(String selectArg) {
+    public static JieRiListFragment newInstance(String selectArg) {
         Bundle bundle = new Bundle();
         bundle.putString("selectArg",selectArg);
-        IndexMoreListFragment indexMoreListFragment = new IndexMoreListFragment();
-        indexMoreListFragment.setArguments(bundle);
-        return indexMoreListFragment;
+        JieRiListFragment jieRiListFragment = new JieRiListFragment();
+        jieRiListFragment.setArguments(bundle);
+        return jieRiListFragment;
     }
 
     @BindView(R.id.id_rv_fragment_list)

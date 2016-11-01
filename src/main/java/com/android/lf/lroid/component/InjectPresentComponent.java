@@ -9,9 +9,10 @@ import com.android.lf.lroid.v.fragment.HealthFragment;
 import com.android.lf.lroid.v.fragment.HealthSearchResultFragment;
 import com.android.lf.lroid.v.fragment.HistoryTodayFragment;
 import com.android.lf.lroid.v.fragment.HomeMoreFragment;
+import com.android.lf.lroid.v.fragment.JieRiFragment;
+import com.android.lf.lroid.v.fragment.JieRiListFragment;
 import com.android.lf.lroid.v.fragment.MoreContentTwoFragment;
 import com.android.lf.lroid.v.fragment.IndexListFragment;
-import com.android.lf.lroid.v.fragment.IndexMoreListFragment;
 import com.android.lf.lroid.v.fragment.IndexTopFragment;
 import com.android.lf.lroid.v.fragment.LoginFastFragment;
 import com.android.lf.lroid.v.fragment.LoginNormalFragment;
@@ -44,7 +45,7 @@ public interface InjectPresentComponent {
 
     void inject(LoginFastFragment loginFastFragment);
 
-    void inject(IndexMoreListFragment indexMoreListFragment);
+    void inject(JieRiListFragment jieRiListFragment);
 
     void inject(HomeMoreFragment homeMoreFragment);
 
@@ -71,5 +72,7 @@ public interface InjectPresentComponent {
     void inject(FoodFragment foodFragment);
 
     void inject(FoodListFragment foodListFragment);
+
+    void inject(JieRiFragment jieRiFragment);
 
 }
