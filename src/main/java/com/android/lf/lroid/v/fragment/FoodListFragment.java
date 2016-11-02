@@ -50,7 +50,6 @@ public class FoodListFragment extends BaseRecycleViewFragment<FoodInfoBean> {
         mobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_FOOD_FOR_INFO, getArguments().getString(CID), null, Integer.toString(current_page), Integer.toString(PAGE_SIZE));
     }
 
-
     @Override
     protected void setComponent() {
         DaggerInjectPresentComponent.builder().presentModule(new PresentModule()).build().inject(this);
@@ -88,5 +87,11 @@ public class FoodListFragment extends BaseRecycleViewFragment<FoodInfoBean> {
         Intent intent = new Intent(mContext, FoodContentActivity.class);
         intent.putExtra(FoodContentActivity.FOOD_INFO_FLAG,mArrayList.get(i));
         startActivity(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        mobApiPresenter.detach();
+        super.onDestroy();
     }
 }

@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class JieRiDataProvidePresenter extends BasePresenter {
 
-    private Uri mUri;
     private String[] selectArgs;
 
 
@@ -29,7 +28,6 @@ public class JieRiDataProvidePresenter extends BasePresenter {
         if (uri == null) {
             return;
         }
-        mUri = uri;
         this.selectArgs = selectArgs;
         DataLoadAsyncTask asyncTask = new DataLoadAsyncTask();
         asyncTask.execute(uri);
@@ -40,6 +38,9 @@ public class JieRiDataProvidePresenter extends BasePresenter {
         dataInitAsyncTask.execute(uri);
     }
 
+    /**
+     * 加载数据
+     */
     class DataLoadAsyncTask extends AsyncTask<Uri, Integer, ArrayList<JieRiBean>> {
 
         private Cursor cursor;
@@ -91,6 +92,9 @@ public class JieRiDataProvidePresenter extends BasePresenter {
     }
 
 
+    /**
+     * 初始化数据
+     */
     class DataInitAsyncTask extends AsyncTask<Uri, Integer, Integer> {
 
         private Cursor cursor;

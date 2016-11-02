@@ -143,7 +143,6 @@ public class MainActivity extends BaseActivity {
         ItemBean(String title) {
             this.title = title;
         }
-
         String title;
         boolean isChecked;
     }
