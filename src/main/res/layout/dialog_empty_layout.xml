@@ -7,6 +7,7 @@
 
 
     <ImageView
+        android:id="@+id/id_iv_dialog_empty_close"
         android:layout_marginRight="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_width="wrap_content"
@@ -14,11 +15,16 @@
         android:layout_gravity="right"
         android:src="@drawable/img_empty_notify_close_icon"/>
 
-    <ImageView
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
+    <TextView
+        android:drawableTop="@drawable/img_empty_notify_icon"
+        android:padding="@dimen/dp_10"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/img_empty_notify_icon"/>
+        android:textColor="#fcfcfcfc"
+        android:drawablePadding="@dimen/dp_10"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:text="有缘千里来相会 更多功能敬请期待!"/>
 
 
 

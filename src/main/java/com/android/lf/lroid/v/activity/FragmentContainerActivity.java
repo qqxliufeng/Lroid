@@ -15,9 +15,11 @@ import com.android.lf.lroid.v.fragment.HealthSearchResultFragment;
 import com.android.lf.lroid.v.fragment.HistoryTodayFragment;
 import com.android.lf.lroid.v.fragment.JieRiFragment;
 import com.android.lf.lroid.v.fragment.LoginFragment;
+import com.android.lf.lroid.v.fragment.MoreFragment;
 import com.android.lf.lroid.v.fragment.PersonalInfoFragment;
 import com.android.lf.lroid.v.fragment.PhotoSelectFragment;
 import com.android.lf.lroid.v.fragment.ResetPasswordFragment;
+import com.android.lf.lroid.v.fragment.SearchFragment;
 import com.android.lf.lroid.v.fragment.SetPersonalInfoFragment;
 import com.android.lf.lroid.v.fragment.WebContentFragment;
 
@@ -46,7 +48,8 @@ public class FragmentContainerActivity extends BaseActivity {
     public static final int HEALTH_SEARCH_RESULT_FLAG = 0x10;
     public static final int FOOD_FLAG = 0x11;
     public static final int JIE_RI_FLAG = 0x12;
-
+    public static final int SEARCH_FLAG = 0x13;
+    public static final int MORE_FLAG = 0x14;
 
 
     @BindView(R.id.id_tl_app_top_bar)
@@ -120,6 +123,12 @@ public class FragmentContainerActivity extends BaseActivity {
                 break;
             case JIE_RI_FLAG:
                 fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, JieRiFragment.newInstance());
+                break;
+            case SEARCH_FLAG:
+                fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, SearchFragment.newInstance());
+                break;
+            case MORE_FLAG:
+                fragmentTransaction.replace(R.id.id_fl_activity_fragment_container, MoreFragment.newInstance());
                 break;
         }
         fragmentTransaction.commitAllowingStateLoss();

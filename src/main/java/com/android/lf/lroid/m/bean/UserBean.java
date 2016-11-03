@@ -50,9 +50,11 @@ public class UserBean {
         if (onUserLoginSuccessListener != null) {
             this.onUserLoginSuccessListener = new WeakReference<OnUserLoginSuccessListener>(onUserLoginSuccessListener);
         } else {
-            this.onUserLoginSuccessListener = null;
+            if (this.onUserLoginSuccessListener!=null) {
+                this.onUserLoginSuccessListener.clear();
+                this.onUserLoginSuccessListener = null;
+            }
         }
-
     }
 
     public String getPersonalizedSignature() {

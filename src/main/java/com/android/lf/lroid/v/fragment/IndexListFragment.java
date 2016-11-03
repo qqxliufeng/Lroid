@@ -75,8 +75,6 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
     @BindView(R.id.id_tv_fragment_index_content_date_suit)
     TextView tv_suit;
 
-    private ProgressDialog mProgressDialog;
-
     private ArrayList<JieQiBean> arrayList = new ArrayList<JieQiBean>();
 
     private MyLroidListViewAdapter adapter;
@@ -122,14 +120,13 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        CustomDialogHelper.createEmptyDialog(mContext);
-//        jieQiBean = arrayList.get(position);
-//        if (TextUtils.isEmpty(UserBean.getInstance().getName())) {
-//            UserBean.getInstance().setOnUserLoginSuccessListener(this);
-//            MethodUtils.startFragmentsActivity(mContext, "登录", FragmentContainerActivity.LOGIN_FRAGMENT);
-//        } else {
-//            startDetail();
-//        }
+        jieQiBean = arrayList.get(position);
+        if (TextUtils.isEmpty(UserBean.getInstance().getName())) {
+            UserBean.getInstance().setOnUserLoginSuccessListener(this);
+            MethodUtils.startFragmentsActivity(mContext, "登录", FragmentContainerActivity.LOGIN_FRAGMENT);
+        } else {
+            startDetail();
+        }
     }
 
     private void startDetail() {

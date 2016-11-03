@@ -39,7 +39,7 @@ public class JieRiFragment extends LroidBaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_more_layout;
+        return R.layout.fragment_jie_ri_layout;
     }
 
     @Override
