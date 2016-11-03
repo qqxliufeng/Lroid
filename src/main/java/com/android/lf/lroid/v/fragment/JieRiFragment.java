@@ -30,19 +30,8 @@ public class JieRiFragment extends LroidBaseFragment {
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
 
-//    @BindView(R.id.id_tl_fragment_more_bar)
-//    Toolbar mToolBar;
-//
-//    @BindView(R.id.id_ctl_tool_bar)
-//    CollapsingToolbarLayout mCollapsingToolbarLayout;
-//
-//    @BindView(R.id.id_al_fragment_more_top)
-//    AppBarLayout mAppBarLayout;
-
     @Inject
     JieRiDataProvidePresenter providePresenter;
-
-    private ProgressDialog progressDialog;
 
     public static JieRiFragment newInstance() {
         return new JieRiFragment();
@@ -62,13 +51,13 @@ public class JieRiFragment extends LroidBaseFragment {
 
     @Override
     public void onRequestStart(int requestID) {
-        progressDialog = ProgressDialog.show(mContext, "", "正在加载……");
+        mProgressDialog = ProgressDialog.show(mContext, "", "正在加载……");
     }
 
     @Override
     public void onRequestEnd(int requestID) {
-        if (progressDialog != null) {
-            progressDialog.dismiss();
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
         }
     }
 
