@@ -1,5 +1,6 @@
 package com.android.lf.lroid.v.fragment;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.android.lf.lroid.R;
@@ -7,6 +8,8 @@ import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
 import com.android.lf.lroid.m.bean.EntertainmentBean;
 import com.android.lf.lroid.p.MobApiPresenter;
+import com.android.lf.lroid.utils.MethodUtils;
+import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 import com.android.lf.lroid.v.adapter.EntertainmentMoreAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
@@ -73,5 +76,13 @@ public class EntertainmentMoreListFragment extends BaseRecycleViewFragment<Enter
     @Override
     protected void onLoadMore() {
         mobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_WEIXIN, "11", Integer.toString(current_page), Integer.toString(PAGE_SIZE));
+    }
+
+    @Override
+    public void onSimpleItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+        Bundle bundle = new Bundle();
+        EntertainmentBean entertainmentBean = mArrayList.get(i);
+        bundle.putString(WebContentFragment.WEB_LOAD_URL, entertainmentBean.getSourceUrl());
+        MethodUtils.startFragmentsActivity(mContext, entertainmentBean.getTitle(), FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG, bundle);
     }
 }
