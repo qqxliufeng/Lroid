@@ -8,6 +8,8 @@ import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.lf.lroid.R;
@@ -32,6 +34,7 @@ public class SplashFragment extends LroidBaseFragment {
     public static SplashFragment newInstance() {
         return new SplashFragment();
     }
+
     @Inject
     UserHelperPresenter mUserHelperPresenter;
 
@@ -52,7 +55,7 @@ public class SplashFragment extends LroidBaseFragment {
                 Typeface typeFace = Typeface.createFromAsset(mContext.getAssets(), "heather.ttf");
                 mLroidText.setTypeface(typeFace);
                 AnimatorSet animatorSet = new AnimatorSet();
-                ObjectAnimator translationY = ObjectAnimator.ofFloat(mLroidText,"translationY",0,ScreenUtils.getScreenHeight(mContext)/3);
+                ObjectAnimator translationY = ObjectAnimator.ofFloat(mLroidText,"translationY",0,(int)(ScreenUtils.getScreenHeight(mContext)/2.5));
                 ObjectAnimator alpha = ObjectAnimator.ofFloat(mLroidText,"alpha",0.3f,1.0f);
                 animatorSet.setDuration(2500);
                 animatorSet.setInterpolator(new LinearInterpolator());
