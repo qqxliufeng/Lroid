@@ -1,13 +1,8 @@
 package com.android.lf.lroid.v.fragment;
 
-import android.Manifest;
 import android.content.DialogInterface;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,7 +10,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.m.bean.UserBean;
@@ -24,9 +18,6 @@ import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.utils.PreferenceUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 import com.android.lf.lroid.v.views.RoundedImageView;
-import com.orhanobut.logger.Logger;
-
-import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;

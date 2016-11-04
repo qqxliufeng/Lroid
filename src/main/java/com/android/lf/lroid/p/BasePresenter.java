@@ -116,7 +116,6 @@ public class BasePresenter {
                 });
     }
 
-
     protected <T, R> R doSomething(int requestID, T[] ts) {
         return null;
     }

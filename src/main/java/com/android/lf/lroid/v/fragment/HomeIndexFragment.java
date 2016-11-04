@@ -54,8 +54,8 @@ public class HomeIndexFragment extends LroidBaseFragment implements NestedScroll
                 mNestedScrollView.smoothScrollTo(0, 0);
                 mFloatingActionButton.setVisibility(View.GONE);
                 mToolBar.setBackgroundColor(Color.argb(0, 48, 63, 159));
-                mToolBar.setTitleTextColor(Color.argb(0,255,255,255));
-                height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,100,getResources().getDisplayMetrics());
+                mToolBar.setTitleTextColor(Color.argb(0, 255, 255, 255));
+                height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
             }
         });
     }
@@ -87,22 +87,22 @@ public class HomeIndexFragment extends LroidBaseFragment implements NestedScroll
 
     @Override
     public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-        if (oldScrollY > scrollY && oldScrollY - scrollY > 10){//向下
+        if (oldScrollY > scrollY && oldScrollY - scrollY > 10) {//向下
             mFloatingActionButton.setVisibility(View.GONE);
-        }else if (oldScrollY < scrollY && scrollY - oldScrollY > 10){//向上
+        } else if (oldScrollY < scrollY && scrollY - oldScrollY > 10) {//向上
             mFloatingActionButton.setVisibility(View.VISIBLE);
         }
         if (scrollY <= 0) {
             mToolBar.setBackgroundColor(Color.argb((int) 0, 48, 63, 159));
-            mToolBar.setTitleTextColor(Color.argb(0,255,255,255));
+            mToolBar.setTitleTextColor(Color.argb(0, 255, 255, 255));
         } else if (scrollY > 0 && scrollY <= height) {
             float scale = (float) scrollY / height;
             float alpha = (255 * scale);
             mToolBar.setBackgroundColor(Color.argb((int) alpha, 48, 63, 159));
-            mToolBar.setTitleTextColor(Color.argb((int) alpha,255,255,255));
+            mToolBar.setTitleTextColor(Color.argb((int) alpha, 255, 255, 255));
         } else {
             mToolBar.setBackgroundColor(Color.argb((int) 255, 48, 63, 159));
-            mToolBar.setTitleTextColor(Color.argb(255,255,255,255));
+            mToolBar.setTitleTextColor(Color.argb(255, 255, 255, 255));
         }
     }
 
