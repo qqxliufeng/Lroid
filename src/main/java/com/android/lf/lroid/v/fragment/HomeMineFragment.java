@@ -96,16 +96,8 @@ public class HomeMineFragment extends LroidBaseFragment {
     protected void setComponent() {
     }
 
-    @OnClick(R.id.id_ll_fragment_mine_face_container)
-    public void onFaceClick(View view) {
-        if (TextUtils.isEmpty(UserBean.getInstance().getName())) {
-            UserBean.getInstance().setOnUserLoginSuccessListener(this);
-            MethodUtils.startFragmentsActivity(mContext, "登录", FragmentContainerActivity.LOGIN_FRAGMENT);
-        }
-    }
-
-    @OnClick(R.id.id_rl_fragment_mine_personal_info)
-    public void onPersonalInfo(View view) {
+    @OnClick({R.id.id_rl_fragment_mine_personal_info,R.id.id_ll_fragment_mine_face_container})
+    public void onPersonalInfo() {
         if (TextUtils.isEmpty(UserBean.getInstance().getName())) {
             LOGIN_SUCCESS_FLAG = 1;
             UserBean.getInstance().setOnUserLoginSuccessListener(this);
@@ -142,7 +134,7 @@ public class HomeMineFragment extends LroidBaseFragment {
     }
 
     @OnClick(R.id.id_bt_fragment_mine_logout)
-    public void onLogout(View view) {
+    public void onLogout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setPositiveButton("退出", new DialogInterface.OnClickListener() {
             @Override

@@ -61,7 +61,7 @@ public class HomeIndexFragment extends LroidBaseFragment implements NestedScroll
     }
 
     private void setView() {
-        mToolBar.setTitle("节气");
+        mToolBar.setTitle("首页");
         mToolBar.setTitleTextColor(Color.WHITE);
         ((HomeActivity) mContext).setSupportActionBar(mToolBar);
         mNestedScrollView.setOnScrollChangeListener(this);

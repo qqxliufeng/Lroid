@@ -63,7 +63,6 @@ public class SplashFragment extends LroidBaseFragment {
                 animatorSet.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
-
                     }
 
                     @Override

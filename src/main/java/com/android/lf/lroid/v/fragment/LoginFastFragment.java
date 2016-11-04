@@ -233,7 +233,6 @@ public class LoginFastFragment extends LroidBaseFragment {
 
     @Override
     public void onRequestFail(int requestID, Throwable e) {
-        Toast.makeText(mContext, "登录异常", Toast.LENGTH_SHORT).show();
     }
 
     @Override
