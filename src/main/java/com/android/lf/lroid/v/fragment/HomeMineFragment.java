@@ -3,6 +3,7 @@ package com.android.lf.lroid.v.fragment;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
@@ -108,6 +109,15 @@ public class HomeMineFragment extends LroidBaseFragment {
             MethodUtils.startFragmentsActivity(mContext, "登录", FragmentContainerActivity.LOGIN_FRAGMENT);
         }
     }
+
+
+    @OnClick(R.id.id_rl_fragment_mine_about)
+    public void onAbout(){
+        Bundle bundle = new Bundle();
+        bundle.putString(WebContentFragment.WEB_LOAD_URL,"file:///android_asset/notify_html.html");
+        MethodUtils.startFragmentsActivity(mContext,"关于",FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG,bundle);
+    }
+
 
     @Override
     public void onUserLoginSuccess() {
