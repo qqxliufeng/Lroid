@@ -5,4 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="buttonUnEnable">#f59bba</color>
     <color name="red">#FF0000</color>
+
+    <color name="bg_color_one">#a92b2b</color>
+    <color name="bg_color_two">#40e93a</color>
+    <color name="bg_color_three">@android:color/holo_green_light</color>
+
 </resources>

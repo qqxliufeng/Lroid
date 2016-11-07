@@ -27,10 +27,11 @@ public class NavigationFragment extends LroidBaseFragment {
     @BindView(R.id.id_tv_fragment_navigation_jump)
     TextView mJump;
 
-    private int[] imgIds = new int[]{R.drawable.img_navigation_one,R.drawable.img_navigation_two,R.drawable.img_navigation_three};
+    private String[] textIds = new String[]{"遇见是一种缘份", "相逢何必曾相识", "柳暗花明又一村"};
+    private int[] bgColors = new int[]{ R.color.bg_color_one ,R.color.bg_color_two ,R.color.bg_color_three};
 
     public static NavigationFragment newInstance() {
-        return  new NavigationFragment();
+        return new NavigationFragment();
     }
 
     @Override
@@ -40,7 +41,7 @@ public class NavigationFragment extends LroidBaseFragment {
 
     @Override
     protected void initView(View view) {
-        mViewPager.setOffscreenPageLimit(imgIds.length);
+        mViewPager.setOffscreenPageLimit(textIds.length);
         mViewPager.setAdapter(new NavigationViewPagerAdapter(getChildFragmentManager()));
         mJump.setOnClickListener(this);
     }
@@ -51,14 +52,14 @@ public class NavigationFragment extends LroidBaseFragment {
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.id_tv_fragment_navigation_jump){
-            PreferenceUtils.setPrefBoolean(mContext, SplashActivity.IS_NAVIGATION_FLAG,false);
+        if (view.getId() == R.id.id_tv_fragment_navigation_jump) {
+            PreferenceUtils.setPrefBoolean(mContext, SplashActivity.IS_NAVIGATION_FLAG, false);
             startActivity(new Intent(mContext, HomeActivity.class));
             finishActivity();
         }
     }
 
-    class NavigationViewPagerAdapter extends FragmentStatePagerAdapter{
+    class NavigationViewPagerAdapter extends FragmentStatePagerAdapter {
 
         public NavigationViewPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -66,15 +67,15 @@ public class NavigationFragment extends LroidBaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-            if (position == imgIds.length -1){
-                return NavigationItemFragment.newInstance(imgIds[position],true);
+            if (position == textIds.length - 1) {
+                return NavigationItemFragment.newInstance(textIds[position], bgColors[position],true);
             }
-            return NavigationItemFragment.newInstance(imgIds[position],false);
+            return NavigationItemFragment.newInstance(textIds[position], bgColors[position],false);
         }
 
         @Override
         public int getCount() {
-            return imgIds.length;
+            return textIds.length;
         }
     }
 

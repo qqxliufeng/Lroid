@@ -10,15 +10,15 @@
 
     <TextView
         android:id="@+id/id_tv_fragment_navigation_jump"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_gravity="right|top"
+        android:gravity="center"
         android:layout_marginTop="20dp"
         android:layout_marginRight="30dp"
         android:text="跳过"
         android:textColor="#fff"
-        android:padding="8dp"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:background="@drawable/shape_circle_bg"/>
 
 </FrameLayout>
