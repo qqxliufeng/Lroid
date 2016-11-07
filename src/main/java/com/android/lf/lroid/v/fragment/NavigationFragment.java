@@ -64,7 +64,7 @@ public class NavigationFragment extends LroidBaseFragment implements ViewPager.O
             params.leftMargin = 10;
             params.rightMargin = 10;
             indicatorView.setLayoutParams(params);
-            indicatorView.setIndicatorColor(Color.RED);
+            indicatorView.setIndicatorColor(ContextCompat.getColor(mContext,R.color.colorPrimary));
             mIndexContainer.addView(indicatorView, i);
             if (i == 0) {
                 indicatorView.setSelect(true);
