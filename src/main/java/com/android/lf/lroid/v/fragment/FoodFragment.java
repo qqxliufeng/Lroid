@@ -31,9 +31,6 @@ import butterknife.BindView;
 
 public class FoodFragment extends LroidBaseFragment {
 
-
-
-
     public static FoodFragment newInstance() {
         return new FoodFragment();
     }
@@ -53,63 +50,11 @@ public class FoodFragment extends LroidBaseFragment {
 
     private int menuIndex = 0;
 
-    private ArrayList<String> testTitle = new ArrayList<String>() {
-        {
-            for (int i = 0; i < 5; i++) {
-                add(i + "");
-            }
-
-        }
-    };
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
-
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.fragment_food_menu, menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int tempIndex = 0;
-//        switch (item.getItemId()) {
-//            case R.id.id_menu_food_one:
-//                tempIndex = 0;
-//                break;
-//            case R.id.id_menu_food_two:
-//                tempIndex = 1;
-//                break;
-//            case R.id.id_menu_food_three:
-//                tempIndex = 2;
-//                break;
-//            case R.id.id_menu_food_four:
-//                tempIndex = 3;
-//                break;
-//            case R.id.id_menu_food_five:
-//                tempIndex = 4;
-//                break;
-//        }
-//        if (tempIndex == menuIndex) {
-//            return super.onOptionsItemSelected(item);
-//        }
-//        menuIndex = tempIndex;
-//        if (myViewPagerAdapter!=null && !titles.isEmpty()) {
-//            mTabTitle.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mTabTitle.setScrollPosition(0,0.0f,false);
-//                    setAdapter();
-//                    myViewPagerAdapter.notifyDataSetChanged();
-//                }
-//            });
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @Override
     protected int getLayoutId() {
