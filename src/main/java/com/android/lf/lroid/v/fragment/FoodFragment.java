@@ -37,16 +37,12 @@ public class FoodFragment extends LroidBaseFragment {
 
     @Inject
     MobApiPresenter mMobApiPresenter;
-
     @BindView(R.id.id_tl_fragment_food_tab_title)
     TabLayout mTabTitle;
     @BindView(R.id.id_vp_fragment_food_container)
     ViewPager mContentContainer;
 
-
     private ArrayList<FoodMenuBean> titles = new ArrayList<>();
-
-    private MyViewPagerAdapter myViewPagerAdapter;
 
     private int menuIndex = 0;
 
@@ -65,7 +61,6 @@ public class FoodFragment extends LroidBaseFragment {
     protected void initView(View view) {
         mTabTitle.setTabMode(TabLayout.MODE_SCROLLABLE);
         mTabTitle.setTabTextColors(Color.BLACK, ContextCompat.getColor(mContext, R.color.colorPrimary));
-
         mMobApiPresenter.setFragment(this);
         mMobApiPresenter.getData(MobApiPresenter.REQUEST_CODE_FOOD_FOR_MENU);
     }
@@ -101,7 +96,7 @@ public class FoodFragment extends LroidBaseFragment {
     }
 
     private void setAdapter() {
-        myViewPagerAdapter = new MyViewPagerAdapter(getChildFragmentManager());
+        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(getChildFragmentManager());
         mContentContainer.setAdapter(myViewPagerAdapter);
         mContentContainer.setOffscreenPageLimit(myViewPagerAdapter.getCount());
         mTabTitle.setupWithViewPager(mContentContainer);
