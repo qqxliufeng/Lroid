@@ -9,8 +9,6 @@ import com.android.lf.lroid.utils.PreferenceUtils;
 import com.android.lf.lroid.v.fragment.NavigationFragment;
 import com.android.lf.lroid.v.fragment.SplashFragment;
 
-import butterknife.BindView;
-
 /**
  * Created by feng on 2016/9/14.
  */

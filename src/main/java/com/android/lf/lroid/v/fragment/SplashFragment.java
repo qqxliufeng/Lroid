@@ -8,8 +8,6 @@ import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.lf.lroid.R;

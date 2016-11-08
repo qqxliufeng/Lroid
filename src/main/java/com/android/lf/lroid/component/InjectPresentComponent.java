@@ -1,7 +1,6 @@
 package com.android.lf.lroid.component;
 
 import com.android.lf.lroid.v.activity.HomeActivity;
-import com.android.lf.lroid.v.activity.MainActivity;
 import com.android.lf.lroid.v.fragment.EntertainmentMoreListFragment;
 import com.android.lf.lroid.v.fragment.FoodListFragment;
 import com.android.lf.lroid.v.fragment.FoodFragment;
@@ -32,8 +31,6 @@ import dagger.Component;
 @Singleton
 @Component(modules = { PresentModule.class })
 public interface InjectPresentComponent {
-
-    void inject(MainActivity mainActivity);
 
     void inject(HomeActivity homeActivity);
 

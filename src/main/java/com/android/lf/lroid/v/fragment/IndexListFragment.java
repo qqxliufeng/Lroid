@@ -1,13 +1,6 @@
 package com.android.lf.lroid.v.fragment;
 
-import static com.mob.tools.utils.R.forceCast;
-
-import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
@@ -27,20 +19,13 @@ import com.android.lf.lroid.m.bean.UserBean;
 import com.android.lf.lroid.m.database.DataProvider;
 import com.android.lf.lroid.p.JieQiDataProvidePresenter;
 import com.android.lf.lroid.p.MobApiPresenter;
-import com.android.lf.lroid.utils.LunarUtils;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
-import com.android.lf.lroid.v.views.CustomDialogHelper;
 import com.android.lf.lroid.v.views.LroidListView;
 import com.android.lf.lroid.volley.RequestManager;
 import com.android.volley.toolbox.NetworkImageView;
-import com.mob.mobapi.MobAPI;
-import com.mob.mobapi.apis.Weather;
-import com.orhanobut.logger.Logger;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +33,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.mob.tools.utils.R.forceCast;
 
 /**
  * Created by feng on 2016/9/9.
@@ -110,7 +97,7 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
 
     @OnClick(R.id.id_ll_fragment_index_content_date_container)
     public void onDataContainerClick() {
-        MethodUtils.startFragmentsActivity(mContext,"历史上的今天",FragmentContainerActivity.HISTORY_TODAY_FLAG);
+        MethodUtils.startFragmentsActivity(mContext, "历史上的今天", FragmentContainerActivity.HISTORY_TODAY_FLAG);
     }
 
     @Override
@@ -174,7 +161,6 @@ public class IndexListFragment extends LroidBaseFragment implements AdapterView.
             viewHolderTypeTwo.tv_time.setText(jieQiBean.getTime());
             return view;
         }
-
     }
 
     static class ViewHolderTypeTwo {

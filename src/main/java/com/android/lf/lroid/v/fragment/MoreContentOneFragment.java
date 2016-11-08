@@ -5,7 +5,6 @@ import android.view.View;
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
-import com.android.lf.lroid.v.views.CustomDialogHelper;
 
 import butterknife.OnClick;
 

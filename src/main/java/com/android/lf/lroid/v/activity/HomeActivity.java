@@ -7,10 +7,10 @@ import android.widget.Toast;
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.utils.PreferenceUtils;
-import com.android.lf.lroid.v.fragment.HomeMoreFragment;
-import com.android.lf.lroid.v.fragment.LroidBaseFragment;
 import com.android.lf.lroid.v.fragment.HomeIndexFragment;
 import com.android.lf.lroid.v.fragment.HomeMineFragment;
+import com.android.lf.lroid.v.fragment.HomeMoreFragment;
+import com.android.lf.lroid.v.fragment.LroidBaseFragment;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 

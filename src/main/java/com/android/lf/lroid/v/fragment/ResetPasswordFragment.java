@@ -2,7 +2,6 @@ package com.android.lf.lroid.v.fragment;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -16,7 +15,6 @@ import com.android.lf.lroid.m.tables.UserTable;
 import com.android.lf.lroid.p.UserHelperPresenter;
 import com.android.lf.lroid.utils.Constants;
 import com.android.lf.lroid.utils.PreferenceUtils;
-import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 

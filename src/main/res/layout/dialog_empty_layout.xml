@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#fcfcfcfc"
-        android:drawablePadding="@dimen/dp_10"
+        android:drawablePadding="30dp"
         android:gravity="center"
         android:textSize="18sp"
         android:text="有缘千里来相会 更多功能敬请期待!"/>

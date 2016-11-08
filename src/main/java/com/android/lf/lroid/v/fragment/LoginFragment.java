@@ -1,6 +1,5 @@
 package com.android.lf.lroid.v.fragment;
 
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,10 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.android.lf.lroid.R;
-import com.android.lf.lroid.component.PresentModule;
-import com.android.lf.lroid.component.DaggerInjectPresentComponent;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 

@@ -7,14 +7,11 @@ import android.widget.Toast;
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
 import com.android.lf.lroid.component.PresentModule;
-import com.android.lf.lroid.m.bean.HealthBean;
 import com.android.lf.lroid.m.bean.HealthSearchResultBean;
-import com.android.lf.lroid.m.bean.HistoryTodayBean;
 import com.android.lf.lroid.p.MobApiPresenter;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
 import com.android.lf.lroid.v.adapter.HealthSearchResultAdapter;
-import com.android.lf.lroid.v.adapter.HistoryTodayAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;

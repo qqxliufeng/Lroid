@@ -1,8 +1,6 @@
 package com.android.lf.lroid.v.fragment;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -14,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.lf.lroid.R;
-import com.android.lf.lroid.m.data.JieQiData;
 import com.android.lf.lroid.utils.PreferenceUtils;
 import com.android.lf.lroid.v.activity.HomeActivity;
 import com.android.lf.lroid.v.activity.SplashActivity;
