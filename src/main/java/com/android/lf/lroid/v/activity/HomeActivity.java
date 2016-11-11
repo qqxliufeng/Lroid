@@ -109,7 +109,6 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
             exitTime = System.currentTimeMillis();
             Toast.makeText(this, "请再按一次退出", Toast.LENGTH_SHORT).show();
         }else {
-            finish();
             System.exit(0);
         }
     }

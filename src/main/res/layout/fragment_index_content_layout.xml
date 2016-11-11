@@ -42,7 +42,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:gravity="center_horizontal"
                 android:padding="@dimen/dp_10">
 
@@ -50,6 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
@@ -60,7 +61,8 @@
                         android:padding="3dp"
                         android:text="宜"
                         android:textColor="#fff"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:id="@+id/textView" />
 
                     <TextView
                         android:id="@+id/id_tv_fragment_index_content_date_suit"
@@ -70,10 +72,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginLeft="@dimen/dp_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
@@ -90,7 +92,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10" />
-
                 </LinearLayout>
 
             </LinearLayout>

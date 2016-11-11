@@ -7,6 +7,7 @@ import com.android.lf.lroid.v.fragment.FoodFragment;
 import com.android.lf.lroid.v.fragment.HealthFragment;
 import com.android.lf.lroid.v.fragment.HealthSearchResultFragment;
 import com.android.lf.lroid.v.fragment.HistoryTodayFragment;
+import com.android.lf.lroid.v.fragment.HomeMineFragment;
 import com.android.lf.lroid.v.fragment.HomeMoreFragment;
 import com.android.lf.lroid.v.fragment.JieRiFragment;
 import com.android.lf.lroid.v.fragment.JieRiListFragment;
@@ -28,7 +29,7 @@ import dagger.Component;
 /**
  * Created by feng on 2016/8/17.
  */
-@Singleton
+
 @Component(modules = { PresentModule.class })
 public interface InjectPresentComponent {
 
@@ -71,5 +72,7 @@ public interface InjectPresentComponent {
     void inject(FoodListFragment foodListFragment);
 
     void inject(JieRiFragment jieRiFragment);
+
+    void inject(HomeMineFragment homeMineFragment);
 
 }

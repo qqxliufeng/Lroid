@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -22,6 +23,7 @@ import com.android.lf.lroid.v.views.RoundedImageView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
 
 /**
  * Created by feng on 2016/9/2.
@@ -45,6 +47,7 @@ public class HomeMineFragment extends LroidBaseFragment {
     private static int LOGIN_SUCCESS_FLAG = 0;
 
     public static boolean IS_CHANGE_FACE = false;
+
 
     public static HomeMineFragment newInstance() {
         return new HomeMineFragment();
@@ -114,7 +117,7 @@ public class HomeMineFragment extends LroidBaseFragment {
     @OnClick(R.id.id_rl_fragment_mine_about)
     public void onAbout(){
         Bundle bundle = new Bundle();
-        bundle.putString(WebContentFragment.WEB_LOAD_URL,"file:///android_asset/notify_html.html");
+        bundle.putString(WebContentFragment.WEB_LOAD_URL, Constants.FILE_ANDROID_ASSET_NOTIFY_HTML_HTML);
         MethodUtils.startFragmentsActivity(mContext,"关于",FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG,bundle);
     }
 
@@ -151,5 +154,10 @@ public class HomeMineFragment extends LroidBaseFragment {
         builder.setNegativeButton("取消", null);
         builder.setMessage("是否要退出?");
         builder.create().show();
+    }
+
+    @Override
+    public <T> void onRequestSuccess(int requestID, T result) {
+        Log.e("TAG",(String) result);
     }
 }
