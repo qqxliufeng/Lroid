@@ -49,17 +49,17 @@ public class BasePresenter {
     }
 
     public void setPresentListener(IPresentListener iPresentListener) {
-        this.iPresentListener = new WeakReference<IPresentListener>(iPresentListener);
+        this.iPresentListener = new WeakReference<>(iPresentListener);
     }
 
     public void setContext(Context mContext) {
-        this.mContext = new WeakReference<Context>(mContext);
+        this.mContext = new WeakReference<>(mContext);
     }
 
     public void setFragment(LroidBaseFragment baseFragment) {
-        this.baseFragment = new WeakReference<LroidBaseFragment>(baseFragment);
+        this.baseFragment = new WeakReference<>(baseFragment);
         iPresentListener = new WeakReference<IPresentListener>(baseFragment);
-        mContext = new WeakReference<Context>(baseFragment.getContext());
+        mContext = new WeakReference<>(baseFragment.getContext());
     }
 
     public Context getContext() {
@@ -115,7 +115,6 @@ public class BasePresenter {
                     }
                 });
     }
-
 
     protected <T, R> R doSomething(int requestID, T[] ts) {
         return null;

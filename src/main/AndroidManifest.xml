@@ -17,13 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".v.activity.MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".v.activity.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HomeActivityTheme"/>
-        <activity android:name=".v.activity.TestActivity" />
 
         <activity android:name=".v.activity.FragmentContainerActivity" android:windowSoftInputMode="adjustPan"/>
         <activity

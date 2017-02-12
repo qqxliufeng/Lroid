@@ -3,6 +3,7 @@ package com.android.lf.lroid.v.fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.component.DaggerInjectPresentComponent;
@@ -35,6 +36,8 @@ public class MoreContentTwoFragment extends LroidBaseFragment {
 
     @BindView(R.id.id_llv_fragment_more_content_two)
     LroidListView mLroidListView;
+    @BindView(R.id.id_bt_fragment_more_content_two_empty)
+    Button mEmptyView;
 
     private ArrayList<EntertainmentBean> mArrayList = new ArrayList<>();
     private MoreContentTwoAdapter adapter;
@@ -89,8 +92,18 @@ public class MoreContentTwoFragment extends LroidBaseFragment {
                     mArrayList.add(entertainmentBean);
                 }
                 adapter.notifyDataSetChanged();
+            }else {
+                mEmptyView.setVisibility(View.VISIBLE);
             }
+        }else {
+            mEmptyView.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void onRequestFail(int requestID, Throwable e) {
+        super.onRequestFail(requestID, e);
+        mEmptyView.setVisibility(View.VISIBLE);
     }
 
     @OnItemClick(R.id.id_llv_fragment_more_content_two)

@@ -2,9 +2,9 @@ package com.android.lf.lroid.v.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.android.lf.lroid.R;
@@ -20,19 +20,26 @@ import butterknife.BindView;
 
 public class NavigationItemFragment extends LroidBaseFragment {
 
-    public static NavigationItemFragment newInstance(int resId, boolean isShowButton) {
+    public static final String TEXT_RES = "text_res";
+    public static final String BG_COLOR = "bg_color";
+    public static final String SHOW_BUTTON = "is_show_button";
+
+    public static NavigationItemFragment newInstance(String resId, int bgColor,boolean isShowButton) {
         Bundle args = new Bundle();
-        args.putInt("img_res", resId);
-        args.putBoolean("is_show_button", isShowButton);
+        args.putString(TEXT_RES, resId);
+        args.putBoolean(SHOW_BUTTON, isShowButton);
+        args.putInt(BG_COLOR, bgColor);
         NavigationItemFragment fragment = new NavigationItemFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
-    @BindView(R.id.id_iv_fragment_navigation_item_image)
-    ImageView mImageView;
+    @BindView(R.id.id_tv_fragment_navigation_item)
+    TextView mTextView;
     @BindView(R.id.id_bt_fragment_navigation_item_enter)
     TextView mButton;
+    @BindView(R.id.id_fl_fragment_navigation_item_container)
+    FrameLayout mFrameLayout;
 
     @Override
     protected int getLayoutId() {
@@ -41,8 +48,9 @@ public class NavigationItemFragment extends LroidBaseFragment {
 
     @Override
     protected void initView(View view) {
-        mImageView.setImageResource(getArguments().getInt("img_res"));
-        if (getArguments().getBoolean("is_show_button")) {
+        mFrameLayout.setBackgroundColor(ContextCompat.getColor(mContext,getArguments().getInt(BG_COLOR,R.color.colorPrimary)));
+        mTextView.setText(getArguments().getString(TEXT_RES));
+        if (getArguments().getBoolean(SHOW_BUTTON)) {
             mButton.setVisibility(View.VISIBLE);
             mButton.setOnClickListener(this);
         } else {
@@ -51,8 +59,7 @@ public class NavigationItemFragment extends LroidBaseFragment {
     }
 
     @Override
-    protected void setComponent() {
-    }
+    protected void setComponent() {}
 
     @Override
     public void onClick(View view) {

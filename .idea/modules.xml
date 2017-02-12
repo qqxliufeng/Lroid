@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/src/androidTest/androidTest.iml" filepath="$PROJECT_DIR$/src/androidTest/androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/main/main.iml" filepath="$PROJECT_DIR$/src/main/main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/test/test.iml" filepath="$PROJECT_DIR$/src/test/test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../LawAppOnline/LawAppOnline.iml" filepath="$PROJECT_DIR$/../LawAppOnline/LawAppOnline.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lroid.iml" filepath="$PROJECT_DIR$/Lroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../MyApplication.iml" filepath="$PROJECT_DIR$/../MyApplication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../deshengdevice/deshengdevice.iml" filepath="$PROJECT_DIR$/../deshengdevice/deshengdevice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../itrip/itrip.iml" filepath="$PROJECT_DIR$/../itrip/itrip.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mvptest/mvptest.iml" filepath="$PROJECT_DIR$/../mvptest/mvptest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../scanticket/scanticket.iml" filepath="$PROJECT_DIR$/../scanticket/scanticket.iml" />
     </modules>
   </component>
 </project>

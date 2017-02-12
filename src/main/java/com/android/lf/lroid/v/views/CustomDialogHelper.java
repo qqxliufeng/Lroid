@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.android.lf.lroid.R;
 
@@ -16,8 +17,15 @@ import com.android.lf.lroid.R;
 public class CustomDialogHelper {
 
     public static void createEmptyDialog(Context context){
-        Dialog emptyDialog = new Dialog(context, R.style.emptyDialog);
+        final Dialog emptyDialog = new Dialog(context, R.style.emptyDialog);
         View emptyView = View.inflate(context,R.layout.dialog_empty_layout,null);
+        ImageView iv_close = (ImageView) emptyView.findViewById(R.id.id_iv_dialog_empty_close);
+        iv_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emptyDialog.dismiss();
+            }
+        });
         emptyDialog.setContentView(emptyView);
         Window window = emptyDialog.getWindow();
         WindowManager.LayoutParams lp = window.getAttributes();

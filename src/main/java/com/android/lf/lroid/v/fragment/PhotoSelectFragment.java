@@ -27,7 +27,6 @@ import com.android.lf.lroid.m.bean.PhotoBean;
 import com.android.lf.lroid.m.bean.PhotoFolderBean;
 import com.android.lf.lroid.m.bean.UserBean;
 import com.android.lf.lroid.p.LoadPhotoPresenter;
-import com.android.lf.lroid.utils.ImageUtils;
 import com.android.lf.lroid.utils.SDCardUtils;
 import com.android.lf.lroid.utils.ScreenUtils;
 import com.android.lf.lroid.v.adapter.PhotoFolderAdapter;

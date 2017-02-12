@@ -18,6 +18,9 @@ public interface ApiService {
     @GET("top250")
     public Observable<String> getData(@Query("start") int start, @Query("count") int count);
 
+    @GET("1220562")
+    public Observable<String> getData();
+
     @FormUrlEncoded
     @POST
     public Observable<String> getData(@FieldMap Map<String,Object> params);

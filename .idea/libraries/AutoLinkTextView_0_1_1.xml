@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="AutoLinkTextView-0.1.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../LawAppOnline/build/intermediates/exploded-aar/com.github.armcha/AutoLinkTextView/0.1.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../LawAppOnline/build/intermediates/exploded-aar/com.github.armcha/AutoLinkTextView/0.1.1/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.armcha/AutoLinkTextView/0.1.1/439b569658fd8d95931c1aabc8d16674ef2a5d48/AutoLinkTextView-0.1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

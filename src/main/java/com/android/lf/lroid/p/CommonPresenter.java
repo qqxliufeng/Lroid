@@ -17,8 +17,8 @@ import rx.schedulers.Schedulers;
 public class CommonPresenter extends BasePresenter {
 
     public void requestData(int requestID, int start, int count){
-//        requestMethod1(start, count);
-        requestMethod2(requestID,start,count);
+        requestMethod1(requestID);
+//        requestMethod2(requestID,start,count);
     }
 
     private void requestMethod2(final int requestID,final int start, final int count) {
@@ -60,8 +60,8 @@ public class CommonPresenter extends BasePresenter {
         });
     }
 
-    private void requestMethod1(final int requestID,int start, int count) {
-        userManagerService.getData(start,count).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<String>() {
+    private void requestMethod1(final int requestID) {
+        userManagerService.getData().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<String>() {
 
             @Override
             public void onStart() {

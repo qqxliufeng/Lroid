@@ -32,6 +32,7 @@ public class SplashFragment extends LroidBaseFragment {
     public static SplashFragment newInstance() {
         return new SplashFragment();
     }
+
     @Inject
     UserHelperPresenter mUserHelperPresenter;
 
@@ -52,7 +53,7 @@ public class SplashFragment extends LroidBaseFragment {
                 Typeface typeFace = Typeface.createFromAsset(mContext.getAssets(), "heather.ttf");
                 mLroidText.setTypeface(typeFace);
                 AnimatorSet animatorSet = new AnimatorSet();
-                ObjectAnimator translationY = ObjectAnimator.ofFloat(mLroidText,"translationY",0,ScreenUtils.getScreenHeight(mContext)/3);
+                ObjectAnimator translationY = ObjectAnimator.ofFloat(mLroidText,"translationY",0,(int)(ScreenUtils.getScreenHeight(mContext)/2.5));
                 ObjectAnimator alpha = ObjectAnimator.ofFloat(mLroidText,"alpha",0.3f,1.0f);
                 animatorSet.setDuration(2500);
                 animatorSet.setInterpolator(new LinearInterpolator());
@@ -60,7 +61,6 @@ public class SplashFragment extends LroidBaseFragment {
                 animatorSet.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
-
                     }
 
                     @Override

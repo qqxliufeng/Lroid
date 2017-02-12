@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/id_vp_fragment_navigation_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/id_tv_fragment_navigation_jump"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_gravity="right|top"
-        android:layout_marginTop="20dp"
         android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_circle_bg"
+        android:gravity="center"
         android:text="跳过"
         android:textColor="#fff"
-        android:padding="8dp"
-        android:textSize="16sp"
-        android:background="@drawable/shape_circle_bg"/>
+        android:textSize="14sp" />
 
+    <LinearLayout
+        android:id="@+id/id_ll_fragment_navigation_index_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:orientation="horizontal"/>
 </FrameLayout>

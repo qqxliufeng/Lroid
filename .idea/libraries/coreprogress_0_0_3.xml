@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="coreprogress-0.0.3">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../LawAppOnline/build/intermediates/exploded-aar/cn.edu.zafu/coreprogress/0.0.3/res" />
+      <root url="jar://$PROJECT_DIR$/../LawAppOnline/build/intermediates/exploded-aar/cn.edu.zafu/coreprogress/0.0.3/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.edu.zafu/coreprogress/0.0.3/f1a5e6090a9010b9fd951f716db5bdc7468e5c3f/coreprogress-0.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

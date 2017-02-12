@@ -37,8 +37,7 @@ public class IndexTopFragment extends LroidBaseFragment implements ViewPager.OnP
     private int currentItem;
 
     public static IndexTopFragment newInstance() {
-        IndexTopFragment fragment = new IndexTopFragment();
-        return fragment;
+        return new IndexTopFragment();
     }
 
     @Inject
@@ -74,15 +73,15 @@ public class IndexTopFragment extends LroidBaseFragment implements ViewPager.OnP
     }
 
     private void initIndicator() {
-        for (int i = 0;i<JieQiData.getInstance().getJieQiBanners().length;i++){
+        for (int i = 0; i < JieQiData.getInstance().getJieQiBanners().length; i++) {
             IndicatorView indicatorView = new IndicatorView(mContext);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,6,getResources().getDisplayMetrics()),(int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,6,getResources().getDisplayMetrics()));
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, getResources().getDisplayMetrics()), (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, getResources().getDisplayMetrics()));
             params.leftMargin = 5;
             params.rightMargin = 5;
             indicatorView.setLayoutParams(params);
             indicatorView.setIndicatorColor(Color.RED);
-            mIndicatorContainer.addView(indicatorView,i);
-            if (i == 0){
+            mIndicatorContainer.addView(indicatorView, i);
+            if (i == 0) {
                 indicatorView.setSelect(true);
             }
         }
@@ -101,7 +100,7 @@ public class IndexTopFragment extends LroidBaseFragment implements ViewPager.OnP
 
     @Override
     public void onRequestStart(int requestID) {
-        progressDialog = ProgressDialog.show(mContext,null,"正在加载……");
+        progressDialog = ProgressDialog.show(mContext, null, "正在加载……");
     }
 
     @Override
@@ -123,7 +122,7 @@ public class IndexTopFragment extends LroidBaseFragment implements ViewPager.OnP
         for (int i = 0; i < count; i++) {
             if (position % count == i) {
                 ((IndicatorView) mIndicatorContainer.getChildAt(i)).setSelect(true);
-            }else {
+            } else {
                 ((IndicatorView) mIndicatorContainer.getChildAt(i)).setSelect(false);
             }
         }
@@ -142,7 +141,7 @@ public class IndexTopFragment extends LroidBaseFragment implements ViewPager.OnP
 
         @Override
         public Fragment getItem(int position) {
-            return ImageRequestFragment.newInstance(JieQiData.getInstance().getJieQiBanners()[position%JieQiData.getInstance().getJieQiBanners().length]);
+            return ImageRequestFragment.newInstance(JieQiData.getInstance().getJieQiBanners()[position % JieQiData.getInstance().getJieQiBanners().length]);
         }
 
         @Override
@@ -152,21 +151,21 @@ public class IndexTopFragment extends LroidBaseFragment implements ViewPager.OnP
         }
     }
 
-    public void onChildViewClick(){
-        if (TextUtils.isEmpty(UserBean.getInstance().getName())){
+    public void onChildViewClick() {
+        if (TextUtils.isEmpty(UserBean.getInstance().getName())) {
             UserBean.getInstance().setOnUserLoginSuccessListener(this);
             MethodUtils.startFragmentsActivity(mContext, "登录", FragmentContainerActivity.LOGIN_FRAGMENT);
-        }else {
+        } else {
             startDetail();
         }
     }
 
     private void startDetail() {
-        currentItem = vp_banner.getCurrentItem()% JieQiData.getInstance().getJieQiBanners().length;
+        currentItem = vp_banner.getCurrentItem() % JieQiData.getInstance().getJieQiBanners().length;
         JieQiBean jieQiBean = JieQiData.getInstance().getJieQiBeanArrayList().get(currentItem);
         Bundle bundle = new Bundle();
-        bundle.putString(WebContentFragment.WEB_LOAD_URL,jieQiBean.getDetail_info_url());
-        MethodUtils.startFragmentsActivity(mContext,jieQiBean.getName(), FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG,bundle);
+        bundle.putString(WebContentFragment.WEB_LOAD_URL, jieQiBean.getDetail_info_url());
+        MethodUtils.startFragmentsActivity(mContext, jieQiBean.getName(), FragmentContainerActivity.WEB_CONTENT_CONTAINER_FLAG, bundle);
     }
 
     @Override

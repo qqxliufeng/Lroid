@@ -5,7 +5,6 @@ import android.view.View;
 import com.android.lf.lroid.R;
 import com.android.lf.lroid.utils.MethodUtils;
 import com.android.lf.lroid.v.activity.FragmentContainerActivity;
-import com.android.lf.lroid.v.views.CustomDialog;
 
 import butterknife.OnClick;
 
@@ -26,7 +25,6 @@ public class MoreContentOneFragment extends LroidBaseFragment {
 
     @Override
     protected void initView(View view) {
-
     }
 
     @Override
@@ -45,7 +43,6 @@ public class MoreContentOneFragment extends LroidBaseFragment {
 
     @OnClick(R.id.id_tv_fragment_more_content_one_search)
     public void onSearch() {
-        CustomDialog.createEmptyDialog(mContext);
     }
 
     @OnClick(R.id.id_tv_fragment_more_content_one_more)

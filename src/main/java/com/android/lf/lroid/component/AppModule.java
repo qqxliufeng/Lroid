@@ -2,6 +2,8 @@ package com.android.lf.lroid.component;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
@@ -30,11 +32,12 @@ public class AppModule {
         builder.client(okHttpClient);
         builder.addConverterFactory(ScalarsConverterFactory.create());
         builder.addCallAdapterFactory(RxJavaCallAdapterFactory.create());
-        builder.baseUrl("https://api.douban.com/v2/movie/");
+        builder.baseUrl("https://api.douban.com/");
         return builder.build();
     }
 
     @Provides
+    @Singleton
     public ApiService getUserService(Retrofit retrofit){
         return retrofit.create(ApiService.class);
     }

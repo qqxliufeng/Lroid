@@ -12,10 +12,6 @@ import com.android.lf.lroid.m.bean.FoodStepBean;
 import com.android.lf.lroid.v.views.FoodStepView;
 import com.android.lf.lroid.volley.RequestManager;
 import com.android.volley.toolbox.NetworkImageView;
-import com.google.gson.JsonArray;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.util.ArrayList;
 
