@@ -4,8 +4,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.android.lf.lroid.R;
-import com.android.lf.lroid.utils.MethodUtils;
-import com.android.lf.lroid.utils.PreferenceUtils;
 import com.android.lf.lroid.v.fragment.NavigationFragment;
 import com.android.lf.lroid.v.fragment.SplashFragment;
 
