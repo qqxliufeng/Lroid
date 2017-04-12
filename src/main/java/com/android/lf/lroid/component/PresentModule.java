@@ -49,5 +49,4 @@ public class PresentModule {
         return new LoadPhotoPresenter();
     }
 
-
 }

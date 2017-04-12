@@ -34,7 +34,7 @@ public class SplashActivity extends BaseActivity {
         setSwipeBackEnable(false);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        isNavigation = (PreferenceUtils.getPrefBoolean(this, IS_NAVIGATION_FLAG, true) || (MethodUtils.isCurrentVersion(this) && NAVIGATION_FLAG)) && CONTROLLER_FLAG;
+//        isNavigation = (PreferenceUtils.getPrefBoolean(this, IS_NAVIGATION_FLAG, true) || (MethodUtils.isCurrentVersion(this) && NAVIGATION_FLAG)) && CONTROLLER_FLAG;
         if (isNavigation) {
             fragmentTransaction.replace(R.id.id_fl_activity_splash_fragment_container, NavigationFragment.newInstance());
         } else {

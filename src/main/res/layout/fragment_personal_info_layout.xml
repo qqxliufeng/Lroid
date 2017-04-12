@@ -26,7 +26,6 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/id_rl_fragment_personal_info_phone_container"
         style="@style/LroidRelativeStyle"
         android:layout_marginTop="10dp">
 
@@ -46,7 +45,6 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/id_rl_fragment_personal_info_name_container"
         style="@style/LroidRelativeStyle"
         android:layout_marginTop="1dp">
 

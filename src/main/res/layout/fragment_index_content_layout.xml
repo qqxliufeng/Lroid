@@ -61,8 +61,7 @@
                         android:padding="3dp"
                         android:text="宜"
                         android:textColor="#fff"
-                        android:textSize="14sp"
-                        android:id="@+id/textView" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/id_tv_fragment_index_content_date_suit"
