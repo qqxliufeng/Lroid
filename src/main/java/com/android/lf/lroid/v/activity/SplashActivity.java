@@ -42,4 +42,9 @@ public class SplashActivity extends BaseActivity {
         }
         fragmentTransaction.commitAllowingStateLoss();
     }
+
+    public void testGitFeature(){
+
+    }
+
 }
